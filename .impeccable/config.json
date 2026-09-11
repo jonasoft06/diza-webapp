@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "src/components/sections/hero.tsx"
+        ],
+        "createdAt": "2026-09-11T21:27:50.055Z",
+        "reason": "user specified this exact treatment in the approved landing brief for the Pagina 42 card (rounded-xl card with a thin dorado top border as accent). Explicit design direction, not an accident."
+      }
+    ]
+  }
+}
