@@ -2,154 +2,180 @@
 name: Diza
 description: Tutor académico de IA para bachillerato mexicano, anclado al libro físico.
 colors:
-  vino: "#8a3b2e"
-  dorado: "#b8862e"
-  papel: "#f7f0e2"
-  papel-landing: "#f5efe1"
-  tinta: "#2b1f1a"
-  tinta-secundaria: "#5c5044"
-  tinta-terciaria: "#9c9082"
-  borde: "#e6d7bd"
-  dorado-texto: "#8a5e1a"
-  tinta-terciaria-texto: "#6b6155"
+  bg: "#fafaf8"
+  surface: "#ffffff"
+  border: "#eceae5"
+  ink: "#1c1917"
+  muted: "#6b6560"
+  accent: "#8a3b2e"
+  accent-hover: "#74301f"
+  accent-tint: "#f6ece9"
+  footer: "#2a1714"
 typography:
   display:
-    fontFamily: "Playfair Display, Georgia, serif"
+    fontFamily: "Plus Jakarta Sans, system-ui, sans-serif"
     fontWeight: 700
-  display-medium:
-    fontFamily: "Playfair Display, Georgia, serif"
+  heading:
+    fontFamily: "Plus Jakarta Sans, system-ui, sans-serif"
     fontWeight: 600
   body:
-    fontFamily: "Karla, system-ui, sans-serif"
+    fontFamily: "Plus Jakarta Sans, system-ui, sans-serif"
     fontWeight: 400
   body-medium:
-    fontFamily: "Karla, system-ui, sans-serif"
+    fontFamily: "Plus Jakarta Sans, system-ui, sans-serif"
     fontWeight: 500
   body-strong:
-    fontFamily: "Karla, system-ui, sans-serif"
+    fontFamily: "Plus Jakarta Sans, system-ui, sans-serif"
     fontWeight: 600
 components:
   button-primary:
-    backgroundColor: "{colors.vino}"
-    textColor: "{colors.papel}"
+    backgroundColor: "{colors.accent}"
+    textColor: "#ffffff"
   button-primary-hover:
-    backgroundColor: "{colors.dorado}"
-    textColor: "{colors.papel}"
+    backgroundColor: "{colors.accent-hover}"
+    textColor: "#ffffff"
+  button-secondary:
+    backgroundColor: "{colors.surface}"
+    borderColor: "{colors.border}"
+    textColor: "{colors.ink}"
+  card:
+    backgroundColor: "{colors.surface}"
+    borderColor: "{colors.border}"
+    radius: "1.375rem"
 ---
 
 # Design System: Diza
 
 ## Overview
 
-**Creative North Star: "La Magia del Libro"**
+**Creative North Star: "Confianza editorial, claridad de producto"**
 
-Diza es editorial y cálida, no infantil ni gamificada, y no fría ni corporativa. Existe para servir al libro físico, no para competir con él en pantalla: la interfaz se comporta como un objeto editorial bien hecho — papel, tinta, un acento cálido de vino y oro — no como un panel de producto SaaS ni como una app educativa animada para niños.
+Diza se presenta como una herramienta profesional y clara para maestros y alumnos de bachillerato: base neutra, un solo color de acento (vino) y tarjetas blancas con borde fino. La calidez viene del acento y de la fotografía real del escritorio, no de fondos crema ni de tipografía serif.
 
-Confirmed visual rejections: gamified/childish treatments (colorful icon bubbles, playful mascots, bright multi-color palettes) and cold/corporate treatments (gradients, generic SaaS card grids, blue-and-gray tech aesthetics).
+Este sistema reemplaza (2026-09-16) la versión anterior basada en Newsreader + Schibsted Grotesk y en la paleta papel/tinta. Motivo: la landing debía leerse como SaaS educativo confiable, y el cuerpo de texto caía a Times New Roman porque la variable de fuente se declaraba en `<body>` mientras `html { font-sans }` la resolvía.
 
 **Key Characteristics:**
-- Editorial warmth over tech coldness or playful gamification.
-- One accent color doing work per screen; restraint is the signature, not decoration.
-- Generous whitespace over dense, gadget-like UI.
-- Depth communicated through warm, tinted shadows and layout, never through gradients or icon bubbles.
+- Base neutra (`bg` / `surface` / `border`) con vino como único acento.
+- Una sola familia tipográfica en varios pesos; ningún serif.
+- Tarjetas blancas con borde de 1px y sombra muy suave; nunca gradientes.
+- Espaciado generoso y ritmo de sección constante.
 
 ## Colors
 
-The palette reads as an old book's materials — paper, ink, wine, gold — rather than a product's UI kit.
+### Base
+- **bg** (`#fafaf8`): fondo de todas las secciones. Es el color del `<body>`.
+- **surface** (`#ffffff`): tarjetas, header, burbujas de Diza.
+- **border** (`#eceae5`): bordes de 1px y separadores.
 
-### Primary
-- **Vino** (`#8a3b2e`): the brand color and primary CTA. Carries the one-accent-per-screen weight; used sparingly and deliberately, not as a background wash.
+### Texto
+- **ink** (`#1c1917`): texto principal y títulos. 17.3:1 sobre `surface`.
+- **muted** (`#6b6560`): texto secundario. 5.74:1 sobre `surface`, 5.50:1 sobre `bg` — pasa AA como texto normal.
 
-### Secondary
-- **Dorado** (`#b8862e`): accent, reserved for hover/active states on the primary CTA and for small moments of emphasis. Never a second competing hero color alongside vino on the same screen.
-
-### Neutral
-- **Papel** (`#f7f0e2`): general background.
-- **Papel Landing** (`#f5efe1`): background specific to the landing page.
-- **Tinta** (`#2b1f1a`): primary text color.
-- **Tinta Secundaria** (`#5c5044`): secondary text (supporting copy, captions).
-- **Tinta Terciaria** (`#9c9082`): tertiary text (metadata, least emphasis).
-- **Borde** (`#e6d7bd`): borders and dividers, always warm-toned, never cool gray.
-
-### Text-Safe Variants
-Verified via WCAG contrast calculation (`/impeccable audit` + `/impeccable critique`, 2026-09-11): `dorado` and `tinta-terciaria` fail 4.5:1 AA whenever used as text or as a background under light text (dorado as nav-link hover text and as the primary CTA's hover background; tinta-terciaria in three small-text uses). Rather than lightening the brief's approved values, each got a same-hue, darker-only text-safe twin, used exclusively where the original would fail as text:
-
-- **Dorado Texto** (`#8a5e1a`): use only where `dorado` would be text, or a background under light (`papel`) text — e.g. nav-link hover, primary CTA hover background. Never used for decorative/non-text elements; those keep `dorado` (`#b8862e`).
-- **Tinta Terciaria Texto** (`#6b6155`): use only where `tinta-terciaria` would be actual text — e.g. small captions, uppercase labels. `tinta-terciaria` itself is reserved for non-text/decorative use only, since every current text use of it failed AA.
+### Acento
+- **accent** (`#8a3b2e`): botones primarios, iconos, eyebrows, estrellas, avatares, el bloque destacado y el chip de página. 7.66:1 con texto blanco encima.
+- **accent-hover** (`#74301f`): únicamente el hover del botón primario.
+- **accent-tint** (`#f6ece9`): fondos de iconos, chips, panel del CTA y zona de imagen en las tarjetas de pasos.
+- **footer** (`#2a1714`): fondo exclusivo del footer. 16.8:1 con texto blanco.
 
 ### Named Rules
-**The One Accent Rule.** Vino is the only primary accent on a given screen; dorado only appears as its hover/active response, never as an independent second accent competing for attention.
 
-**The No-Gradient Rule.** No gradients anywhere in the system, on backgrounds, buttons, or cards. Color transitions happen through tinted shadows, layout, and typography, not through blended color fills.
+**The One Accent Rule.** Vino es el único acento. `accent-hover` existe solo como estado del botón primario; `accent-tint` es un fondo, no un segundo acento.
 
-**The Text-Safe Twin Rule.** `dorado` and `tinta-terciaria` are decorative-strength colors, not guaranteed text colors. Any new use of either as text, or as a background under light text, must use its `-texto` twin (`dorado-texto`, `tinta-terciaria-texto`) instead of the original, unless a fresh contrast check confirms the original passes 4.5:1 in that exact pairing.
+**The One Highlight Rule.** Como máximo un bloque con fondo `accent` por página. Hoy es la tarjeta de intro de "Para maestros".
+
+**The No-Gradient Rule.** Sin gradientes de color en fondos, botones ni tarjetas. La única excepción es el difuminado neutro al pie del hero, que resuelve la unión con la sección siguiente (`transparent → bg`), y el grano de papel, que es ruido, no mezcla de color.
+
+**The AA Floor Rule.** Todo texto cumple 4.5:1 (3:1 en texto grande). Sobre `accent` el texto secundario no baja de `white/85`; sobre `footer` no baja de `white/75`. Cualquier opacidad nueva se verifica antes de usarse.
 
 ## Typography
 
-**Display Font:** Playfair Display (weights 600/700), with a serif fallback (Georgia).
-**Body Font:** Karla (weights 400/500/600), with a system-ui sans-serif fallback.
+**Familia única:** Plus Jakarta Sans (400/500/600/700), cargada con `next/font/google` y expuesta como `--font-jakarta`.
 
-**Character:** A serif editorial display paired with a clean, humanist sans body — the pairing of a printed book's title page with its well-set running text, not a tech product's marketing headline with its UI font.
+> La variable de fuente se declara en `<html>`, no en `<body>`. Declararla en `<body>` deja a `html { font-sans }` sin resolver y el documento cae a un serif del sistema.
 
-### Hierarchy
-- **Display** (700, Playfair Display): section and hero headlines.
-- **Display Medium** (600, Playfair Display): sub-headlines, card/step titles where a serif moment is warranted.
-- **Body Strong** (600, Karla): UI labels, button text, emphasis within body copy.
-- **Body Medium** (500, Karla): secondary UI text, nav items.
-- **Body** (400, Karla): running copy, descriptions.
+### Escala
+- **h1**: `clamp(2.5rem, 5vw, 4.5rem)`, peso 700.
+- **h2**: `clamp(2rem, 3.5vw, 3rem)`, peso 600.
+- **h3** (títulos de tarjeta): 1rem–1.25rem, peso 600.
+- **body**: 1rem–1.125rem, peso 400, `line-height: 1.6`.
+- **eyebrow**: utilidad `text-eyebrow` — 0.75rem, peso 600, mayúsculas, `letter-spacing: 0.12em`.
+
+Los encabezados llevan `letter-spacing: -0.02em`, `line-height: 1.1` y `text-wrap: balance` desde la capa base.
 
 ### Named Rules
-**The Serif-Only-For-Meaning Rule.** Playfair Display is reserved for headlines and titles that carry editorial weight; body copy, UI labels, and navigation always stay in Karla. Never use the display serif for dense text or small UI chrome.
+
+**The Single Family Rule.** Una sola familia. La jerarquía se construye con peso, tamaño y color — nunca con una segunda tipografía.
+
+**The Eyebrow Exception.** Los eyebrows se mantienen por decisión explícita de producto (2026-09-16), aunque la guía general de Impeccable los descarte: ayudan a orientar secciones en una landing larga de una sola página.
 
 ## Layout
 
-Generous whitespace is a first-class decision, not leftover space. Sections breathe rather than stack tightly; density is intentionally low to keep the "well-made book" feeling rather than a product-dashboard density.
-
-### Named Rules
-**The Primera Edición Rule.** Every screen behaves like a first edition of a well-made book: one accent, generous margins and section spacing, and nothing decorative that doesn't carry meaning. This is the system's Apple-style restraint constraint — it applies to every new section, not just the landing page.
+- Contenedor: `max-w-6xl` centrado en todas las secciones.
+- Padding de sección: `py-20` móvil / `lg:py-24` desktop, `px-4 / sm:px-6 / lg:px-8`.
+- Radios: tarjetas `rounded-3xl` (1.375rem), paneles grandes `2rem`, pastillas `rounded-full`, cuadros de icono `rounded-xl`.
+- `scroll-margin-top: 6rem` en todo elemento con `id`, para que el header fijo no tape los títulos al navegar por anclas.
 
 ## Elevation & Depth
 
-Depth is conveyed through warm, brand-tinted shadows, not neutral/black drop shadows and not gradients. Floating or elevated surfaces cast a translucent vino-tinted shadow rather than a generic gray one, so elevation itself carries the brand's warmth.
+Sombras neutras y muy suaves; nunca tintadas de vino, nunca duras.
 
-### Shadow Vocabulary
-- **Vino ambient shadow** (translucent, low-opacity `vino` tint, e.g. `rgba(138, 59, 46, 0.12–0.18)`): used under floating/elevated cards to signal depth without introducing a cold, neutral shadow color.
+- **shadow-card**: `0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04)`.
+- **shadow-card-hover**: `0 2px 4px rgb(0 0 0 / 0.05), 0 14px 34px rgb(0 0 0 / 0.08)`.
 
-### Named Rules
-**The Warm Shadow Rule.** Any elevated surface's shadow is a translucent tint of vino, never a neutral black/gray shadow and never a gradient.
-
-## Shapes
-
-No nested cards inside cards, anywhere in the system: a card is a single bounded surface, not a container for further bounded surfaces. Where content needs internal grouping, use spacing and typography hierarchy instead of a card-in-a-card.
+**The Hairline Rule.** La definición de una tarjeta viene del borde de 1px, no de la sombra. La sombra solo insinúa profundidad.
 
 ## Components
 
-### Buttons
-Two variants, both fully rounded (`rounded-full`) pills — no square or barely-rounded button anywhere in the system.
-- **Primary** (`variant="primary"`): `vino` background, `papel` text. Reserved for the one highest-stakes action on a screen.
-- **Secondary** (`variant="secondary"`): transparent background, `vino` border and text. For a lower-stakes or returning-user action alongside a primary.
-- **Hover:** primary hovers to `dorado-texto` background (not `dorado` — see the Text-Safe Twin Rule); secondary hovers to a faint `vino` tint (`vino/5`) background. Never a gradient.
-- **Disabled:** standard reduced opacity, no separate disabled color.
-- **Sizes:** `sm` (nav-level CTAs) and `lg` (primary hero-level CTAs).
+### Buttons (`src/components/ui/button.tsx`)
+Pastillas completas, dos variantes más `ghost`.
+- **primary**: fondo `accent`, texto blanco, hover `accent-hover`.
+- **secondary**: fondo `surface`, borde `border`, texto `ink`, hover `accent-tint`.
+- **Tamaños**: `sm` 44px (nav), `lg` 48px (CTA de página).
+- Todos llevan `active:scale-[0.97]` (100ms) y `focus-visible` con anillo `accent`.
 
-### Cards
-Two variants; both are single bounded surfaces (the Shapes section's no-nested-cards rule applies).
-- **Flat** (`variant="flat"`): white background, no shadow. For content that sits directly on the page background without needing to signal elevation.
-- **Raised** (`variant="raised"`): white background plus the Warm Shadow Rule's vino-tinted translucent shadow. For anything meant to read as floating above the page (proof cards, chat bubbles, floating step cards).
-- Corner radius and internal padding are set per usage via `className`, not fixed by the component, since realized cards in this system range from `rounded-md` (a small overlapping detail card) to `rounded-2xl` (a chat bubble) — the variant governs elevation, not shape.
+### Cards (`src/components/ui/card.tsx`)
+- **surface**: blanco + borde + `shadow-card`. Es la tarjeta por defecto.
+- **flat**: blanco + borde, sin sombra.
+- **accent**: fondo vino, texto blanco — el bloque destacado.
+- **tint**: fondo `accent-tint`, sin borde.
+- `interactive` añade elevación de 4px en hover.
+
+### IconTile (`src/components/ui/section.tsx`)
+Cuadro de 44px, `rounded-xl`, fondo `accent-tint`, icono Lucide `accent` con `strokeWidth 1.75`. Es el único tratamiento de icono del sistema.
+
+### PageChip (`src/components/ui/page-chip.tsx`)
+Pastilla con icono de libro y "Pág. N". Es el motivo de marca recurrente: aparece en el hero, en el mockup de conversación y en el CTA final, y resume la promesa de que toda respuesta se ancla a una página del libro.
+
+## Motion
+
+Librería: Motion (`motion/react`). `MotionConfig reducedMotion="user"` envuelve la app en el layout raíz.
+
+- **Revelado al hacer scroll**: fundido (`fadeIn`) o fundido + 16px hacia arriba (`fadeUp`), 0.5–0.6s `easeOut`, `viewport={{ once: true }}`. Variantes compartidas en `src/lib/motion.ts`.
+- **Stagger**: 90ms entre hijos.
+- **Interacción**: press 100ms, hover de tarjeta y flecha 200ms, acordeón y navbar 250ms con `cubic-bezier(0.23, 1, 0.32, 1)`.
+- **Sticky reveal**: hero fijo arriba y footer fijo abajo, cada uno detrás de la sección vecina, que lleva esquinas redondeadas y un z-index mayor y actúa de máscara. Es CSS puro (`position: sticky`), sin JS.
+- **Mockup de conversación**: revelado secuencial con indicador de "escribiendo"; es animación explicativa de marketing, por eso puede durar más de 300ms.
+
+### Named Rules
+
+**The Under-300ms Rule.** Cualquier animación de interfaz se resuelve en menos de 300ms. Solo la animación explicativa de marketing puede durar más.
+
+**The Reduced-Motion Rule.** Con `prefers-reduced-motion: reduce` se eliminan desplazamientos y animaciones, pero se conservan las transiciones de opacidad y color (200ms). Nunca un apagado global de 0.01ms: eso destruye feedback útil.
+
+**The Entering Ease Rule.** Todo lo que entra o sale usa `ease-out`. Nunca `ease-in` en interfaz.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** use vino as the only primary CTA color, with dorado strictly as its hover/active state.
-- **Do** keep one accent color doing work per screen.
-- **Do** use generous whitespace between and within sections (the Primera Edición Rule).
-- **Do** use warm, vino-tinted translucent shadows for elevation, never neutral or black shadows.
-- **Do** reserve Playfair Display for headlines/titles and Karla for everything else.
+- **Do** mantener el fondo neutro y vino como único acento.
+- **Do** definir las tarjetas con borde de 1px + sombra suave.
+- **Do** usar `IconTile` para todo icono y `PageChip` para reforzar el ancla al libro.
+- **Do** verificar el contraste de cualquier opacidad nueva sobre `accent` o `footer`.
+- **Do** declarar la variable de fuente en `<html>`.
 
 ### Don't:
-- **Don't** use gradients anywhere in the system.
-- **Don't** use generic icons inside colored bubbles (a gamified/childish pattern this brand explicitly rejects).
-- **Don't** nest cards inside cards.
-- **Don't** introduce a cold/corporate register (blue-gray SaaS palettes, dense dashboard chrome) — the brand is editorial and warm, not corporate.
-- **Don't** introduce a playful/gamified register (mascots, bright multi-color accents, childish iconography) — the audience is bachillerato-age students and teachers, not children.
+- **Don't** usar gradientes de color, ni sombras tintadas de vino.
+- **Don't** introducir una segunda tipografía ni volver al serif.
+- **Don't** usar más de un bloque con fondo `accent` por página.
+- **Don't** apoyar toda la estructura de la página en rejillas de tarjetas idénticas: alternar composición (lista con checks, mockup, acordeón, bloque destacado).
+- **Don't** bajar el texto secundario sobre vino por debajo de `white/85`, ni sobre el footer por debajo de `white/75`.

@@ -1,102 +1,77 @@
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { PageChip } from "@/components/ui/page-chip";
+import { ACTIVATE_URL, SECTION_IDS } from "@/lib/links";
+import deskHero from "@/../public/images/hero_background.jpg";
 
-export interface HeroProps {
-  titlePrefix?: string
-  titleEmphasis?: string
-  description?: string
-  ctaLabel?: string
-  ctaCaption?: string
-  chatBubbleText?: string
-  bookLabel?: string
-  pin?: string
-  progressLabel?: string
-  progressCaption?: string
-}
-
-export function Hero({
-  titlePrefix = "La tutora que vive dentro de tu",
-  titleEmphasis = "Libro",
-  description = "Diza no te da las respuestas. Te hace las preguntas correctas hasta que encuentres tú mismo — siempre apoyada en las páginas del libro que ya tienes en las manos.",
-  ctaLabel = "Activar mi libro",
-  ctaCaption = "Con el PIN de tu tarjeta · incluido con tu libro, sin costo extra",
-  chatBubbleText = "¡Hola! Soy Diza, ¿en qué página estás?",
-  bookLabel = "Mi Libro",
-  pin = "4821",
-  progressLabel = "Página 42",
-  progressCaption = "vas por buen camino",
-}: HeroProps) {
+export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-(--papel-landing) px-6 py-24 sm:py-32">
-      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-        <h1 className="font-heading text-5xl font-bold leading-tight text-(--tinta) sm:text-6xl md:text-[4rem]">
-          {titlePrefix} <em className="text-(--vino)">{titleEmphasis}</em>
+    <section className="sticky top-0 isolate flex h-svh items-center justify-center overflow-hidden bg-bg text-ink">
+      <Image
+        src={deskHero}
+        alt=""
+        aria-hidden="true"
+        priority
+        fill
+        quality={95}
+        sizes="100vw"
+        className="absolute inset-0 -z-30 h-full w-full object-cover object-[48%_center] sm:object-center"
+      />
+      {/* Neutral scrim: keeps the desk photo as warm texture while guaranteeing AA contrast for ink text. */}
+      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-bg/82" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-b from-transparent to-bg"
+      />
+
+      <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-8">
+        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-ink">
+          La tutora que vive dentro de tu{" "}
+          <span className="relative inline-block whitespace-nowrap text-accent">
+            libro
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 200 12"
+              preserveAspectRatio="none"
+              className="animate-underline pointer-events-none absolute -bottom-1 left-0 h-[0.28em] w-full text-accent/45"
+            >
+              <path
+                d="M2 8C34 3.5 78 2.4 121 4.2c25 1 51 2.6 77 4.6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
+          </span>
+          .
         </h1>
-
-        <p className="mt-6 max-w-[600px] font-sans text-base text-(--tinta-secundaria) sm:text-lg">
-          {description}
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          Diza no te da las respuestas. Te hace las preguntas correctas hasta que encuentres tú mismo — siempre
+          apoyada en las páginas del libro que ya tienes en las manos.
         </p>
-
-        <Button variant="primary" size="lg" className="mt-8">
-          {ctaLabel}
-        </Button>
-
-        <p className="mt-4 font-sans text-sm text-(--tinta-terciaria-texto)">
-          {ctaCaption}
-        </p>
-      </div>
-
-      {/* Chat bubble, top-right */}
-      <div className="absolute right-8 top-10 hidden items-center gap-3 md:flex">
-        <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-(--vino) font-heading text-base font-bold text-white">
-          D
+        <div className="mt-6 flex items-center gap-2 text-sm text-muted">
+          <span>Cada respuesta cita su origen</span>
+          <PageChip />
         </div>
-        <Card
-          variant="raised"
-          className="max-w-[220px] rounded-2xl px-4 py-2.5 text-left font-sans text-sm text-(--tinta)"
-        >
-          {chatBubbleText}
-        </Card>
-      </div>
-
-      {/* Book spine + PIN card, bottom-left */}
-      <div className="absolute bottom-10 left-8 hidden md:block">
-        <div className="relative">
-          <div
-            className="flex h-56 w-20 items-center justify-center rounded-lg bg-(--vino) shadow-[0_4px_16px_-2px_rgba(138,59,46,0.12)]"
-            style={{ writingMode: "vertical-rl" }}
+        <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4">
+          <a href={ACTIVATE_URL} className={`w-full sm:w-auto ${buttonVariants({ variant: "primary" })}`}>
+            Activar mi libro
+            <ArrowRight
+              className="size-4 transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5"
+              strokeWidth={2.25}
+              aria-hidden="true"
+            />
+          </a>
+          <a
+            href={`#${SECTION_IDS.forTeachers}`}
+            className={`w-full sm:w-auto ${buttonVariants({ variant: "secondary" })}`}
           >
-            <span className="font-heading text-lg font-semibold tracking-wide text-white">
-              {bookLabel}
-            </span>
-          </div>
-
-          <Card
-            variant="raised"
-            className="absolute -right-8 top-1/2 w-24 -translate-y-1/2 rotate-6 rounded-md border border-(--borde) px-3 py-2.5 text-center"
-          >
-            <p className="font-sans text-[0.65rem] font-medium uppercase tracking-wide text-(--tinta-terciaria-texto)">
-              PIN
-            </p>
-            <p className="font-sans text-2xl font-bold text-(--tinta)">
-              {pin}
-            </p>
-          </Card>
+            Soy maestro
+          </a>
         </div>
       </div>
-
-      {/* Progress card, bottom-right */}
-      <Card
-        variant="raised"
-        className="absolute bottom-10 right-8 hidden rounded-xl border-t-2 border-(--dorado) px-5 py-3 md:block"
-      >
-        <p className="font-sans text-sm font-bold text-(--tinta)">
-          {progressLabel}
-        </p>
-        <p className="font-sans text-xs italic text-(--tinta-terciaria-texto)">
-          {progressCaption}
-        </p>
-      </Card>
     </section>
-  )
+  );
 }
