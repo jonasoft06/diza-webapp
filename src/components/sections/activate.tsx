@@ -6,7 +6,7 @@ import { Chip } from "@/components/ui/chip";
 import { activate, PAGE_CHIP_LABEL } from "@/content/landing";
 import { ACTIVATE_URL, APP_LOGIN_URL, SECTION_IDS } from "@/lib/constants";
 
-export function Activar() {
+export function Activate() {
   return (
     <Section id={SECTION_IDS.activate}>
       <Container>

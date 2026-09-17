@@ -9,7 +9,7 @@ import { SECTION_IDS } from "@/lib/constants";
 /** Widest the step image is ever painted, so the browser stops over-fetching. */
 const STEP_IMAGE_SIZES = "320px";
 
-export function ComoFunciona() {
+export function HowItWorks() {
   return (
     <Section
       id={SECTION_IDS.howItWorks}

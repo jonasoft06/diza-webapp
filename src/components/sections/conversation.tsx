@@ -55,7 +55,7 @@ function Bubble({ turn }: { turn: ConversationTurn }) {
  * Plays the scripted exchange once it scrolls into view. Under reduced motion
  * the whole thread is rendered at once instead of being staged.
  */
-export function Conversacion() {
+export function Conversation() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.25 });
   const prefersReducedMotion = useReducedMotion();

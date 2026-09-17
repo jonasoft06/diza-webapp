@@ -7,7 +7,7 @@ import { IconBox } from "@/components/ui/icon-box";
 import { forTeachers } from "@/content/landing";
 import { SECTION_IDS } from "@/lib/constants";
 
-export function ParaMaestros() {
+export function ForTeachers() {
   return (
     <Section id={SECTION_IDS.forTeachers}>
       <Container>

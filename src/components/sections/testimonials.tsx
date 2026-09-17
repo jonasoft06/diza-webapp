@@ -8,7 +8,7 @@ import { SECTION_IDS } from "@/lib/constants";
 
 const RATING = 5;
 
-export function Testimonios() {
+export function Testimonials() {
   return (
     <Section
       id={SECTION_IDS.testimonials}

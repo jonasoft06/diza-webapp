@@ -1,11 +1,11 @@
 import { Check } from "lucide-react";
 import { Container, Section } from "@/components/layout/container";
 import { Reveal, RevealItem, Stagger } from "@/components/motion/reveal";
-import { Conversacion } from "@/components/sections/conversacion";
+import { Conversation } from "@/components/sections/conversation";
 import { benefits } from "@/content/landing";
 import { SECTION_IDS } from "@/lib/constants";
 
-export function Beneficios() {
+export function Benefits() {
   return (
     <Section id={SECTION_IDS.benefits}>
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -38,7 +38,7 @@ export function Beneficios() {
         </Stagger>
 
         <Reveal>
-          <Conversacion />
+          <Conversation />
         </Reveal>
       </Container>
     </Section>

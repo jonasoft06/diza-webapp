@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { faq } from "@/content/landing";
 import { SECTION_IDS } from "@/lib/constants";
 
-export function PreguntasFrecuentes() {
+export function FAQ() {
   return (
     <Section id={SECTION_IDS.faq}>
       <Container>
