@@ -1,0 +1,5 @@
+<!-- TODO: reemplazar por logo oficial de Diza -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#ffffff"/>
+  <path d="M41.6 13.2v37.6h-6.9v-3.6c-2 2.8-5 4.3-8.8 4.3-7.7 0-13.1-6-13.1-15s5.4-15 13.1-15c3.7 0 6.7 1.4 8.7 4.1V13.2h7zm-6.8 23.3c0-5-3.2-8.5-7.8-8.5s-7.9 3.5-7.9 8.5 3.3 8.6 7.9 8.6 7.8-3.5 7.8-8.6z" fill="#8a3b2e"/>
+</svg>
