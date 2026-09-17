@@ -1,27 +1,29 @@
-import { Header } from "@/components/sections/header";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { Activar } from "@/components/sections/activar";
+import { Beneficios } from "@/components/sections/beneficios";
+import { ComoFunciona } from "@/components/sections/como-funciona";
 import { Hero } from "@/components/sections/hero";
-import { HowItWorks } from "@/components/sections/how-it-works";
-import { ValueBlock } from "@/components/sections/value-block";
-import { ForTeachers } from "@/components/sections/for-teachers";
-import { Faq } from "@/components/sections/faq";
-import { FinalCta } from "@/components/sections/final-cta";
-import { Testimonials } from "@/components/sections/testimonials";
-import { Footer } from "@/components/sections/footer";
+import { ParaMaestros } from "@/components/sections/para-maestros";
+import { PreguntasFrecuentes } from "@/components/sections/preguntas-frecuentes";
+import { Testimonios } from "@/components/sections/testimonios";
 
 export default function Home() {
   return (
     <>
       <Header />
+      {/* Hero stays pinned while ComoFunciona slides over it. */}
       <div className="relative">
         <Hero />
-        <HowItWorks />
+        <ComoFunciona />
       </div>
-      <ValueBlock />
-      <ForTeachers />
-      <Faq />
-      <FinalCta />
+      <Beneficios />
+      <ParaMaestros />
+      <PreguntasFrecuentes />
+      <Activar />
+      {/* Testimonios masks the pinned Footer as it scrolls away. */}
       <div className="relative">
-        <Testimonials />
+        <Testimonios />
         <Footer />
       </div>
     </>

@@ -1,0 +1,79 @@
+import Link from "next/link";
+import { Container } from "@/components/layout/container";
+import { footer } from "@/content/landing";
+import { FOOTER_ID } from "@/lib/constants";
+
+const linkClass =
+  "flex min-h-11 items-center text-sm text-white/75 transition-colors hover:text-white";
+
+export function Footer() {
+  return (
+    <footer
+      id={FOOTER_ID}
+      className="paper-grain sticky bottom-0 z-0 bg-footer px-4 pb-8 pt-14 text-white sm:px-6 lg:px-8"
+    >
+      <Container>
+        {/* Oversized wordmark: brand presence without adding another block of copy. */}
+        <span
+          aria-hidden="true"
+          className="block select-none text-wordmark font-bold leading-[0.8] tracking-[-0.04em] text-white/8"
+        >
+          diza
+        </span>
+
+        <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="max-w-xs sm:col-span-2 lg:col-span-1">
+            <Link
+              href="/"
+              aria-label="Diza, inicio"
+              className="text-2xl font-bold tracking-[-0.03em] text-white"
+            >
+              diza
+            </Link>
+            <p className="mt-3 text-sm leading-relaxed text-white/75">{footer.tagline}</p>
+          </div>
+
+          <nav aria-label={footer.productHeading}>
+            <p className="text-eyebrow text-white/60">{footer.productHeading}</p>
+            <ul className="mt-2">
+              {footer.productLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className={linkClass}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <p className="text-eyebrow text-white/60">{footer.contactHeading}</p>
+            <ul className="mt-2">
+              <li>
+                <a href={`mailto:${footer.supportEmail}`} className={linkClass}>
+                  {footer.supportEmail}
+                </a>
+              </li>
+              <li>
+                <span className="flex min-h-11 items-center text-sm text-white/75">
+                  {footer.whatsapp}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center gap-4 border-t border-white/15 pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-x-6">
+            {footer.legalLinks.map((link) => (
+              <a key={link.label} href={link.href} className={`${linkClass} text-xs`}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <p className="text-xs text-white/75">{footer.copyright}</p>
+        </div>
+      </Container>
+    </footer>
+  );
+}

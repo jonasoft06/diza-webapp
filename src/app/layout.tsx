@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { MotionPreferences } from "@/components/motion-preferences";
+import { MotionPreferences } from "@/components/motion/motion-preferences";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({

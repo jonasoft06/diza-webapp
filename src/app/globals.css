@@ -1,16 +1,9 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans: var(--font-jakarta);
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  /* Semantic palette: neutral base, vino only as accent. */
+  /* Palette: neutral base, vino as the only accent. */
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-border: var(--border-hairline);
@@ -21,38 +14,31 @@
   --color-accent-tint: var(--accent-tint);
   --color-footer: var(--footer);
 
-  --shadow-card: var(--shadow-soft);
-  --shadow-card-hover: var(--shadow-soft-lg);
+  /* Type scale (see DESIGN.md). */
+  --text-hero: clamp(2.5rem, 5vw, 4.5rem);
+  --text-section: clamp(2rem, 3.5vw, 3rem);
+  --text-subsection: clamp(1.625rem, 2.1vw, 2.125rem);
+  --text-wordmark: clamp(6rem, 18vw, 16rem);
+  --text-body-sm: 0.9375rem;
+  --text-body-md: 1.0625rem;
 
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-
-  --radius-sm: calc(var(--radius) * 0.6);
+  /* Radii. The scale below intentionally overrides Tailwind's defaults. */
+  --radius: 0.625rem;
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-panel: 2rem;
+  --radius-screen: 1.5rem;
+  --radius-seam: 2.5rem;
+  --radius-seam-lg: 3rem;
+
+  --shadow-card: var(--shadow-soft);
+  --shadow-card-hover: var(--shadow-soft-lg);
+  --drop-shadow-object: 0 10px 18px rgb(28 25 23 / 0.18);
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 :root {
@@ -68,33 +54,6 @@
 
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
   --shadow-soft-lg: 0 2px 4px rgb(0 0 0 / 0.05), 0 14px 34px rgb(0 0 0 / 0.08);
-
-  --radius: 0.625rem;
-
-  --background: var(--bg);
-  --foreground: var(--ink);
-  --card: var(--surface);
-  --card-foreground: var(--ink);
-  --popover: var(--surface);
-  --popover-foreground: var(--ink);
-  --primary: var(--accent);
-  --primary-foreground: #ffffff;
-  --secondary: var(--accent-tint);
-  --secondary-foreground: var(--ink);
-  --muted-foreground: var(--muted);
-  --accent-foreground: var(--ink);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: var(--border-hairline);
-  --input: var(--border-hairline);
-  --ring: var(--accent);
-  --sidebar: var(--surface);
-  --sidebar-foreground: var(--ink);
-  --sidebar-primary: var(--accent);
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: var(--accent-tint);
-  --sidebar-accent-foreground: var(--ink);
-  --sidebar-border: var(--border-hairline);
-  --sidebar-ring: var(--accent);
 }
 
 @layer base {
@@ -149,12 +108,6 @@
   text-transform: uppercase;
 }
 
-@utility card-surface {
-  background-color: var(--surface);
-  border: 1px solid var(--border-hairline);
-  box-shadow: var(--shadow-soft);
-}
-
 /* Subtle paper grain, used only on the vino block and the footer. */
 @utility paper-grain {
   position: relative;
@@ -172,16 +125,6 @@
   }
 }
 
-@keyframes float-soft {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
 @keyframes draw-underline {
   from {
     stroke-dashoffset: 260;
@@ -192,18 +135,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .animate-float {
-    animation: float-soft 6s ease-in-out infinite;
-  }
-  .animate-float-delay-1 {
-    animation-delay: 0.6s;
-  }
-  .animate-float-delay-2 {
-    animation-delay: 1.2s;
-  }
   .animate-underline path {
     stroke-dasharray: 260;
-    animation: draw-underline 900ms cubic-bezier(0.23, 1, 0.32, 1) 350ms both;
+    animation: draw-underline 900ms var(--ease-out-strong) 350ms both;
   }
 }
 

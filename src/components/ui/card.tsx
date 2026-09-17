@@ -11,7 +11,6 @@ const cardVariants = cva("rounded-3xl border", {
       flat: "border-border bg-surface",
       // The one highlighted block per page.
       accent: "border-transparent bg-accent text-white",
-      tint: "border-transparent bg-accent-tint",
     },
     interactive: {
       true: "transition-[box-shadow,transform,border-color] duration-200 ease-out hover:-translate-y-1 hover:shadow-card-hover motion-reduce:hover:translate-y-0",

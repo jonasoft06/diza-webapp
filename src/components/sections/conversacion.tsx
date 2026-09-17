@@ -2,26 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
-import { PageChip } from "@/components/ui/page-chip";
+import { BookOpen } from "lucide-react";
+import { Chip } from "@/components/ui/chip";
+import { conversation, PAGE_CHIP_LABEL, type ConversationTurn } from "@/content/landing";
 
-/**
- * Scripted demo of how Diza answers: the student asks, Diza replies with a
- * guiding question and cites the page. It never hands over the answer.
- */
-type Turn =
-  | { from: "student"; text: string }
-  | { from: "diza"; text: string; page?: number };
-
-const script: Turn[] = [
-  { from: "student", text: "¿Cómo saco el área de este triángulo?" },
-  { from: "diza", text: "¿Qué datos del triángulo te da la página 42?", page: 42 },
-  { from: "student", text: "La base y la altura." },
-  { from: "diza", text: "Muy bien. ¿Qué operación las relaciona en la fórmula de esa página?" },
-];
-
-// Cumulative timeline: each Diza turn is preceded by a "typing" beat.
 const TYPING_MS = 620;
 const READ_MS = 780;
+
+const { script, subject } = conversation;
 
 function TypingDots() {
   return (
@@ -38,7 +26,7 @@ function TypingDots() {
   );
 }
 
-function Bubble({ turn }: { turn: Turn }) {
+function Bubble({ turn }: { turn: ConversationTurn }) {
   if (turn.from === "student") {
     return (
       <div className="flex justify-end">
@@ -55,7 +43,7 @@ function Bubble({ turn }: { turn: Turn }) {
         <p className="text-sm leading-snug text-ink">{turn.text}</p>
         {turn.page ? (
           <div className="mt-2">
-            <PageChip page={turn.page} />
+            <Chip icon={BookOpen}>{PAGE_CHIP_LABEL}</Chip>
           </div>
         ) : null}
       </div>
@@ -63,23 +51,32 @@ function Bubble({ turn }: { turn: Turn }) {
   );
 }
 
-export function ConversationMockup() {
+/**
+ * Plays the scripted exchange once it scrolls into view. Under reduced motion
+ * the whole thread is rendered at once instead of being staged.
+ */
+export function Conversacion() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.25 });
   const prefersReducedMotion = useReducedMotion();
 
-  // Reduced motion: no staged reveal, the whole thread is there from the start.
+  // Always 0 on the first render so the client matches the server-rendered
+  // HTML. Deriving it from `prefersReducedMotion` in render would hydrate
+  // with 4 bubbles against a server that rendered none.
   const [visibleTurns, setVisibleTurns] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     if (!isInView) return;
-    if (prefersReducedMotion) {
-      setVisibleTurns(script.length);
-      return;
-    }
 
     const timers: ReturnType<typeof setTimeout>[] = [];
+
+    // Reduced motion: the whole thread appears at once, after commit.
+    if (prefersReducedMotion) {
+      timers.push(setTimeout(() => setVisibleTurns(script.length), 0));
+      return () => timers.forEach(clearTimeout);
+    }
+
     let elapsed = 260;
 
     script.forEach((turn, index) => {
@@ -103,11 +100,11 @@ export function ConversationMockup() {
 
   return (
     <div ref={ref} className="mx-auto w-full max-w-md">
-      <div className="rounded-[2rem] border border-border bg-surface p-3 shadow-card">
-        <div className="rounded-[1.5rem] bg-bg p-4 sm:p-5">
+      <div className="rounded-panel border border-border bg-surface p-3 shadow-card">
+        <div className="rounded-screen bg-bg p-4 sm:p-5">
           <div className="flex items-center justify-between border-b border-border pb-3">
             <span className="text-sm font-bold tracking-[-0.03em] text-accent">diza</span>
-            <span className="text-xs text-muted">Matemáticas I</span>
+            <span className="text-xs text-muted">{subject}</span>
           </div>
 
           {/* Reserved height so the staged reveal never reflows the section. */}

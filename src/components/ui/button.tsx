@@ -1,4 +1,4 @@
-import { Button as ButtonPrimitive } from "@base-ui/react/button"
+import type { ComponentProps } from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
@@ -10,7 +10,6 @@ const buttonVariants = cva(
         primary: "bg-accent text-white hover:bg-accent-hover",
         secondary:
           "border border-border bg-surface text-ink hover:border-ink/20 hover:bg-accent-tint",
-        ghost: "text-accent hover:bg-accent-tint",
       },
       size: {
         sm: "h-11 px-5 text-sm",
@@ -24,19 +23,24 @@ const buttonVariants = cva(
   }
 )
 
-function Button({
-  className,
-  variant,
-  size,
-  ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
-  return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
+type ButtonStyleProps = VariantProps<typeof buttonVariants>
+
+type ButtonProps = ButtonStyleProps &
+  (
+    | ({ href: string } & Omit<ComponentProps<"a">, "href">)
+    | ({ href?: undefined } & ComponentProps<"button">)
   )
+
+/** Renders an `<a>` when given `href`, otherwise a `<button>`. */
+function Button({ className, variant, size, ...props }: ButtonProps) {
+  const classes = cn(buttonVariants({ variant, size, className }))
+
+  if (props.href !== undefined) {
+    return <a className={classes} {...(props as ComponentProps<"a">)} />
+  }
+
+  const { type = "button", ...buttonProps } = props as ComponentProps<"button">
+  return <button type={type} className={classes} {...buttonProps} />
 }
 
 export { Button, buttonVariants }

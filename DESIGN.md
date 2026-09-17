@@ -127,7 +127,7 @@ Sombras neutras y muy suaves; nunca tintadas de vino, nunca duras.
 ## Components
 
 ### Buttons (`src/components/ui/button.tsx`)
-Pastillas completas, dos variantes más `ghost`.
+Pastillas completas, dos variantes. Renderiza `<a>` si recibe `href`, y `<button>` si no.
 - **primary**: fondo `accent`, texto blanco, hover `accent-hover`.
 - **secondary**: fondo `surface`, borde `border`, texto `ink`, hover `accent-tint`.
 - **Tamaños**: `sm` 44px (nav), `lg` 48px (CTA de página).
@@ -140,17 +140,17 @@ Pastillas completas, dos variantes más `ghost`.
 - **tint**: fondo `accent-tint`, sin borde.
 - `interactive` añade elevación de 4px en hover.
 
-### IconTile (`src/components/ui/section.tsx`)
+### IconBox (`src/components/ui/icon-box.tsx`)
 Cuadro de 44px, `rounded-xl`, fondo `accent-tint`, icono Lucide `accent` con `strokeWidth 1.75`. Es el único tratamiento de icono del sistema.
 
-### PageChip (`src/components/ui/page-chip.tsx`)
+### Chip (`src/components/ui/chip.tsx`)
 Pastilla con icono de libro y "Pág. N". Es el motivo de marca recurrente: aparece en el hero, en el mockup de conversación y en el CTA final, y resume la promesa de que toda respuesta se ancla a una página del libro.
 
 ## Motion
 
 Librería: Motion (`motion/react`). `MotionConfig reducedMotion="user"` envuelve la app en el layout raíz.
 
-- **Revelado al hacer scroll**: fundido (`fadeIn`) o fundido + 16px hacia arriba (`fadeUp`), 0.5–0.6s `easeOut`, `viewport={{ once: true }}`. Variantes compartidas en `src/lib/motion.ts`.
+- **Revelado al hacer scroll**: fundido (`fade`) o fundido + 16px hacia arriba (`fadeUp`), 0.5–0.6s `easeOut`, `viewport={{ once: true }}`. Un solo `Reveal` / `Stagger` / `RevealItem` en `src/components/motion/reveal.tsx` centraliza variantes y viewport.
 - **Stagger**: 90ms entre hijos.
 - **Interacción**: press 100ms, hover de tarjeta y flecha 200ms, acordeón y navbar 250ms con `cubic-bezier(0.23, 1, 0.32, 1)`.
 - **Sticky reveal**: hero fijo arriba y footer fijo abajo, cada uno detrás de la sección vecina, que lleva esquinas redondeadas y un z-index mayor y actúa de máscara. Es CSS puro (`position: sticky`), sin JS.
@@ -169,7 +169,7 @@ Librería: Motion (`motion/react`). `MotionConfig reducedMotion="user"` envuelve
 ### Do:
 - **Do** mantener el fondo neutro y vino como único acento.
 - **Do** definir las tarjetas con borde de 1px + sombra suave.
-- **Do** usar `IconTile` para todo icono y `PageChip` para reforzar el ancla al libro.
+- **Do** usar `IconBox` para todo icono y `Chip` para reforzar el ancla al libro.
 - **Do** verificar el contraste de cualquier opacidad nueva sobre `accent` o `footer`.
 - **Do** declarar la variable de fuente en `<html>`.
 

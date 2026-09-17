@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { PageChip } from "@/components/ui/page-chip";
-import { ACTIVATE_URL, SECTION_IDS } from "@/lib/links";
+import { ArrowRight, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Chip } from "@/components/ui/chip";
+import { hero, PAGE_CHIP_LABEL } from "@/content/landing";
+import { ACTIVATE_URL, SECTION_IDS } from "@/lib/constants";
 import deskHero from "@/../public/images/hero_background.jpg";
 
 export function Hero() {
@@ -10,7 +11,7 @@ export function Hero() {
     <section className="sticky top-0 isolate flex h-svh items-center justify-center overflow-hidden bg-bg text-ink">
       <Image
         src={deskHero}
-        alt=""
+        alt={hero.imageAlt}
         aria-hidden="true"
         priority
         fill
@@ -26,10 +27,10 @@ export function Hero() {
       />
 
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-8">
-        <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-ink">
-          La tutora que vive dentro de tu{" "}
+        <h1 className="text-hero font-bold text-ink">
+          {hero.titleBefore}{" "}
           <span className="relative inline-block whitespace-nowrap text-accent">
-            libro
+            {hero.titleAccent}
             <svg
               aria-hidden="true"
               viewBox="0 0 200 12"
@@ -48,28 +49,24 @@ export function Hero() {
           .
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-          Diza no te da las respuestas. Te hace las preguntas correctas hasta que encuentres tú mismo — siempre
-          apoyada en las páginas del libro que ya tienes en las manos.
+          {hero.description}
         </p>
         <div className="mt-6 flex items-center gap-2 text-sm text-muted">
-          <span>Cada respuesta cita su origen</span>
-          <PageChip />
+          <span>{hero.chipLead}</span>
+          <Chip icon={BookOpen}>{PAGE_CHIP_LABEL}</Chip>
         </div>
         <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4">
-          <a href={ACTIVATE_URL} className={`w-full sm:w-auto ${buttonVariants({ variant: "primary" })}`}>
-            Activar mi libro
+          <Button href={ACTIVATE_URL} className="w-full sm:w-auto">
+            {hero.primaryCta}
             <ArrowRight
               className="size-4 transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5"
               strokeWidth={2.25}
               aria-hidden="true"
             />
-          </a>
-          <a
-            href={`#${SECTION_IDS.forTeachers}`}
-            className={`w-full sm:w-auto ${buttonVariants({ variant: "secondary" })}`}
-          >
-            Soy maestro
-          </a>
+          </Button>
+          <Button href={`#${SECTION_IDS.forTeachers}`} variant="secondary" className="w-full sm:w-auto">
+            {hero.secondaryCta}
+          </Button>
         </div>
       </div>
     </section>
