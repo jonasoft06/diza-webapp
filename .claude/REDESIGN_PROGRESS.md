@@ -7,11 +7,13 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 ## Aprobado
 - **Paso 0** (2026-11-11) — rama, skills, `PRODUCT.md`, `DESIGN.md`, brief y este archivo. Con commit.
 
+- **Paso 1** (2026-11-11) — estructura en `.claude/REDESIGN_STRUCTURE.md` (8 bloques, orden de construcción y decisiones al final). Con commit.
+
 ## En curso
-- **Paso 1** — propuesta entregada en `.claude/REDESIGN_STRUCTURE.md`, esperando aprobación (2026-11-11).
+- **Paso 2** — tokens en `globals.css` (renombrar `accent* → primary*/tint`, `border → line`, agregar arena) + color del footer, comprobando que el efecto de destape no cambia. El usuario revisa en localhost.
 
 ## Siguiente
-- **Paso 2** — tokens en `globals.css` (renombrar `accent* → primary*/tint`, `border → line`, agregar arena) + color del footer, comprobando que el efecto de destape no cambia. El usuario revisa en localhost.
+- **Paso 3, entrega 1** — Header + Hero (incluye portada de libro, tarjeta con PIN y repisa, que se reutilizan después).
 
 ## Decisiones tomadas
 - Tokens con los nombres del tutor en inglés: `bg, surface, line, ink, muted, primary, primary-dark, tint, sand, sand-2, shelf, sand-line, footer`. El paso 2 renombra `accent* → primary*/tint` y `border → line` en el código.
@@ -24,10 +26,10 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 - Diza se nombra "tutor académico con IA", sin género (decisión del usuario).
 - Las rutas del tutor aún no existen: `ACTIVATE_URL` y `APP_LOGIN_URL` quedan como constantes con TODO.
 
+- Paso 1: se retiran las cuatro imágenes de stock; Fraunces en la portada; titular "Tu libro ya viene con tutor."; botones del alumno a `https://tutor.diza.com.mx` con TODO; correo `contacto@diza.com` provisional con TODO.
+
 ## Preguntas abiertas para el usuario
-- Decisiones del paso 1 (ver el final de `.claude/REDESIGN_STRUCTURE.md`): imágenes en código o stock, Fraunces, titular del hero, destino provisional de los botones.
-- Correo de contacto para el `mailto:` (`constants.ts` tiene `contacto@diza.com`): hace falta antes de construir la sección de maestros.
-- Dominio definitivo (paso 4).
+- Correo de contacto y dominio definitivos (paso 4).
 - WhatsApp y páginas legales (hoy placeholders en el footer).
 
 ## Notas técnicas
