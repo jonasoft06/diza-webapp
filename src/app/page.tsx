@@ -1,3 +1,4 @@
+import { JsonLd } from "@/components/json-ld";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { Closing } from "@/components/sections/closing";
@@ -7,10 +8,13 @@ import { ForTeachers } from "@/components/sections/for-teachers";
 import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Privacy } from "@/components/sections/privacy";
+import { faqPageJsonLd, organizationJsonLd } from "@/lib/structured-data";
 
 export default function Home() {
   return (
     <>
+      <JsonLd schema={organizationJsonLd} />
+      <JsonLd schema={faqPageJsonLd} />
       <Header />
       <Hero />
       <HowItWorks />

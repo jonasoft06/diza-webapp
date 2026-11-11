@@ -1,6 +1,16 @@
 import { ImageResponse } from "next/og";
+import { hero } from "@/content/landing";
 
-export const alt = "Diza — La tutora que vive dentro de tu libro";
+// ImageResponse cannot read CSS variables, so the tokens from globals.css are duplicated here.
+const colors = {
+  bg: "#F9F8F6",
+  ink: "#1E2B33",
+  muted: "#59646B",
+  primary: "#1D5C75",
+  tint: "#E4EEF2",
+};
+
+export const alt = "Diza: tu libro ya viene con tutor";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -14,7 +24,7 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#FAFAF8",
+          backgroundColor: colors.bg,
           padding: "72px 80px",
         }}
       >
@@ -25,7 +35,7 @@ export default function Image() {
               fontSize: 64,
               fontWeight: 700,
               letterSpacing: "-0.04em",
-              color: "#8A3B2E",
+              color: colors.primary,
             }}
           >
             diza
@@ -38,24 +48,24 @@ export default function Image() {
               fontWeight: 600,
               letterSpacing: "-0.02em",
               lineHeight: 1.1,
-              color: "#1C1917",
+              color: colors.ink,
               maxWidth: 900,
             }}
           >
-            La tutora que vive dentro de tu libro.
+            {`${hero.titleBefore} ${hero.titleAccent}.`}
           </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", fontSize: 30, color: "#6B6560", maxWidth: 760 }}>
-            No da respuestas. Hace las preguntas correctas, siempre desde tu libro.
+          <div style={{ display: "flex", fontSize: 30, color: colors.muted, maxWidth: 760 }}>
+            Te guía con preguntas y cita la página de tu libro.
           </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: "#F6ECE9",
-              color: "#8A3B2E",
+              backgroundColor: colors.tint,
+              color: colors.primary,
               fontSize: 28,
               fontWeight: 600,
               padding: "12px 24px",

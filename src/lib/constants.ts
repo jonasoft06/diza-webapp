@@ -14,9 +14,14 @@ export const SECTION_IDS = {
 /** Observed by the header to hide the navbar once the footer is revealed. */
 export const FOOTER_ID = "site-footer";
 
+export const SITE_NAME = "Diza";
+
 // ---------------------------------------------------------------------------
 // Placeholders — replace before launch
 // ---------------------------------------------------------------------------
+
+/** TODO: dominio definitivo sin confirmar. */
+export const SITE_URL = "https://diza.com.mx";
 
 export const TUTOR_URL = "https://tutor.diza.com.mx";
 

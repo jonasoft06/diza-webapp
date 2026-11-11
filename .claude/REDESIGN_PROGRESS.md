@@ -44,12 +44,18 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
   - Footer medido (`footer/entrega5.json`): position, z-index, radios, grano y wordmark idénticos a `footer/after.json`. El footer mide 44 px más desde la entrega 1 (enlace "Para alumnos" en `navLinks`).
   - Para el paso 5: `DESIGN.md` todavía documenta `Card`; el footer arma su `mailto:` a mano aunque ya existe `SUPPORT_MAILTO`.
 
+- **Footer más alto que la pantalla — opción B** (2026-11-11) — commit `d5a0a38`. Falta probarlo en Safari de iPhone (solo se midió en Edge).
+  - `footer.tsx`: `bottom-0` pasó a `bottom-[min(0px,calc(100dvh-var(--footer-height,0px)))]`. `footer-height-observer.tsx` (cliente, `ResizeObserver`) publica `--footer-height` en el footer. Sin JavaScript el valor queda en 0 (comportamiento anterior).
+  - Medido con `footer-tall.cjs` (scratchpad) en 390×664, 360×640, 390×844 y 768×600: mientras el cierre lo destapa, el footer queda con su borde superior en 0; después se recorre hasta el final. En 768×1024 y 1440×900 `footer-effect.cjs` da lo mismo que antes (`footer/opcionB.json`).
+- **Paso 4 — SEO** (2026-11-11) — con commit. Título, descripción y textos de la imagen Open Graph aprobados.
+  - `layout.tsx` (`lang="es-MX"`, `metadataBase`, título, descripción, canonical, Open Graph, Twitter, robots), `opengraph-image.tsx` con los tokens nuevos, `src/lib/structured-data.ts` + `src/components/json-ld.tsx` (Organization y FAQPage desde `faq.entries`), `sitemap.ts`, `robots.ts`, `SITE_URL` (con TODO) y `SITE_NAME` en `constants.ts`.
+
 ## En curso
-- **Footer más alto que la pantalla — opción B (aprobada por el usuario)**: si el footer no cabe en la pantalla se ancla por arriba y el resto se recorre con scroll; en pantallas donde cabe no cambia nada. Commit aparte.
-- **Paso 4 — SEO**: en construcción (metadata y canonical, Open Graph con los tokens nuevos, JSON-LD Organization + FAQPage, `sitemap.ts`, `robots.ts`, `lang="es-MX"`).
+- **Fuente de la imagen Open Graph** (aprobado por el usuario): agregar los `.ttf` de Plus Jakarta Sans al repo y cargarlos en `opengraph-image.tsx` (hoy usa la fuente por defecto de `ImageResponse` y los pesos 600/700 no se aplican).
+- **Paso 5 — Cierre**: DESIGN.md y PRODUCT.md finales, impeccable audit + polish, review-animations, código limpio, QA en 6 tamaños, lint y build, reporte final.
 
 ## Siguiente
-- **Paso 5 — Cierre** (DESIGN.md y PRODUCT.md finales, impeccable audit + polish, review-animations, código limpio, QA en 6 tamaños, lint y build, reporte final).
+- Nada más: el paso 5 es el último.
 
 ## Decisiones tomadas
 - Tokens con los nombres del tutor en inglés: `bg, surface, line, ink, muted, primary, primary-dark, tint, sand, sand-2, shelf, sand-line, footer`. El paso 2 renombra `accent* → primary*/tint` y `border → line` en el código.

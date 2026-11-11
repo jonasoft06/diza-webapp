@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { MotionPreferences } from "@/components/motion/motion-preferences";
+import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -17,22 +18,34 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+const TITLE = "Diza: el tutor académico con IA que viene con tu libro";
+const DESCRIPTION =
+  "Tutor académico con IA para bachillerato, incluido con tu libro. Te guía con preguntas y cita la página donde está cada respuesta. Actívalo con tu PIN.";
+
 export const metadata: Metadata = {
-  title: "Diza | La tutora dentro de tu libro",
-  description:
-    "Diza acompaña a estudiantes de preparatoria con preguntas basadas en las páginas de su propio libro.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Diza | La tutora dentro de tu libro",
-    description:
-      "Diza acompaña a estudiantes de preparatoria con preguntas basadas en las páginas de su propio libro.",
-    locale: "es_MX",
     type: "website",
+    locale: "es_MX",
+    url: "/",
+    siteName: SITE_NAME,
+    title: TITLE,
+    description: DESCRIPTION,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${jakarta.variable} ${fraunces.variable} h-full antialiased`}>
+    <html lang="es-MX" className={`${jakarta.variable} ${fraunces.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-bg text-ink">
         <MotionPreferences>{children}</MotionPreferences>
       </body>
