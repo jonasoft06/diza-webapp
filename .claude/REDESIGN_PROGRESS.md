@@ -23,11 +23,18 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
   - Se borraron `benefits.tsx` y `conversation.tsx`. La sección vieja de tres pasos pasó a `for-students.tsx` (`#alumnos`) con sus textos y fotos viejos, hasta la entrega 3.
   - Para el paso 5 (código limpio): ordenar las clases del `ol`/`li` de las anotaciones y revisar si `border border-transparent` sigue haciendo falta.
 
+- **Paso 3, entrega 3 — Para alumnos** (`#alumnos`, sobre `sand`) (2026-11-11) — con commit.
+  - `for-students.tsx` reescrito: `ol` de tres pasos. En md+ los objetos se apoyan en un solo tablón (`--object-area` define la altura del área y el `top` del tablón); en móvil, lista vertical con riel. CTA una sola vez en el DOM, colocado arriba a la derecha en `lg` con grid.
+  - Objetos nuevos en `src/components/product/`: `LoginScreen`, `ChatScreen` y la variante `compact` de `PhoneFrame`. `PinCard` acepta `className` y exporta `PIN_DOTS`. `PIN_LABEL` en `landing.ts`.
+  - `reveal.tsx`: etiquetas `ol`/`li` y stagger de 60 ms (antes 90).
+  - Borrados: `activate.tsx`, el export `activate` y las tres fotos de stock. `SECTION_IDS.activate` queda sin uso hasta el cierre de la entrega 5.
+  - Huecos de imagen (aprobado por el usuario): no hay bloque punteado visible; la página usa el sustituto en código y el hueco (contenido, proporción, alt, prompt de Recraft) se registra en la tabla de `DESIGN.md` › "Huecos de imagen".
+
 ## En curso
-- **Paso 3, entrega 3 — Para alumnos** (`#alumnos`, sobre `sand`): tres pasos en una repisa continua con objetos en código; absorbe la sección vieja de activación. En construcción.
+- **Paso 3, entrega 4 — Para maestros + Privacidad**: en construcción.
 
 ## Siguiente
-- **Paso 3, entrega 4** — Para maestros + Privacidad.
+- **Paso 3, entrega 5** — Preguntas frecuentes + Cierre + limpieza (quitar testimonios; el cierre hereda las clases que destapan el footer; volver a medir con `footer-effect.cjs`).
 
 ## Decisiones tomadas
 - Tokens con los nombres del tutor en inglés: `bg, surface, line, ink, muted, primary, primary-dark, tint, sand, sand-2, shelf, sand-line, footer`. El paso 2 renombra `accent* → primary*/tint` y `border → line` en el código.
@@ -56,5 +63,5 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 - `review-animations` tiene `disable-model-invocation`: se aplica leyendo `.agents/skills/review-animations/{SKILL,STANDARDS}.md`.
 - Placeholders actuales: `ACTIVATE_URL` y `APP_LOGIN_URL` = `https://tutor.diza.com.mx` (raíz, con TODO); enlaces legales `#`; WhatsApp "Próximamente".
 - Colores fuera de tokens a migrar en el paso 4: `src/app/opengraph-image.tsx` (6 hex vino).
-- `hero_background.jpg` ya se borró; `libro.png`, `tarjeta-pin.png` y `celular.png` siguen en uso por la sección vieja de pasos hasta la entrega 3.
+- `public/images` ya no tiene fotos de stock (`hero_background.jpg`, `libro.png`, `tarjeta-pin.png` y `celular.png` borradas). `images.qualities` de `next.config.ts` se quita en la entrega 5.
 - El acordeón anima `height` (excepción documentada en `DESIGN.md`).

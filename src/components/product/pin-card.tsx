@@ -1,9 +1,22 @@
+import { cn } from "@/lib/utils"
+
 const PIN_DOTS = 6
 
+type PinCardProps = {
+  label: string
+  /** Overrides the hero sizing and tilt. */
+  className?: string
+}
+
 /** The printed card that ships apart from the book; the PIN is hidden and decorative. */
-function PinCard({ label }: { label: string }) {
+function PinCard({ label, className }: PinCardProps) {
   return (
-    <div className="flex aspect-[3/2] w-28 origin-bottom -rotate-6 flex-col justify-between rounded-lg border border-line bg-surface p-3 drop-shadow-object sm:w-32 md:w-40 lg:w-36">
+    <div
+      className={cn(
+        "flex aspect-[3/2] w-28 origin-bottom -rotate-6 flex-col justify-between rounded-lg border border-line bg-surface p-3 drop-shadow-object sm:w-32 md:w-40 lg:w-36",
+        className
+      )}
+    >
       <p className="text-eyebrow text-primary">{label}</p>
       <div className="flex gap-1.5">
         {Array.from({ length: PIN_DOTS }, (_, position) => (
@@ -14,4 +27,4 @@ function PinCard({ label }: { label: string }) {
   )
 }
 
-export { PinCard }
+export { PIN_DOTS, PinCard }

@@ -27,7 +27,7 @@ Para subagentes. Lee esto y `DESIGN.md`; no cargues skills. Trabaja solo en los 
 - `next/image` con `alt` útil, `sizes` correcto y dimensiones reservadas (sin layout shift). `priority` solo en la imagen del primer viewport.
 - Petróleo es el único color de acción. Arena es material (superficies y escenas), nunca texto ni botón. Sin gradientes de color.
 - No apoyes la página en rejillas de tarjetas idénticas: alterna composición.
-- Hueco de imagen: bloque `sand-2` con borde punteado `sand-line` que muestra contenido, proporción, alt y prompt de Recraft; sus datos van en `landing.ts`.
+- Hueco de imagen: la página usa un sustituto dibujado en código y el hueco se registra en la tabla de `DESIGN.md` › "Huecos de imagen" (contenido, proporción, alt y prompt de Recraft). No se dejan bloques punteados visibles.
 
 ## Animación (solo `motion/react` o CSS)
 - Cada animación tiene un porqué (explicar, dar feedback, orientar). Si no lo tiene, no va.

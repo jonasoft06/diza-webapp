@@ -19,7 +19,7 @@ const variants = {
   },
   stagger: {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.09 } },
+    visible: { transition: { staggerChildren: 0.06 } },
   },
 } as const;
 
@@ -31,6 +31,8 @@ const tags = {
   h2: motion.h2,
   p: motion.p,
   ul: motion.ul,
+  ol: motion.ol,
+  li: motion.li,
 } as const;
 
 type RevealTag = keyof typeof tags;

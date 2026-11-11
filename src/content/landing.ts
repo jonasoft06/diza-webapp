@@ -1,20 +1,13 @@
 import type { LucideIcon } from "lucide-react";
 import { BookOpenCheck, ClipboardList, Layers } from "lucide-react";
-import type { StaticImageData } from "next/image";
-import celularImg from "@/../public/images/celular.png";
-import libroImg from "@/../public/images/libro.png";
-import tarjetaPinImg from "@/../public/images/tarjeta-pin.png";
 import { APP_LOGIN_URL, SECTION_IDS, SUPPORT_EMAIL } from "@/lib/constants";
 
 export type NavLink = { label: string; href: string };
 
-export type Step = {
-  step: string;
-  title: string;
-  description: string;
-  image: StaticImageData;
-  alt: string;
-};
+/** Decides which object is drawn above each activation step. */
+export type StudentStepId = "card" | "login" | "chat";
+
+export type StudentStep = { id: StudentStepId; title: string; description: string };
 
 export type TeacherCard = { icon: LucideIcon; title: string; description: string };
 
@@ -44,6 +37,9 @@ export const LOGIN_LABEL = "Ya tengo cuenta";
 export const ACTIVATE_CTA_LABEL = "Activar mi libro";
 export const ACTIVATE_CTA_SHORT_LABEL = "Activar";
 
+/** Label of the printed activation card, shared by the hero scene and the activation steps. */
+export const PIN_LABEL = "PIN";
+
 export const navLinks: NavLink[] = [
   { label: "Cómo funciona", href: `#${SECTION_IDS.howItWorks}` },
   { label: "Para alumnos", href: `#${SECTION_IDS.students}` },
@@ -64,37 +60,34 @@ export const hero = {
     description:
       "Un libro con su tarjeta de PIN sobre una repisa. Diza responde con una pregunta y cita la página 42.",
     bookTitle: "Tu libro",
-    pinLabel: "PIN",
+    pinLabel: PIN_LABEL,
     bubble: "Antes de darte la respuesta: ¿qué dice el ejemplo de esta página?",
   },
 } as const;
 
 export const forStudents = {
   eyebrow: "Para alumnos",
-  title: "Tres pasos para empezar.",
+  title: "Actívalo en tres pasos.",
   steps: [
     {
-      step: "01",
-      title: "Abre tu libro",
-      description: "Cada ejemplar de Diza trae un folio único impreso en sus primeras páginas.",
-      image: libroImg,
-      alt: "Pila de libros de texto",
+      id: "card",
+      title: "Busca tu tarjeta",
+      description: "Viene con tu libro, impresa aparte. Ahí está tu PIN.",
     },
     {
-      step: "02",
-      title: "Activa tu PIN",
-      description: "Ingresa el código de tu libro para vincularlo a tu cuenta en segundos.",
-      image: tarjetaPinImg,
-      alt: "Tarjeta con PIN de activación",
+      id: "login",
+      title: "Entra con tu correo institucional",
+      description: "El que te dio tu escuela. Escribe el PIN de tu tarjeta.",
     },
     {
-      step: "03",
-      title: "Pregunta lo que sea",
-      description: "Desde tu celular, resuelve tus dudas siempre apoyado en las páginas de tu libro.",
-      image: celularImg,
-      alt: "Celular mostrando la aplicación de Diza",
+      id: "chat",
+      title: "Pregunta lo que no entiendas",
+      description: "De cualquier tema de tu libro.",
     },
-  ] satisfies Step[],
+  ] satisfies StudentStep[],
+  primaryCta: ACTIVATE_CTA_LABEL,
+  secondaryCta: LOGIN_LABEL,
+  note: "Gratis con tu libro. Hay un límite diario de uso.",
 };
 
 export const howItWorks = {
@@ -203,16 +196,6 @@ export const faq = {
         "No. El PIN de tus alumnos ya está vinculado a tu libro; el reporte por alumno está disponible desde el primer uso, sin configuración adicional.",
     },
   ] satisfies FaqEntry[],
-};
-
-export const activate = {
-  title: "Tu libro ya trae la llave.",
-  description: "Toma la tarjeta que viene dentro, activa tu PIN y empieza hoy.",
-  chipLead: "Tu primera pregunta empieza aquí",
-  primaryCta: ACTIVATE_CTA_LABEL,
-  secondaryCta: LOGIN_LABEL,
-  // TODO: reemplazar por video/screenshot real de la plataforma
-  mediaPlaceholder: "Video/imagen de la plataforma — próximamente",
 };
 
 export const testimonials = {

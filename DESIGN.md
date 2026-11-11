@@ -195,7 +195,16 @@ Se construyen en código, con tokens, a partir de lo que el alumno y el maestro 
 
 ### Huecos de imagen
 
-Donde falta una imagen real se deja un bloque visible: fondo `sand-2`, borde punteado `sand-line`, con la proporción final reservada. Muestra contenido esperado, proporción, texto alternativo y un prompt sugerido para Recraft (fotorrealista; fondo removido si es un objeto). Sus datos viven en `src/content/landing.ts`.
+Donde falta una imagen real, la página muestra un sustituto dibujado en código (misma proporción, mismos tokens) y el hueco se registra aquí con su contenido, proporción, texto alternativo y un prompt sugerido para Recraft. Un bloque punteado visible no se usa: en el tamaño de estos objetos no caben el alt ni el prompt, y rompería la escena de la repisa.
+
+Al llegar la imagen real: se exporta con fondo removido (PNG o WebP con transparencia), se coloca en `public/images/` y reemplaza al sustituto con `next/image`, `alt` de la tabla y `sizes` ajustado al ancho pintado.
+
+| Hueco | Dónde va | Proporción | Sustituto actual | Texto alternativo | Prompt sugerido para Recraft |
+| --- | --- | --- | --- | --- | --- |
+| Tarjeta con PIN real | Para alumnos, paso 1 (y la tarjeta del hero) | 3:2, objeto con fondo removido | `PinCard` | "Tarjeta de activación de Diza con el PIN impreso" | "Fotografía de producto fotorrealista de una tarjeta impresa de cartulina blanca mate, tamaño tarjeta de crédito, vista frontal con una inclinación mínima, con un código PIN de seis caracteres impreso en tinta oscura y un detalle en azul petróleo (#1D5C75). Luz de estudio suave, sombra de contacto sutil, fondo transparente, sin manos ni otros objetos, sin logotipos inventados." |
+| Portada real del libro | Hero y cierre | 3:4, objeto con fondo removido | `BookCover` | "Portada del libro de bachillerato que incluye acceso a Diza" | "Fotografía de producto fotorrealista de un libro de texto de bachillerato de pasta blanda, de pie, visto de frente con el lomo apenas visible a la izquierda, portada en azul petróleo (#1D5C75) con tipografía serif clara. Luz de estudio suave, sombra de contacto sutil, fondo transparente, sin texto legible de editoriales reales ni logotipos." |
+
+La foto de la tarjeta debe ser la tarjeta verdadera en cuanto exista: el alumno tiene que reconocerla. El prompt sirve solo como imagen provisional.
 
 ## Footer (contrato)
 
