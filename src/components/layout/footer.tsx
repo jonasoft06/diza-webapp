@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { FooterHeightObserver } from "@/components/layout/footer-height-observer";
 import { footer } from "@/content/landing";
 import { FOOTER_ID } from "@/lib/constants";
 
@@ -8,10 +9,13 @@ const linkClass =
 
 export function Footer() {
   return (
+    // Pinned by its bottom edge while it fits on screen. When it is taller than the screen the offset turns
+    // negative and pins it by its top edge instead, so the wordmark is revealed and the rest scrolls into view.
     <footer
       id={FOOTER_ID}
-      className="paper-grain sticky bottom-0 z-0 bg-footer px-4 pb-8 pt-14 text-white sm:px-6 lg:px-8"
+      className="paper-grain sticky bottom-[min(0px,calc(100dvh-var(--footer-height,0px)))] z-0 bg-footer px-4 pb-8 pt-14 text-white sm:px-6 lg:px-8"
     >
+      <FooterHeightObserver />
       <Container>
         {/* Oversized wordmark: brand presence without adding another block of copy. */}
         <span
