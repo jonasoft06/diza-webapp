@@ -1,11 +1,11 @@
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { Activate } from "@/components/sections/activate";
-import { Benefits } from "@/components/sections/benefits";
-import { HowItWorks } from "@/components/sections/how-it-works";
-import { Hero } from "@/components/sections/hero";
-import { ForTeachers } from "@/components/sections/for-teachers";
 import { FAQ } from "@/components/sections/faq";
+import { ForStudents } from "@/components/sections/for-students";
+import { ForTeachers } from "@/components/sections/for-teachers";
+import { Hero } from "@/components/sections/hero";
+import { HowItWorks } from "@/components/sections/how-it-works";
 import { Testimonials } from "@/components/sections/testimonials";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
       <Header />
       <Hero />
       <HowItWorks />
-      <Benefits />
+      <ForStudents />
       <ForTeachers />
       <FAQ />
       <Activate />

@@ -5,7 +5,6 @@
 export const SECTION_IDS = {
   howItWorks: "como-funciona",
   students: "alumnos",
-  benefits: "beneficios",
   forTeachers: "para-maestros",
   faq: "preguntas-frecuentes",
   activate: "activar",

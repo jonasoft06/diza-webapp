@@ -16,17 +16,23 @@ export type Step = {
   alt: string;
 };
 
-export type Benefit = { lead: string; text: string };
-
 export type TeacherCard = { icon: LucideIcon; title: string; description: string };
 
 export type FaqEntry = { question: string; answer: string };
 
 export type Testimonial = { initials: string; name: string; role: string; quote: string };
 
-export type ConversationTurn =
-  | { from: "student"; text: string }
-  | { from: "diza"; text: string; page?: number };
+export type AnnotationId = "ask" | "guide" | "cite";
+
+export type DemoAnnotation = { id: AnnotationId; title: string; description: string };
+
+/** `annotation` is the note highlighted while this turn is on screen. */
+export type ConversationTurn = {
+  from: "student" | "diza";
+  text: string;
+  annotation: AnnotationId;
+  citesPage?: boolean;
+};
 
 /** The recurring motif: every answer is anchored to a page of the book. */
 export const PAGE_CHIP_LABEL = "Pág. 42";
@@ -63,8 +69,8 @@ export const hero = {
   },
 } as const;
 
-export const howItWorks = {
-  eyebrow: "Cómo funciona",
+export const forStudents = {
+  eyebrow: "Para alumnos",
   title: "Tres pasos para empezar.",
   steps: [
     {
@@ -91,28 +97,26 @@ export const howItWorks = {
   ] satisfies Step[],
 };
 
-export const benefits = {
-  title: "No reemplaza tu libro. Lo hace valer más.",
-  description:
-    "Diza convierte cada página que ya lees en una conversación — sin videos genéricos, sin salirse de lo que tu maestro ya definió en clase.",
-  points: [
+export const howItWorks = {
+  eyebrow: "Cómo funciona",
+  title: "No te da la respuesta. Te lleva a ella.",
+  annotations: [
     {
-      lead: "Basado en tu libro real.",
-      text: "Cada ejercicio parte de las páginas que ya tienes frente a ti.",
+      id: "ask",
+      title: "Pregunta con tus palabras",
+      description: "Escribe tu duda tal como la piensas.",
     },
     {
-      lead: "Aprendizaje guiado.",
-      text: "Diza te hace las preguntas correctas hasta que encuentres la respuesta por ti mismo.",
+      id: "guide",
+      title: "Te responde con una pregunta",
+      description: "Diza no te entrega el resultado: te guía para que llegues tú.",
     },
     {
-      lead: "Sin presión, a tu ritmo.",
-      text: "Practica cuanto quieras, sin distracciones ni calificaciones.",
+      id: "cite",
+      title: "Te dice la página",
+      description: "Cada respuesta cita la página de tu libro, para que lo compruebes ahí.",
     },
-    {
-      lead: "Siempre puedes verificar.",
-      text: "Cada respuesta señala la página exacta del libro en la que se basa — nunca inventa fuera de lo que ya tienes.",
-    },
-  ] satisfies Benefit[],
+  ] satisfies DemoAnnotation[],
 };
 
 /**
@@ -120,12 +124,23 @@ export const benefits = {
  * guiding question and cites the page. It never hands over the answer.
  */
 export const conversation = {
-  subject: "Matemáticas I",
+  label: "Ejemplo de conversación con Diza",
+  subject: "Matemáticas",
+  composerPlaceholder: "Escribe tu duda…",
   script: [
-    { from: "student", text: "¿Cómo saco el área de este triángulo?" },
-    { from: "diza", text: "¿Qué datos del triángulo te da la página 42?", page: 42 },
-    { from: "student", text: "La base y la altura." },
-    { from: "diza", text: "Muy bien. ¿Qué operación las relaciona en la fórmula de esa página?" },
+    { from: "student", text: "¿Cómo saco el área de este triángulo?", annotation: "ask" },
+    {
+      from: "diza",
+      text: "Antes de darte la fórmula: ¿qué dos medidas te da el ejemplo?",
+      annotation: "guide",
+    },
+    { from: "student", text: "La base y la altura.", annotation: "guide" },
+    {
+      from: "diza",
+      text: "Exacto. Mira cómo las relaciona la fórmula de esa página y dime qué operación usa.",
+      annotation: "cite",
+      citesPage: true,
+    },
   ] satisfies ConversationTurn[],
 };
 
