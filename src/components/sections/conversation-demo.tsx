@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
 import { BookOpen } from "lucide-react";
+import { EASE_OUT_STRONG } from "@/components/motion/easing";
 import { PhoneFrame } from "@/components/product/phone-frame";
 import { Chip } from "@/components/ui/chip";
 import {
@@ -21,7 +22,6 @@ const READ_MS = 1300;
 const FINAL_HIGHLIGHT_MS = 1600;
 
 const ENTER_SECONDS = 0.28;
-const EASE_OUT_STRONG = [0.23, 1, 0.32, 1] as const;
 
 const { script, subject, label, composerPlaceholder } = conversation;
 
@@ -86,11 +86,11 @@ export function ConversationDemo() {
 
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
-    const at = (delayMs: number, action: () => void) => timers.push(setTimeout(action, delayMs));
+    const schedule = (delayMs: number, action: () => void) => timers.push(setTimeout(action, delayMs));
 
     // Reduced motion: the finished thread appears at once, with no highlight.
     if (prefersReducedMotion) {
-      at(0, () => setShownTurns(script.length));
+      schedule(0, () => setShownTurns(script.length));
       return () => timers.forEach(clearTimeout);
     }
 
@@ -100,10 +100,10 @@ export function ConversationDemo() {
 
     script.forEach((turn, index) => {
       if (turn.from === "diza") {
-        at(elapsedMs, () => setTypingTurn(index));
+        schedule(elapsedMs, () => setTypingTurn(index));
         elapsedMs += TYPING_MS;
       }
-      at(elapsedMs, () => {
+      schedule(elapsedMs, () => {
         setTypingTurn(null);
         setShownTurns(index + 1);
         setActiveAnnotation(turn.annotation);
@@ -111,7 +111,7 @@ export function ConversationDemo() {
       elapsedMs += index === script.length - 1 ? FINAL_HIGHLIGHT_MS : READ_MS;
     });
 
-    at(elapsedMs, () => setActiveAnnotation(null));
+    schedule(elapsedMs, () => setActiveAnnotation(null));
 
     return () => timers.forEach(clearTimeout);
   }, [isInView, prefersReducedMotion]);
@@ -121,7 +121,7 @@ export function ConversationDemo() {
       <div ref={phoneRef} className="lg:col-span-6 lg:col-start-7 lg:row-start-1">
         <PhoneFrame>
           <div className="flex items-center justify-between border-b border-line pb-3">
-            <span className="text-sm font-bold tracking-[-0.03em] text-primary">diza</span>
+            <span className="text-sm font-bold tracking-wordmark text-primary">diza</span>
             <span className="text-xs text-muted">{subject}</span>
           </div>
 
@@ -154,7 +154,7 @@ export function ConversationDemo() {
         </PhoneFrame>
       </div>
 
-      <ol className="grid gap-2 md:grid-cols-3 lg:col-span-6 lg:grid-cols-1 lg:col-start-1 lg:row-start-1">
+      <ol className="grid gap-2 md:grid-cols-3 lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:grid-cols-1">
         {howItWorks.annotations.map((annotation, index) => {
           const isActive = annotation.id === activeAnnotation;
 
@@ -162,7 +162,7 @@ export function ConversationDemo() {
             <li
               key={annotation.id}
               className={cn(
-                "flex gap-4 rounded-3xl md:flex-col md:gap-3 lg:flex-row lg:gap-4 border border-transparent p-4 transition-colors duration-200 sm:p-5",
+                "flex gap-4 rounded-3xl p-4 transition-colors duration-200 sm:p-5 md:flex-col md:gap-3 lg:flex-row lg:gap-4",
                 isActive && "bg-tint"
               )}
             >
@@ -177,7 +177,9 @@ export function ConversationDemo() {
               </span>
               <div>
                 <h3 className="text-lg font-semibold text-ink lg:text-xl">{annotation.title}</h3>
-                <p className="mt-1 text-body-sm leading-relaxed text-pretty text-muted lg:text-base">{annotation.description}</p>
+                <p className="mt-1 text-body-sm leading-relaxed text-pretty text-muted lg:text-base">
+                  {annotation.description}
+                </p>
               </div>
             </li>
           );

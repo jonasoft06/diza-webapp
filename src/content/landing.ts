@@ -1,21 +1,20 @@
-import type { LucideIcon } from "lucide-react";
-import { CalendarRange, ClipboardList, ListChecks } from "lucide-react";
+import { CalendarRange, ClipboardList, ListChecks, type LucideIcon } from "lucide-react";
 import { APP_LOGIN_URL, SECTION_IDS, SUPPORT_EMAIL } from "@/lib/constants";
 
-export type NavLink = { label: string; href: string };
+type NavLink = { label: string; href: string };
 
 /** Decides which object is drawn above each activation step. */
 export type StudentStepId = "card" | "login" | "chat";
 
-export type StudentStep = { id: StudentStepId; title: string; description: string };
+type StudentStep = { id: StudentStepId; title: string; description: string };
 
-export type TeacherFeature = { icon: LucideIcon; title: string; description: string };
+type TeacherFeature = { icon: LucideIcon; title: string; description: string };
 
-export type FaqEntry = { question: string; answer: string };
+type FaqEntry = { question: string; answer: string };
 
 export type AnnotationId = "ask" | "guide" | "cite";
 
-export type DemoAnnotation = { id: AnnotationId; title: string; description: string };
+type DemoAnnotation = { id: AnnotationId; title: string; description: string };
 
 /** `annotation` is the note highlighted while this turn is on screen. */
 export type ConversationTurn = {
@@ -222,6 +221,23 @@ export const closing = {
   question: "¿Ya tienes tu tarjeta?",
   action: "Activa tu libro.",
   teacherQuestion: "¿Es maestro?",
+};
+
+export const a11y = {
+  skipToContent: "Saltar al contenido",
+  homeLabel: "Diza, inicio",
+  mainNav: "Navegación principal",
+  mobileNav: "Navegación principal móvil",
+  openMenu: "Abrir menú",
+  closeMenu: "Cerrar menú",
+};
+
+export const seo = {
+  title: "Diza: el tutor académico con IA que viene con tu libro",
+  description:
+    "Tutor académico con IA para bachillerato, incluido con tu libro. Te guía con preguntas y cita la página donde está cada respuesta. Actívalo con tu PIN.",
+  ogTagline: "Te guía con preguntas y cita la página de tu libro.",
+  ogImageAlt: "Diza: tu libro ya viene con tutor",
 };
 
 export const footer = {

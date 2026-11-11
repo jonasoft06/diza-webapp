@@ -1,10 +1,9 @@
-import { ArrowRight } from "lucide-react";
 import { Container, Section } from "@/components/layout/container";
 import { Reveal } from "@/components/motion/reveal";
 import { BookCover } from "@/components/product/book-cover";
 import { PinCard } from "@/components/product/pin-card";
 import { ShelfScene } from "@/components/product/shelf-scene";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonArrow } from "@/components/ui/button";
 import {
   ACTIVATE_CTA_LABEL,
   closing,
@@ -15,26 +14,25 @@ import {
 } from "@/content/landing";
 import { ACTIVATE_URL, APP_LOGIN_URL, SECTION_IDS, TEACHER_ACCESS_MAILTO } from "@/lib/constants";
 
+const CLOSING_TITLE_ID = "cierre-titulo";
+
 export function Closing() {
   return (
     <Section
       id={SECTION_IDS.activate}
+      aria-labelledby={CLOSING_TITLE_ID}
       className="relative z-10 rounded-b-seam bg-sand sm:rounded-b-seam-lg"
     >
       <Container className="grid items-center gap-12 lg:grid-cols-12">
         <Reveal variant="fade" className="lg:col-span-6">
-          <h2 className="text-section font-semibold text-ink">
+          <h2 id={CLOSING_TITLE_ID} className="text-section font-semibold text-ink">
             <span className="block">{closing.question}</span>
             <span className="block">{closing.action}</span>
           </h2>
           <div className="mt-8 flex flex-col items-stretch gap-1 sm:flex-row sm:items-center sm:gap-6">
             <Button href={ACTIVATE_URL} className="w-full sm:w-auto">
               {ACTIVATE_CTA_LABEL}
-              <ArrowRight
-                className="size-4 transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5"
-                strokeWidth={2.25}
-                aria-hidden="true"
-              />
+              <ButtonArrow />
             </Button>
             <Button href={APP_LOGIN_URL} variant="link" size="sm" className="px-4">
               {LOGIN_LABEL}

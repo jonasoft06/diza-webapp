@@ -15,13 +15,11 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
   - Hero nuevo sin foto ni apilado: texto + escena de repisa en código (`src/components/product/`: `BookCover`, `PinCard`, `ShelfScene`, reutilizables en entregas 3 y 5). Fraunces solo en la portada.
   - Header: transparente arriba (wordmark y acciones alineados con el contenido mediante `transform`), píldora al hacer scroll; escritorio desde `lg`; "Ya tengo cuenta" + "Activar mi libro".
   - `ACTIVATE_CTA_LABEL` / `ACTIVATE_CTA_SHORT_LABEL` en `landing.ts`; `TUTOR_URL` y `SUPPORT_EMAIL` en `constants.ts` con TODO.
-  - Para el paso 5 (review-animations): el menú móvil anima `grid-template-rows` (ya existía).
 
 - **Paso 3, entrega 2 — Cómo funciona (demo)** (2026-11-11) — con commit.
   - `HowItWorks` (servidor) + `ConversationDemo` (cliente, dueño de la reproducción) + `PhoneFrame` en `src/components/product/`. Contenido en `howItWorks` y `conversation` de `landing.ts`.
   - La conversación se reproduce una sola vez al entrar en pantalla (≈7 s): 4 turnos, burbuja de "escribiendo" antes de cada turno de Diza y la anotación correspondiente resaltada. Los 4 turnos siempre ocupan su lugar, así que nada cambia de tamaño. Con movimiento reducido aparece completa y sin resaltado.
   - Se borraron `benefits.tsx` y `conversation.tsx`. La sección vieja de tres pasos pasó a `for-students.tsx` (`#alumnos`) con sus textos y fotos viejos, hasta la entrega 3.
-  - Para el paso 5 (código limpio): ordenar las clases del `ol`/`li` de las anotaciones y revisar si `border border-transparent` sigue haciendo falta.
 
 - **Paso 3, entrega 3 — Para alumnos** (`#alumnos`, sobre `sand`) (2026-11-11) — con commit.
   - `for-students.tsx` reescrito: `ol` de tres pasos. En md+ los objetos se apoyan en un solo tablón (`--object-area` define la altura del área y el `top` del tablón); en móvil, lista vertical con riel. CTA una sola vez en el DOM, colocado arriba a la derecha en `lg` con grid.
@@ -42,7 +40,6 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
   - Limpieza: borrados `testimonials.tsx`, `card.tsx`, `testimonials`/`Testimonial`, `SECTION_IDS.testimonials`, `images.qualities` y la prop `description` de `SectionHeading`.
   - Corregido de paso: el ícono del acordeón no giraba al abrir (`group-data-open` → `group-data-panel-open`; Base UI pone `data-panel-open` en el trigger).
   - Footer medido (`footer/entrega5.json`): position, z-index, radios, grano y wordmark idénticos a `footer/after.json`. El footer mide 44 px más desde la entrega 1 (enlace "Para alumnos" en `navLinks`).
-  - Para el paso 5: `DESIGN.md` todavía documenta `Card`; el footer arma su `mailto:` a mano aunque ya existe `SUPPORT_MAILTO`.
 
 - **Footer más alto que la pantalla — opción B** (2026-11-11) — commit `d5a0a38`. Falta probarlo en Safari de iPhone (solo se midió en Edge).
   - `footer.tsx`: `bottom-0` pasó a `bottom-[min(0px,calc(100dvh-var(--footer-height,0px)))]`. `footer-height-observer.tsx` (cliente, `ResizeObserver`) publica `--footer-height` en el footer. Sin JavaScript el valor queda en 0 (comportamiento anterior).
@@ -52,11 +49,19 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 
 - **Fuente de la imagen Open Graph** (2026-11-11) — con commit. `src/assets/fonts/` guarda Plus Jakarta Sans 400/600/700 (`.ttf` estáticos, subconjunto latino, de Fontsource) y su licencia `OFL.txt`; `opengraph-image.tsx` los lee con `readFile` y los pasa en `fonts`. `next/font` no sirve ahí: `ImageResponse` necesita los archivos.
 
+- **Paso 5 — Cierre** (2026-11-11) — terminado, con commit. Falta la revisión final del usuario.
+  - `DESIGN.md` y `PRODUCT.md` con los componentes y bloques finales (tabla "Bloques de la página" y "Landing: bloques finales").
+  - Accesibilidad: `<main id="contenido">` envuelve Hero…FAQ; el cierre queda fuera de `main` como región con `aria-labelledby` porque tiene que compartir contenedor con el footer; enlace "Saltar al contenido" (fijo, transparente y fuera de pantalla hasta recibir foco); foco blanco en los enlaces del footer; wordmark pequeño del footer con área táctil de 44 px.
+  - Movimiento: `Reveal` anima `transform` completo con `EASE_OUT_STRONG` (`src/components/motion/easing.ts`); con movimiento reducido solo se desvanece (`useReducedMotion()`, porque `MotionConfig` no neutraliza la clave `transform`). Excepciones de altura documentadas: acordeón (`height`) y menú móvil (`grid-template-rows`).
+  - Código limpio: se borró `SectionHeading` (un solo uso); `ButtonArrow` en `button.tsx`; bloques `a11y` y `seo` en `landing.ts`; props sin uso fuera (`tone` de `Chip`, `className` de `IconBox` y `AccordionItem`, `as` de `Reveal`); `tracking-wordmark`; se quitaron `text-subsection` y `text-body-md`.
+  - Verificado sobre el build de producción (`next start`): 6 anchos con y sin movimiento reducido, axe-core sin violaciones en 390 y 1440, un solo `h1` y sin saltos de nivel, sin scroll horizontal ni áreas táctiles < 44 px; efecto del footer igual a `footer/opcionB.json` (diferencias de 1–6 px río arriba por las anotaciones de la demo, que perdieron un borde transparente de 1 px). `npm run lint`, `npx tsc --noEmit` y `npm run build` sin errores.
+  - Se dejó igual a propósito: eyebrows (excepción aprobada), desplazamientos `[17px]`/`[21px]` del header, hex en la imagen Open Graph (`ImageResponse` no lee variables CSS), el menú móvil no cierra con Escape.
+
 ## En curso
-- **Paso 5 — Cierre**: DESIGN.md y PRODUCT.md finales, impeccable audit + polish, review-animations, código limpio, QA en 6 tamaños, lint y build, reporte final.
+- Nada.
 
 ## Siguiente
-- Nada más: el paso 5 es el último.
+- Revisión final del usuario y, si la aprueba, push o PR (nunca se ha hecho push de la rama).
 
 ## Decisiones tomadas
 - Tokens con los nombres del tutor en inglés: `bg, surface, line, ink, muted, primary, primary-dark, tint, sand, sand-2, shelf, sand-line, footer`. El paso 2 renombra `accent* → primary*/tint` y `border → line` en el código.
@@ -74,6 +79,9 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 ## Preguntas abiertas para el usuario
 - Correo de contacto y dominio definitivos (paso 4).
 - WhatsApp y páginas legales (hoy placeholders en el footer).
+- Nombre de la organización: el JSON-LD dice "Diza" y el footer "Distribuidora Educativa (DIS)".
+- Probar el footer (opción B) en Safari de iPhone: solo se midió en Edge.
+- Fotos reales para los dos huecos de imagen (`DESIGN.md` › "Huecos de imagen").
 - (Resuelta) Footer más alto que la pantalla: en móvil mide 862 px y con `sticky bottom-0` los ~200 px de arriba (el wordmark gigante) no se veían en un viewport de 664 px. El usuario eligió la opción B: anclarlo por arriba cuando no cabe.
 
 ## Notas técnicas
@@ -87,6 +95,8 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 - Script de medición del footer (antes/después): `footer-effect.cjs` en el scratchpad de la sesión; si se pierde, se reescribe (mide position/z-index/radios/alturas y la opacidad del contenedor del header en 6 posiciones de scroll).
 - `review-animations` tiene `disable-model-invocation`: se aplica leyendo `.agents/skills/review-animations/{SKILL,STANDARDS}.md`.
 - Placeholders actuales: `ACTIVATE_URL` y `APP_LOGIN_URL` = `https://tutor.diza.com.mx` (raíz, con TODO); enlaces legales `#`; WhatsApp "Próximamente".
-- Colores fuera de tokens a migrar en el paso 4: `src/app/opengraph-image.tsx` (6 hex vino).
 - `public/images` ya no tiene fotos de stock (`hero_background.jpg`, `libro.png`, `tarjeta-pin.png` y `celular.png` borradas). `images.qualities` de `next.config.ts` se quita en la entrega 5.
 - El acordeón anima `height` (excepción documentada en `DESIGN.md`).
+- QA de cierre (scratchpad): `final-qa.cjs <url> <outDir> [anchos]` (métricas, axe-core y capturas por sección en los 6 anchos; se corre con `-p playwright@1.65.0 -p axe-core@4.10.2`), `final-checks.cjs <url>` (enlace de salto, landmarks, foco del footer, compuerta de hover, metadatos y `Reveal` con y sin movimiento reducido), `footer-brand.cjs <url>` (caja del wordmark pequeño del footer).
+- En Windows, detener la tarea de fondo no mata el árbol de `next dev`/`next start`: el servidor sigue en el puerto 3100. Se localiza con `Get-CimInstance Win32_Process` y se termina con `taskkill /PID <bash raíz> /T /F`. Un servidor de desarrollo viejo puede servir CSS sin las clases nuevas; las mediciones finales se hacen sobre `next start`.
+- En capturas de elemento más altas que el viewport, Playwright también pinta lo que queda por encima de la pantalla; por eso el enlace de salto es transparente sin foco.

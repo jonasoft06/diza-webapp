@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { MotionPreferences } from "@/components/motion/motion-preferences";
+import { seo } from "@/content/landing";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -18,27 +19,23 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-const TITLE = "Diza: el tutor académico con IA que viene con tu libro";
-const DESCRIPTION =
-  "Tutor académico con IA para bachillerato, incluido con tu libro. Te guía con preguntas y cita la página donde está cada respuesta. Actívalo con tu PIN.";
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: TITLE,
-  description: DESCRIPTION,
+  title: seo.title,
+  description: seo.description,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "es_MX",
     url: "/",
     siteName: SITE_NAME,
-    title: TITLE,
-    description: DESCRIPTION,
+    title: seo.title,
+    description: seo.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
+    title: seo.title,
+    description: seo.description,
   },
   robots: { index: true, follow: true },
 };

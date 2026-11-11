@@ -1,4 +1,4 @@
-import { createCn } from "cn/config"
+import { createCn } from "cn/config";
 
 /**
  * `cn` resolves conflicting Tailwind classes by keeping the last one. It knows
@@ -12,7 +12,7 @@ import { createCn } from "cn/config"
 export const cn = createCn({
   extend: {
     theme: {
-      text: ["hero", "section", "subsection", "wordmark", "body-sm", "body-md"],
+      text: ["hero", "section", "wordmark", "body-sm"],
     },
   },
-})
+});

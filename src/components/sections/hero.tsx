@@ -1,9 +1,9 @@
-import { ArrowRight, BookOpen } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { BookCover } from "@/components/product/book-cover";
 import { PinCard } from "@/components/product/pin-card";
 import { ShelfScene } from "@/components/product/shelf-scene";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonArrow } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { hero, PAGE_CHIP_LABEL } from "@/content/landing";
@@ -42,11 +42,7 @@ export function Hero() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <Button href={ACTIVATE_URL} className="w-full sm:w-auto">
               {hero.primaryCta}
-              <ArrowRight
-                className="size-4 transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5"
-                strokeWidth={2.25}
-                aria-hidden="true"
-              />
+              <ButtonArrow />
             </Button>
             <Button href={`#${SECTION_IDS.forTeachers}`} variant="secondary" className="w-full sm:w-auto">
               {hero.secondaryCta}

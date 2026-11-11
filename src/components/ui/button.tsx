@@ -1,9 +1,10 @@
 import type { ComponentProps } from "react"
+import { ArrowRight } from "lucide-react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "group/btn inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full font-sans font-semibold whitespace-nowrap transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out outline-none select-none active:scale-[0.97] active:duration-100 motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+  "group/btn inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full font-sans font-semibold whitespace-nowrap transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out-strong outline-none select-none active:scale-[0.97] active:duration-100 motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -14,7 +15,7 @@ const buttonVariants = cva(
       },
       size: {
         sm: "h-11 px-5 text-sm",
-        lg: "h-12 px-7 text-[0.9375rem] sm:px-8 sm:text-base",
+        lg: "h-12 px-7 text-body-sm sm:px-8 sm:text-base",
       },
     },
     defaultVariants: {
@@ -32,7 +33,6 @@ type ButtonProps = ButtonStyleProps &
     | ({ href?: undefined } & ComponentProps<"button">)
   )
 
-/** Renders an `<a>` when given `href`, otherwise a `<button>`. */
 function Button({ className, variant, size, ...props }: ButtonProps) {
   const classes = cn(buttonVariants({ variant, size, className }))
 
@@ -44,4 +44,15 @@ function Button({ className, variant, size, ...props }: ButtonProps) {
   return <button type={type} className={classes} {...buttonProps} />
 }
 
-export { Button, buttonVariants }
+/** Trailing arrow of a button; it nudges forward on hover through the button's `group/btn`. */
+function ButtonArrow() {
+  return (
+    <ArrowRight
+      className="size-4 transition-transform duration-200 ease-out-strong group-hover/btn:translate-x-0.5"
+      strokeWidth={2.25}
+      aria-hidden="true"
+    />
+  )
+}
+
+export { Button, ButtonArrow }

@@ -44,12 +44,12 @@ function GeneratorScreen() {
             <span className="h-2 w-3/5 rounded-full bg-ink/15" />
           </div>
           <div className="flex flex-col gap-3 lg:gap-6">
-            {bulletBars.map((width) => (
-              <div key={width} className="flex items-start gap-3">
+            {bulletBars.map((widthClass) => (
+              <div key={widthClass} className="flex items-start gap-3">
                 <span className="mt-0.5 size-4 shrink-0 rounded-md bg-tint" />
                 <div className="flex flex-1 flex-col gap-2">
                   <span className="h-2 w-full rounded-full bg-ink/15" />
-                  <span className={cn("h-2 rounded-full bg-ink/15", width)} />
+                  <span className={cn("h-2 rounded-full bg-ink/15", widthClass)} />
                 </div>
               </div>
             ))}

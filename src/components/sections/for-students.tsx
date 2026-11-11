@@ -1,11 +1,10 @@
 import type { ReactNode } from "react";
-import { ArrowRight } from "lucide-react";
 import { Container, Section } from "@/components/layout/container";
 import { Reveal, RevealItem, Stagger } from "@/components/motion/reveal";
 import { ChatScreen } from "@/components/product/chat-screen";
 import { LoginScreen } from "@/components/product/login-screen";
 import { PinCard } from "@/components/product/pin-card";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonArrow } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { forStudents, PIN_LABEL, type StudentStepId } from "@/content/landing";
 import { ACTIVATE_URL, APP_LOGIN_URL, SECTION_IDS } from "@/lib/constants";
@@ -76,11 +75,7 @@ export function ForStudents() {
         <div className="flex flex-col items-stretch gap-1 md:flex-row md:items-center md:gap-6 lg:col-start-2 lg:row-start-1 lg:flex-col lg:items-stretch lg:gap-1">
           <Button href={ACTIVATE_URL} className="w-full md:w-auto">
             {forStudents.primaryCta}
-            <ArrowRight
-              className="size-4 transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5"
-              strokeWidth={2.25}
-              aria-hidden="true"
-            />
+            <ButtonArrow />
           </Button>
           <Button href={APP_LOGIN_URL} variant="link" size="sm" className="px-4">
             {forStudents.secondaryCta}

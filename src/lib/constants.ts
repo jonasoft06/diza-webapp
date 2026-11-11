@@ -14,6 +14,9 @@ export const SECTION_IDS = {
 /** Observed by the header to hide the navbar once the footer is revealed. */
 export const FOOTER_ID = "site-footer";
 
+/** Target of the skip link, so keyboard users can jump past the navbar. */
+export const MAIN_ID = "contenido";
+
 export const SITE_NAME = "Diza";
 
 // ---------------------------------------------------------------------------
@@ -23,7 +26,7 @@ export const SITE_NAME = "Diza";
 /** TODO: dominio definitivo sin confirmar. */
 export const SITE_URL = "https://diza.com.mx";
 
-export const TUTOR_URL = "https://tutor.diza.com.mx";
+const TUTOR_URL = "https://tutor.diza.com.mx";
 
 /** TODO: las rutas de activación todavía no existen; por ahora lleva al tutor. */
 export const ACTIVATE_URL = TUTOR_URL;

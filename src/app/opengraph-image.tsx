@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { hero } from "@/content/landing";
+import { hero, PAGE_CHIP_LABEL, seo } from "@/content/landing";
 
 const FONT_FAMILY = "Plus Jakarta Sans";
 
@@ -21,7 +21,7 @@ const colors = {
   tint: "#E4EEF2",
 };
 
-export const alt = "Diza: tu libro ya viene con tutor";
+export const alt = seo.ogImageAlt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -79,7 +79,7 @@ export default async function Image() {
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", fontSize: 30, color: colors.muted, maxWidth: 760 }}>
-            Te guía con preguntas y cita la página de tu libro.
+            {seo.ogTagline}
           </div>
           <div
             style={{
@@ -93,7 +93,7 @@ export default async function Image() {
               borderRadius: 999,
             }}
           >
-            Pág. 42
+            {PAGE_CHIP_LABEL}
           </div>
         </div>
       </div>

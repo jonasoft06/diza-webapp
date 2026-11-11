@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { FooterHeightObserver } from "@/components/layout/footer-height-observer";
-import { footer } from "@/content/landing";
-import { FOOTER_ID } from "@/lib/constants";
+import { a11y, footer } from "@/content/landing";
+import { FOOTER_ID, SUPPORT_MAILTO } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 const linkClass =
-  "flex min-h-11 items-center text-sm text-white/75 transition-colors hover:text-white";
+  "flex min-h-11 items-center text-sm text-white/75 transition-colors hover:text-white focus-visible:outline-white";
 
 export function Footer() {
   return (
@@ -27,10 +28,11 @@ export function Footer() {
 
         <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-xs sm:col-span-2 lg:col-span-1">
+            {/* The extra height reaches the 44px touch target; the negative margin keeps the layout where it was. */}
             <Link
               href="/"
-              aria-label="Diza, inicio"
-              className="text-2xl font-bold tracking-[-0.03em] text-white"
+              aria-label={a11y.homeLabel}
+              className="-my-1.5 flex min-h-11 w-fit items-center text-2xl font-bold tracking-wordmark text-white focus-visible:outline-white"
             >
               diza
             </Link>
@@ -54,7 +56,7 @@ export function Footer() {
             <p className="text-eyebrow text-white/60">{footer.contactHeading}</p>
             <ul className="mt-2">
               <li>
-                <a href={`mailto:${footer.supportEmail}`} className={linkClass}>
+                <a href={SUPPORT_MAILTO} className={linkClass}>
                   {footer.supportEmail}
                 </a>
               </li>
@@ -70,7 +72,7 @@ export function Footer() {
         <div className="mt-10 flex flex-col items-center gap-4 border-t border-white/15 pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <div className="flex flex-wrap items-center justify-center gap-x-6">
             {footer.legalLinks.map((link) => (
-              <a key={link.label} href={link.href} className={`${linkClass} text-xs`}>
+              <a key={link.label} href={link.href} className={cn(linkClass, "text-xs")}>
                 {link.label}
               </a>
             ))}

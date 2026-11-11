@@ -4,16 +4,13 @@ import { cn } from "@/lib/utils"
 
 type ChipProps = ComponentProps<"span"> & {
   icon?: LucideIcon
-  /** `tint` sits on white surfaces, `surface` sits on tinted ones. */
-  tone?: "tint" | "surface"
 }
 
-function Chip({ icon: Icon, tone = "tint", className, children, ...props }: ChipProps) {
+function Chip({ icon: Icon, className, children, ...props }: ChipProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold text-primary",
-        tone === "tint" ? "bg-tint" : "bg-surface",
+        "inline-flex items-center gap-1.5 rounded-full bg-tint px-2.5 py-1 text-xs font-semibold text-primary",
         className
       )}
       {...props}

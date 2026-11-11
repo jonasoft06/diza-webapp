@@ -23,10 +23,10 @@
   /* Type scale (see DESIGN.md). */
   --text-hero: clamp(2.5rem, 5vw, 4.5rem);
   --text-section: clamp(2rem, 3.5vw, 3rem);
-  --text-subsection: clamp(1.625rem, 2.1vw, 2.125rem);
   --text-wordmark: clamp(6rem, 18vw, 16rem);
   --text-body-sm: 0.9375rem;
-  --text-body-md: 1.0625rem;
+
+  --tracking-wordmark: -0.03em;
 
   /* Radii. The scale below intentionally overrides Tailwind's defaults. */
   --radius: 0.625rem;

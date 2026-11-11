@@ -13,7 +13,7 @@ function PinCard({ label, className }: PinCardProps) {
   return (
     <div
       className={cn(
-        "flex aspect-[3/2] w-28 origin-bottom -rotate-6 flex-col justify-between rounded-lg border border-line bg-surface p-3 drop-shadow-object sm:w-32 md:w-40 lg:w-36",
+        "flex aspect-3/2 w-28 origin-bottom -rotate-6 flex-col justify-between rounded-lg border border-line bg-surface p-3 drop-shadow-object sm:w-32 md:w-40 lg:w-36",
         className
       )}
     >

@@ -45,10 +45,16 @@ components:
     backgroundColor: "{colors.surface}"
     borderColor: "{colors.line}"
     textColor: "{colors.ink}"
-  card:
+  button-link:
+    textColor: "{colors.primary}"
+  accordion-item:
     backgroundColor: "{colors.surface}"
     borderColor: "{colors.line}"
     radius: "1.375rem"
+  highlight-panel:
+    backgroundColor: "{colors.primary}"
+    textColor: "#FFFFFF"
+    radius: "2rem"
 ---
 
 # Design System: Diza
@@ -75,7 +81,7 @@ Los nombres de token son los del tutor, en inglés. En código se exponen como u
 
 ### Base
 - **bg** (`#F9F8F6`): fondo de página y de las secciones neutras.
-- **surface** (`#FFFFFF`): tarjetas, header, burbujas de Diza, pantallas de mockup.
+- **surface** (`#FFFFFF`): ítems del acordeón, header, burbujas de Diza, pantallas de mockup.
 - **line** (`#E7E4DF`): bordes de 1px y separadores sobre `bg` y `surface`.
 
 ### Texto
@@ -132,15 +138,18 @@ Los nombres de token son los del tutor, en inglés. En código se exponen como u
 
 > La variable de fuente se declara en `<html>`, no en `<body>`. Declararla en `<body>` deja a `html { font-sans }` sin resolver y el documento cae a un serif del sistema.
 
-**Fraunces** solo se carga si la página incluye portadas de libro ilustradas, y solo se aplica dentro de la portada. Nunca en títulos, texto ni interfaz.
+**Fraunces** (600) se aplica solo dentro de la portada ilustrada (`BookCover`, utilidad `font-book-cover`). Nunca en títulos, texto ni interfaz.
+
+**Imagen Open Graph:** `ImageResponse` no puede usar `next/font`; lee los `.ttf` de Plus Jakarta Sans (400/600/700) de `src/assets/fonts/` (licencia `OFL.txt` incluida).
 
 ### Escala
 - **h1** (`text-hero`): `clamp(2.5rem, 5vw, 4.5rem)`, peso 700. Uno solo por página.
 - **h2** (`text-section`): `clamp(2rem, 3.5vw, 3rem)`, peso 600.
-- **h2 secundario** (`text-subsection`): `clamp(1.625rem, 2.1vw, 2.125rem)`, peso 600.
-- **h3** (títulos de tarjeta): 1rem–1.25rem, peso 600.
+- **h3** (títulos de paso, de anotación y de lista): 1.125rem–1.25rem, peso 600.
 - **body**: 1rem–1.125rem, peso 400, `line-height: 1.6`. Nunca menos de 16px en texto de lectura.
+- **body-sm** (`text-body-sm`): 0.9375rem. Texto de apoyo, respuestas del acordeón y botón `lg` en móvil.
 - **eyebrow** (`text-eyebrow`): 0.75rem, peso 600, mayúsculas, `letter-spacing: 0.12em`.
+- **wordmark** (`text-wordmark`, `clamp(6rem, 18vw, 16rem)`): solo el `diza` gigante del footer. El wordmark pequeño usa `tracking-wordmark` (`-0.03em`).
 
 Los encabezados llevan `letter-spacing: -0.02em`, `line-height: 1.1` y `text-wrap: balance` desde la capa base. El texto de lectura no pasa de ~70 caracteres por línea.
 
@@ -155,20 +164,38 @@ Los encabezados llevan `letter-spacing: -0.02em`, `line-height: 1.1` y `text-wra
 - Mobile-first: los estilos base son para 360px y se agrega complejidad con `sm` / `md` / `lg`. Se verifica en 360, 390, 768, 1024, 1280 y 1440, sin scroll horizontal.
 - Contenedor: `max-w-6xl` centrado.
 - Padding de sección: `py-20` / `lg:py-24`, `px-4` / `sm:px-6` / `lg:px-8`.
-- Radios: tarjetas `rounded-3xl` (1.375rem), paneles `rounded-panel` (2rem), pantallas de mockup `rounded-screen` (1.5rem), pastillas `rounded-full`, cuadros de icono `rounded-xl`, unión de secciones `rounded-seam` (2.5rem / 3rem).
+- Radios: ítems del acordeón, píldora del header y anotaciones `rounded-3xl` (1.375rem), paneles y escenas `rounded-panel` (2rem), pantallas de mockup `rounded-screen` (1.5rem), pastillas `rounded-full`, cuadros de icono `rounded-xl`, unión de secciones `rounded-seam` (2.5rem / 3rem).
 - Objetivos táctiles de 44×44px como mínimo.
 - `scroll-margin-top: 6rem` en todo elemento con `id`, para que el header fijo no tape los títulos.
-- Semántica: un `h1`, cada sección es un `<section>` con su `h2`, las tarjetas usan `h3`. `lang="es-MX"`.
+- Semántica: un `h1`, cada sección es un `<section>` con su `h2`, los pasos y las listas usan `h3`. `lang="es-MX"`.
+- Landmarks: `header` (banner), `main#contenido` (del hero a las preguntas frecuentes), el cierre como `region` con nombre (`aria-labelledby`) y `footer` (contentinfo). El cierre queda fuera de `main` porque comparte contenedor con el footer (ver "Footer (contrato)").
+- Enlace "Saltar al contenido": primer elemento enfocable, visible solo con foco, por encima del header.
+
+### Bloques de la página (orden final)
+
+| # | Bloque | Ancla | Fondo | Composición |
+| --- | --- | --- | --- | --- |
+| 0 | Header | — | transparente arriba, píldora `surface` al hacer scroll | wordmark, navegación (desde `lg`), "Ya tengo cuenta", "Activar mi libro"; menú desplegable en móvil |
+| 1 | Hero | — | `bg` | `h1` + dos CTA; escena de repisa (`ShelfScene`, `BookCover`, `PinCard`, burbuja con `Chip`) |
+| 2 | Cómo funciona | `#como-funciona` | `bg` | `ConversationDemo`: celular con la conversación y tres anotaciones que se resaltan |
+| 3 | Para alumnos | `#alumnos` | `sand` | tres pasos con objetos sobre un tablón (tarjeta, inicio de sesión, conversación) + CTA |
+| 4 | Para maestros | `#para-maestros` | `bg` | lista de tres con `IconBox`, maqueta `GeneratorScreen`, aviso de beta y "Solicitar acceso" |
+| 5 | Privacidad | `#privacidad` | panel `primary` | el único bloque destacado de la página |
+| 6 | Preguntas frecuentes | `#preguntas-frecuentes` | `bg` | título a 4/12 y acordeón de ocho preguntas a 8/12 |
+| 7 | Cierre | `#activar` | `sand` | pregunta + CTA + escena de repisa reducida; es la sección que destapa el footer |
+| 8 | Footer | `#site-footer` | `footer` | wordmark gigante, enlaces de producto, contacto y legales |
+
+Los anclajes viven en `SECTION_IDS` (`src/lib/constants.ts`) y los textos en `src/content/landing.ts`, incluidos los `aria-label` (`a11y`) y los textos de metadata e imagen Open Graph (`seo`).
 
 ## Elevation & Depth
 
 Sombras neutras y muy suaves, derivadas de `ink`. Nunca tintadas de petróleo ni duras.
 
 - **shadow-card**: `0 1px 2px rgb(30 43 51 / 0.04), 0 8px 24px rgb(30 43 51 / 0.05)`.
-- **shadow-card-hover**: `0 2px 4px rgb(30 43 51 / 0.05), 0 14px 34px rgb(30 43 51 / 0.09)`.
+- **shadow-card-hover**: `0 2px 4px rgb(30 43 51 / 0.05), 0 14px 34px rgb(30 43 51 / 0.09)`. Hoy solo la usa el ítem del acordeón en hover.
 - **drop-shadow-object**: `0 10px 18px rgb(30 43 51 / 0.18)`, para objetos recortados (libro, tarjeta, celular) apoyados en una escena.
 
-**The Hairline Rule.** La definición de una tarjeta viene del borde de 1px, no de la sombra.
+**The Hairline Rule.** La definición de una superficie viene del borde de 1px, no de la sombra.
 
 ## Components
 
@@ -177,21 +204,33 @@ Sombras neutras y muy suaves, derivadas de `ink`. Nunca tintadas de petróleo ni
 - **Button** — pastilla completa; `<a>` si recibe `href`, `<button>` si no.
   - `primary`: fondo `primary`, texto blanco, hover `primary-dark`.
   - `secondary`: fondo `surface`, borde `line`, texto `ink`, hover `tint`.
+  - `link`: solo texto `primary`, hover `primary-dark`. Para la acción secundaria junto a un botón ("Ya tengo cuenta", "Escríbenos", "Solicitar acceso" en el cierre).
   - Tamaños: `sm` 44px (nav), `lg` 48px (CTA). `active:scale-[0.97]` y anillo de foco `primary`.
-- **Card** — `surface` (blanco + borde + `shadow-card`), `flat` (sin sombra), `accent` (fondo `primary`, texto blanco: el bloque destacado). `interactive` eleva 4px en hover, solo con puntero fino.
+  - `ButtonArrow`: flecha final que avanza 2px en hover. Va solo en el CTA principal de una sección.
 - **IconBox** — cuadro de 44px, `rounded-xl`, fondo `tint`, icono Lucide `primary` con `strokeWidth 1.75`. Único tratamiento de icono.
-- **Chip** — pastilla con icono de libro y "Pág. N". Tonos `tint` y `surface`. Es el motivo de marca: resume que toda respuesta se ancla a una página.
-- **Eyebrow**, **SectionHeading**, **Accordion** (Base UI, apertura múltiple).
+- **Chip** — pastilla `tint` con texto `primary` e icono opcional. Con el icono de libro y "Pág. N" es el motivo de marca: resume que toda respuesta se ancla a una página. También marca "Beta" en Para maestros.
+- **Eyebrow** — etiqueta en mayúsculas sobre un título.
+- **Accordion** (Base UI, apertura múltiple) — ítem `surface` con borde `line`, `rounded-3xl` y `shadow-card`; el icono `+` gira 45° al abrir.
 - **Container / Section** (`src/components/layout`).
 
-### Derivados del producto
+No existe un componente `Card`: la página no se apoya en tarjetas.
 
-Se construyen en código, con tokens, a partir de lo que el alumno y el maestro ven de verdad. La lista final se fija al cierre del rediseño.
+### Derivados del producto (`src/components/product`)
 
-- **Chip de página** — ya existe (`Chip`).
-- **Tarjeta con PIN** — la tarjeta impresa que viene aparte del libro.
-- **Escena de repisa / pupitre** — plano `shelf` con canto `sand-line` donde se apoyan libro, tarjeta o celular.
-- **Mockups del tutor** — pantallas hechas en código (conversación del alumno, generador del maestro), no capturas. Su contenido es ilustrativo y no nombra libros reales.
+Se construyen en código, con tokens, a partir de lo que el alumno y el maestro ven de verdad. Su contenido es ilustrativo y no nombra libros reales.
+
+- **BookCover** — portada ilustrada 3:4 en `primary`, con lomo y título en Fraunces. Sustituye a la foto del libro.
+- **PinCard** — la tarjeta impresa 3:2 que viene aparte del libro, con el PIN en puntos. Sustituye a la foto de la tarjeta.
+- **ShelfScene** — panel `sand` con un plano `shelf` y canto `sand-line` donde se apoyan libro, tarjeta o celular.
+- **PhoneFrame** — marco de celular 3:5 para una pantalla del tutor; `compact` para los pasos de Para alumnos.
+- **LoginScreen** y **ChatScreen** — pantallas mínimas (inicio de sesión con correo institucional y PIN; conversación con chip de página) para los pasos 2 y 3 de Para alumnos.
+- **GeneratorScreen** — maqueta del generador del maestro (`role="img"` con descripción).
+- **ConversationDemo** (`src/components/sections`) — la conversación de "Cómo funciona": se reproduce una sola vez al entrar en pantalla y resalta la anotación que corresponde a cada turno.
+
+### Otros
+
+- **Reveal / Stagger / RevealItem** (`src/components/motion`) — ver Motion.
+- **JsonLd** (`src/components/json-ld.tsx`) — datos estructurados `Organization` y `FAQPage`; el segundo se genera desde `faq.entries`, así que la página y el JSON-LD no pueden divergir.
 
 ### Huecos de imagen
 
@@ -210,17 +249,21 @@ La foto de la tarjeta debe ser la tarjeta verdadera en cuanto exista: el alumno 
 
 El comportamiento del footer no se cambia sin aprobación explícita.
 
-- `sticky bottom-0`, `z-0`. La sección anterior lleva `relative z-10` y esquinas inferiores `rounded-b-seam`, y lo destapa al hacer scroll. Si esa sección cambia, la nueva hereda esas clases y el efecto queda igual.
+- `sticky`, `z-0`. La sección anterior (hoy el cierre, `#activar`) lleva `relative z-10` y esquinas inferiores `rounded-b-seam`, y lo destapa al hacer scroll. Si esa sección cambia, la nueva hereda esas clases y el efecto queda igual.
+- El cierre y el footer comparten un contenedor `relative` propio en `page.tsx`. Ese contenedor limita el tramo en el que el footer queda fijo: no se quita ni se amplía, y el footer no entra en `main`. Si el contenedor abarcara toda la página, `use-footer-in-view` vería siempre el footer y el navbar no aparecería.
+- Mientras cabe en pantalla, queda fijo por su borde inferior (`bottom: 0`). Si es más alto que la pantalla (móviles bajos), queda fijo por su borde superior para que el wordmark se destape primero y el resto se recorra después: `bottom: min(0px, calc(100dvh - var(--footer-height)))`. `FooterHeightObserver` (cliente, `ResizeObserver`) publica `--footer-height`; sin JavaScript vale 0 y el footer se comporta como `bottom-0`. Aprobado el 2026-11-11 (opción B).
 - Conserva el wordmark gigante `diza` (`text-wordmark`, `white/8`, decorativo) y el grano de papel (`paper-grain`).
-- Fondo `footer`. Texto principal blanco, secundario `white/75`, encabezados de columna `white/60`, separador `white/15`.
+- Fondo `footer`. Texto principal blanco, secundario `white/75`, encabezados de columna `white/60`, separador `white/15`. El anillo de foco es blanco (el `primary` global no contrasta sobre `footer`).
 - `use-footer-in-view` observa `#site-footer` y oculta el navbar cuando el footer entra en vista.
 
 ## Motion
 
 Librería: Motion (`motion/react`). No se instala ninguna otra. `MotionConfig reducedMotion="user"` envuelve la app en el layout raíz.
 
-- **Revelado al hacer scroll**: fundido o fundido + 16px hacia arriba, `viewport={{ once: true }}`. `Reveal` / `Stagger` / `RevealItem` en `src/components/motion/reveal.tsx` centralizan variantes y viewport.
-- **Stagger**: 30–80ms entre hijos.
+- **Revelado al hacer scroll**: fundido o fundido + 16px hacia arriba, `viewport={{ once: true }}`. `Reveal` / `Stagger` / `RevealItem` en `src/components/motion/reveal.tsx` centralizan variantes y viewport. Los títulos entran con fundido; las piezas (maquetas, pasos, ítems del acordeón) con fundido + 16px.
+- **Curva en Motion**: `EASE_OUT_STRONG` (`src/components/motion/easing.ts`), la misma que `--ease-out-strong`.
+- **Stagger**: 60ms entre hijos (rango permitido: 30–80ms).
+- **Hero**: el subrayado del titular se dibuja y la burbuja de la escena entra una sola vez, con CSS (`animate-underline`, `animate-bubble-in`).
 - **Interacción**: press 100–160ms, hover 200ms, acordeón y navbar hasta 250ms, con `--ease-out-strong` (`cubic-bezier(0.23, 1, 0.32, 1)`).
 - **Ligado al scroll**: `useScroll` / `useTransform` sobre `transform` y `opacity`, o CSS (`position: sticky`). Sin listeners de scroll propios para animar.
 - **Animación explicativa** (por ejemplo el mockup de conversación): puede durar más de 300ms porque enseña cómo funciona el producto.
@@ -233,18 +276,18 @@ Librería: Motion (`motion/react`). No se instala ninguna otra. `MotionConfig re
 
 **The Entering Ease Rule.** Lo que entra o sale usa `ease-out` fuerte. Lo que se mueve en pantalla, `ease-in-out`. Nunca `ease-in`.
 
-**The GPU Rule.** Solo se animan `transform` y `opacity`. En Motion se escribe la cadena completa (`transform: "translateY(16px)"`), no los atajos `x` / `y` / `scale`. Nunca `transition: all` ni entradas desde `scale(0)`. Única excepción: la altura del panel del acordeón, porque su contenido debe empujar el resto de la página.
+**The GPU Rule.** Solo se animan `transform` y `opacity`. En Motion se escribe la cadena completa (`transform: "translateY(16px)"`), no los atajos `x` / `y` / `scale`. Nunca `transition: all` ni entradas desde `scale(0)`. Dos excepciones, ambas de altura: el panel del acordeón (`height`), porque su contenido debe empujar el resto de la página, y el menú móvil del header (`grid-template-rows`), que al ser `fixed` no recalcula el layout de la página.
 
-**The Hover Gate Rule.** El movimiento en hover va bajo `@media (hover: hover) and (pointer: fine)`. Nada depende de hover para funcionar.
+**The Hover Gate Rule.** El movimiento en hover solo ocurre donde hay hover real. Tailwind v4 ya envuelve `hover:` y `group-hover:` en `@media (hover: hover)`; fuera de Tailwind se escribe esa media query a mano. Nada depende de hover para funcionar.
 
-**The Reduced-Motion Rule.** Con `prefers-reduced-motion: reduce` se elimina el movimiento y se conservan las transiciones de opacidad y color (200ms). El contenido se ve completo sin animación. Nunca un apagado global de 0.01ms sobre las transiciones.
+**The Reduced-Motion Rule.** Con `prefers-reduced-motion: reduce` se elimina el movimiento y se conservan las transiciones de opacidad y color (200ms). El contenido se ve completo sin animación. Nunca un apagado global de 0.01ms sobre las transiciones. En Motion, `MotionConfig reducedMotion="user"` solo neutraliza los atajos (`x`, `y`…), no la cadena `transform`: cada componente que anima `transform` consulta `useReducedMotion()` y deja esa transición en 0.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** usar petróleo solo para acción y para la voz de Diza.
 - **Do** usar arena donde hay libro, tarjeta, repisa o pupitre.
-- **Do** definir las tarjetas con borde de 1px + sombra suave.
+- **Do** definir las superficies elevadas (ítems del acordeón, píldora del header) con borde de 1px + sombra suave.
 - **Do** usar `IconBox` para todo icono y `Chip` para reforzar el ancla al libro.
 - **Do** verificar el contraste de cualquier par u opacidad nueva y agregarlo a la tabla.
 - **Do** alternar composición entre secciones (escena, mockup, lista, acordeón, bloque destacado).

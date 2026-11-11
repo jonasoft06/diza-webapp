@@ -11,7 +11,7 @@ function LoginScreen() {
   return (
     <PhoneFrame compact>
       <div className="flex flex-1 flex-col justify-center gap-1.5 md:gap-2">
-        <span className="text-center text-xs font-bold tracking-[-0.03em] text-primary md:text-sm">diza</span>
+        <span className="text-center text-xs font-bold tracking-wordmark text-primary md:text-sm">diza</span>
         <div className={FIELD_CLASSES}>
           <Mail className="size-2.5 shrink-0 text-primary md:size-3" strokeWidth={2} />
           <span className="h-1 flex-1 rounded-full bg-ink/20" />

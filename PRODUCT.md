@@ -59,8 +59,25 @@ Diza no es un chatbot general ni un libro digital. Su mecanismo es estar limitad
 - Las rutas de activación e inicio de sesión en `tutor.diza.com.mx` todavía no existen: viven en `src/lib/constants.ts` con TODO.
 
 **Sin decidir (no resolver sin preguntar)**
-- Dominio y correo de contacto definitivos.
-- Número de WhatsApp y páginas de aviso de privacidad y términos.
+- Dominio y correo de contacto definitivos. Hoy: `https://diza.com.mx` y `contacto@diza.com`, provisionales, en `src/lib/constants.ts` con TODO.
+- Número de WhatsApp y páginas de aviso de privacidad y términos (hoy "Próximamente" y enlaces `#` en el footer).
+- Nombre de la organización en los datos estructurados: el JSON-LD dice "Diza" y el pie de página nombra a "Distribuidora Educativa (DIS)".
+
+## Landing: bloques finales
+
+Orden de lectura: primero qué es Diza, después alumnos, después maestros; cierra con dudas, CTA y footer. Detalle visual en `DESIGN.md` › "Bloques de la página".
+
+| Bloque | Qué resuelve | Acción |
+| --- | --- | --- |
+| Hero | Qué es: "Tu libro ya viene con tutor." | "Activar mi libro" → tutor; "Soy maestro" → Para maestros |
+| Cómo funciona | Demuestra el mecanismo con una conversación: pregunta antes de responder y cita la página | — |
+| Para alumnos | Tres pasos: tarjeta con PIN, correo institucional, preguntar | "Activar mi libro"; "Ya tengo cuenta" |
+| Para maestros | Qué genera (actividades, cuestionarios, planeación) y que está en beta | "Solicitar acceso" (correo prellenado) |
+| Privacidad | Nadie lee las conversaciones; hay límites diarios | — |
+| Preguntas frecuentes | Ocho dudas reales; alimentan el JSON-LD `FAQPage` | "Escríbenos" |
+| Cierre | Última oportunidad de activar | "Activar mi libro"; "Ya tengo cuenta"; "Solicitar acceso" |
+
+No hay testimonios, cifras ni logotipos de escuelas: se retiraron por ser placeholders.
 
 ## Brand Commitments
 
@@ -74,7 +91,7 @@ Diza no es un chatbot general ni un libro digital. Su mecanismo es estar limitad
 
 No hay testimonios, cifras de uso, escuelas ni catálogo público de libros. No se inventan. Cualquier ejemplo dentro de un mockup (materia, número de página, pregunta) es ilustrativo y debe leerse como ejemplo, no como dato.
 
-Material real disponible: fotografía de fondo del hero, libro, tarjeta con PIN y celular (`public/images`). Lo que falte se deja como hueco marcado con contenido, proporción, texto alternativo y prompt sugerido.
+Tampoco hay fotografías reales del producto: las imágenes de stock se retiraron y `public/` no tiene imágenes. El libro, la tarjeta con PIN y las pantallas del tutor están dibujados en código. Los dos huecos de imagen pendientes (tarjeta con PIN real y portada real del libro) están en `DESIGN.md` › "Huecos de imagen", con contenido, proporción, texto alternativo y prompt sugerido.
 
 ## Product Principles
 

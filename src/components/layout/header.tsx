@@ -4,10 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ACTIVATE_CTA_LABEL, ACTIVATE_CTA_SHORT_LABEL, LOGIN_LABEL, navLinks } from "@/content/landing";
+import {
+  a11y,
+  ACTIVATE_CTA_LABEL,
+  ACTIVATE_CTA_SHORT_LABEL,
+  LOGIN_LABEL,
+  navLinks,
+} from "@/content/landing";
 import { useFooterInView } from "@/hooks/use-footer-in-view";
 import { useScrolled } from "@/hooks/use-scrolled";
 import { ACTIVATE_URL, APP_LOGIN_URL } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+
+const mobileLinkClass =
+  "flex min-h-11 items-center rounded-xl px-2 text-sm font-medium text-ink transition-colors hover:bg-tint hover:text-primary";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,18 +28,20 @@ export function Header() {
 
   return (
     <div
-      className={`fixed inset-x-0 top-0 z-50 px-4 pt-4 transition-[opacity,transform] duration-250 ease-out sm:px-6 sm:pt-6 lg:px-8 ${
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 px-4 pt-4 transition-[opacity,transform] duration-250 ease-out-strong sm:px-6 sm:pt-6 lg:px-8",
         isFooterInView ? "pointer-events-none -translate-y-2 opacity-0" : "translate-y-0 opacity-100"
-      }`}
+      )}
     >
       <header
-        className={`mx-auto w-full max-w-6xl rounded-3xl border transition-[background-color,border-color,box-shadow] duration-200 ease-out ${
+        className={cn(
+          "mx-auto w-full max-w-6xl rounded-3xl border transition-[background-color,border-color,box-shadow] duration-200 ease-out-strong",
           isMenuOpen
             ? "border-line bg-surface shadow-card"
             : isScrolled
               ? "border-line bg-surface/95 shadow-card backdrop-blur-md"
               : "border-transparent bg-transparent"
-        }`}
+        )}
       >
         {/* The pill is invisible at the top, so wordmark and actions shift outward by
             padding + border to align with the page content; once the surface appears
@@ -37,20 +49,22 @@ export function Header() {
         <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 sm:py-3">
           <Link
             href="/"
-            aria-label="Diza, inicio"
-            className={`flex min-h-11 min-w-11 items-center rounded-lg text-xl font-bold tracking-[-0.03em] text-primary transition-transform duration-200 ease-out sm:text-2xl ${
+            aria-label={a11y.homeLabel}
+            className={cn(
+              "flex min-h-11 min-w-11 items-center rounded-lg text-xl font-bold tracking-wordmark text-primary transition-transform duration-200 ease-out-strong sm:text-2xl",
               isSolid ? "translate-x-0" : "-translate-x-[17px] sm:-translate-x-[21px]"
-            }`}
+            )}
           >
             diza
           </Link>
 
           <div
-            className={`flex items-center gap-2 transition-transform duration-200 ease-out sm:gap-4 ${
+            className={cn(
+              "flex items-center gap-2 transition-transform duration-200 ease-out-strong sm:gap-4",
               isSolid ? "translate-x-0" : "translate-x-[17px] sm:translate-x-[21px]"
-            }`}
+            )}
           >
-            <nav aria-label="Navegación principal" className="hidden items-center gap-6 lg:flex">
+            <nav aria-label={a11y.mainNav} className="hidden items-center gap-6 lg:flex">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -78,7 +92,7 @@ export function Header() {
               type="button"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-nav"
-              aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+              aria-label={isMenuOpen ? a11y.closeMenu : a11y.openMenu}
               onClick={() => setIsMenuOpen((open) => !open)}
               className="flex size-11 items-center justify-center rounded-xl text-ink transition-colors hover:bg-tint lg:hidden"
             >
@@ -90,13 +104,14 @@ export function Header() {
         {/* grid-rows transition instead of `hidden` so opening/closing is not a jump;
             `inert` keeps the collapsed menu out of the a11y tree and tab order. */}
         <div
-          className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-200 ease-out lg:hidden ${
+          className={cn(
+            "grid overflow-hidden transition-[grid-template-rows,opacity] duration-200 ease-out-strong lg:hidden",
             isMenuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-          }`}
+          )}
         >
           <nav
             id="mobile-nav"
-            aria-label="Navegación principal móvil"
+            aria-label={a11y.mobileNav}
             inert={!isMenuOpen}
             className="min-h-0 overflow-hidden"
           >
@@ -106,17 +121,14 @@ export function Header() {
                   <a
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex min-h-11 items-center rounded-xl px-2 text-sm font-medium text-ink transition-colors hover:bg-tint hover:text-primary"
+                    className={mobileLinkClass}
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
               <li>
-                <a
-                  href={APP_LOGIN_URL}
-                  className="flex min-h-11 items-center rounded-xl px-2 text-sm font-medium text-ink transition-colors hover:bg-tint hover:text-primary"
-                >
+                <a href={APP_LOGIN_URL} className={mobileLinkClass}>
                   {LOGIN_LABEL}
                 </a>
               </li>
