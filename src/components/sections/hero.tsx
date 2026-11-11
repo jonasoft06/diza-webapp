@@ -1,74 +1,83 @@
-import Image from "next/image";
 import { ArrowRight, BookOpen } from "lucide-react";
+import { Container } from "@/components/layout/container";
+import { BookCover } from "@/components/product/book-cover";
+import { PinCard } from "@/components/product/pin-card";
+import { ShelfScene } from "@/components/product/shelf-scene";
 import { Button } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { hero, PAGE_CHIP_LABEL } from "@/content/landing";
 import { ACTIVATE_URL, SECTION_IDS } from "@/lib/constants";
-import deskHero from "@/../public/images/hero_background.jpg";
 
 export function Hero() {
   return (
-    <section className="sticky top-0 isolate flex h-svh items-center justify-center overflow-hidden bg-bg text-ink">
-      <Image
-        src={deskHero}
-        alt={hero.imageAlt}
-        aria-hidden="true"
-        priority
-        fill
-        quality={95}
-        sizes="100vw"
-        className="absolute inset-0 -z-30 h-full w-full object-cover object-[48%_center] sm:object-center"
-      />
-      {/* Neutral scrim: keeps the desk photo as warm texture while guaranteeing AA contrast for ink text. */}
-      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-bg/82" />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-linear-to-b from-transparent to-bg"
-      />
-
-      <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-8">
-        <h1 className="text-hero font-bold text-ink">
-          {hero.titleBefore}{" "}
-          <span className="relative inline-block whitespace-nowrap text-primary">
-            {hero.titleAccent}
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 200 12"
-              preserveAspectRatio="none"
-              className="animate-underline pointer-events-none absolute -bottom-1 left-0 h-[0.28em] w-full text-primary/45"
-            >
-              <path
-                d="M2 8C34 3.5 78 2.4 121 4.2c25 1 51 2.6 77 4.6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
+    <section className="bg-bg px-4 pb-16 pt-24 text-ink sm:px-6 sm:pb-20 sm:pt-28 lg:px-8 lg:pb-24 lg:pt-36">
+      <Container className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-5">
+          <Eyebrow>{hero.eyebrow}</Eyebrow>
+          <h1 className="mt-4 text-hero font-bold text-ink">
+            {hero.titleBefore}{" "}
+            <span className="relative inline-block whitespace-nowrap text-primary">
+              {hero.titleAccent}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 200 12"
+                preserveAspectRatio="none"
+                className="animate-underline pointer-events-none absolute -bottom-1 left-0 h-[0.28em] w-full text-primary/45"
+              >
+                <path
+                  d="M2 8C34 3.5 78 2.4 121 4.2c25 1 51 2.6 77 4.6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+            .
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            {hero.description}
+          </p>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <Button href={ACTIVATE_URL} className="w-full sm:w-auto">
+              {hero.primaryCta}
+              <ArrowRight
+                className="size-4 transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5"
+                strokeWidth={2.25}
+                aria-hidden="true"
               />
-            </svg>
-          </span>
-          .
-        </h1>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-          {hero.description}
-        </p>
-        <div className="mt-6 flex items-center gap-2 text-sm text-muted">
-          <span>{hero.chipLead}</span>
-          <Chip icon={BookOpen}>{PAGE_CHIP_LABEL}</Chip>
+            </Button>
+            <Button href={`#${SECTION_IDS.forTeachers}`} variant="secondary" className="w-full sm:w-auto">
+              {hero.secondaryCta}
+            </Button>
+          </div>
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">{hero.note}</p>
         </div>
-        <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4">
-          <Button href={ACTIVATE_URL} className="w-full sm:w-auto">
-            {hero.primaryCta}
-            <ArrowRight
-              className="size-4 transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5"
-              strokeWidth={2.25}
-              aria-hidden="true"
-            />
-          </Button>
-          <Button href={`#${SECTION_IDS.forTeachers}`} variant="secondary" className="w-full sm:w-auto">
-            {hero.secondaryCta}
-          </Button>
-        </div>
-      </div>
+
+        <figure className="lg:col-span-7">
+          <div aria-hidden="true">
+            {/* Objects grow at md (full-width panel) and shrink back at lg (narrower column). */}
+            <ShelfScene>
+              <div className="flex flex-col items-start">
+                <div className="animate-bubble-in mb-3 max-w-64 rounded-2xl rounded-bl-sm border border-line bg-surface p-4 shadow-card sm:max-w-72 md:max-w-80 lg:max-w-72">
+                  <p className="text-sm leading-snug text-ink sm:text-base md:text-lg lg:text-base">{hero.scene.bubble}</p>
+                  <Chip icon={BookOpen} className="mt-3">
+                    {PAGE_CHIP_LABEL}
+                  </Chip>
+                </div>
+                <div className="flex items-end">
+                  <BookCover title={hero.scene.bookTitle} />
+                  <div className="-ml-4 sm:-ml-5 md:-ml-6 lg:-ml-5">
+                    <PinCard label={hero.scene.pinLabel} />
+                  </div>
+                </div>
+              </div>
+            </ShelfScene>
+          </div>
+          <figcaption className="sr-only">{hero.scene.description}</figcaption>
+        </figure>
+      </Container>
     </section>
   );
 }

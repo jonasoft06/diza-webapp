@@ -34,21 +34,33 @@ export const PAGE_CHIP_LABEL = "Pág. 42";
 /** Same label in the navbar, the closing CTA and the footer. */
 export const LOGIN_LABEL = "Ya tengo cuenta";
 
+/** Student CTA: full label for the hero, closing CTA and desktop navbar; short one where the mobile navbar is tight. */
+export const ACTIVATE_CTA_LABEL = "Activar mi libro";
+export const ACTIVATE_CTA_SHORT_LABEL = "Activar";
+
 export const navLinks: NavLink[] = [
   { label: "Cómo funciona", href: `#${SECTION_IDS.howItWorks}` },
+  { label: "Para alumnos", href: `#${SECTION_IDS.students}` },
   { label: "Para maestros", href: `#${SECTION_IDS.forTeachers}` },
-  { label: "Preguntas frecuentes", href: `#${SECTION_IDS.faq}` },
+  { label: "Preguntas", href: `#${SECTION_IDS.faq}` },
 ];
 
 export const hero = {
-  titleBefore: "La tutora que vive dentro de tu",
-  titleAccent: "libro",
+  eyebrow: "Tutor académico con IA",
+  titleBefore: "Tu libro ya viene con",
+  titleAccent: "tutor",
   description:
-    "Diza no te da las respuestas. Te hace las preguntas correctas hasta que encuentres tú mismo — siempre apoyada en las páginas del libro que ya tienes en las manos.",
-  chipLead: "Cada respuesta cita su origen",
-  primaryCta: "Activar mi libro",
+    "Diza es un tutor académico con IA para bachillerato. Te guía con preguntas y te dice en qué página de tu libro está cada respuesta.",
+  primaryCta: ACTIVATE_CTA_LABEL,
   secondaryCta: "Soy maestro",
-  imageAlt: "",
+  note: "Gratis con tu libro. Ten a la mano tu tarjeta con PIN y tu correo institucional.",
+  scene: {
+    description:
+      "Un libro con su tarjeta de PIN sobre una repisa. Diza responde con una pregunta y cita la página 42.",
+    bookTitle: "Tu libro",
+    pinLabel: "PIN",
+    bubble: "Antes de darte la respuesta: ¿qué dice el ejemplo de esta página?",
+  },
 } as const;
 
 export const howItWorks = {
@@ -182,7 +194,7 @@ export const activate = {
   title: "Tu libro ya trae la llave.",
   description: "Toma la tarjeta que viene dentro, activa tu PIN y empieza hoy.",
   chipLead: "Tu primera pregunta empieza aquí",
-  primaryCta: "Activar mi libro",
+  primaryCta: ACTIVATE_CTA_LABEL,
   secondaryCta: LOGIN_LABEL,
   // TODO: reemplazar por video/screenshot real de la plataforma
   mediaPlaceholder: "Video/imagen de la plataforma — próximamente",

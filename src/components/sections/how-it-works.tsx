@@ -11,10 +11,7 @@ const STEP_IMAGE_SIZES = "320px";
 
 export function HowItWorks() {
   return (
-    <Section
-      id={SECTION_IDS.howItWorks}
-      className="relative z-10 overflow-x-clip rounded-t-seam sm:rounded-t-seam-lg"
-    >
+    <Section id={SECTION_IDS.howItWorks} className="overflow-x-clip">
       <Container>
         <Reveal variant="fade">
           <SectionHeading eyebrow={howItWorks.eyebrow} title={howItWorks.title} />

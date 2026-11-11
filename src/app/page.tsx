@@ -12,11 +12,8 @@ export default function Home() {
   return (
     <>
       <Header />
-      {/* Hero stays pinned while HowItWorks slides over it. */}
-      <div className="relative">
-        <Hero />
-        <HowItWorks />
-      </div>
+      <Hero />
+      <HowItWorks />
       <Benefits />
       <ForTeachers />
       <FAQ />

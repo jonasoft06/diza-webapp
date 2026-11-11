@@ -4,6 +4,7 @@
  */
 export const SECTION_IDS = {
   howItWorks: "como-funciona",
+  students: "alumnos",
   benefits: "beneficios",
   forTeachers: "para-maestros",
   faq: "preguntas-frecuentes",
@@ -18,11 +19,13 @@ export const FOOTER_ID = "site-footer";
 // Placeholders — replace before launch
 // ---------------------------------------------------------------------------
 
-/** TODO: URL real de la app (activación de PIN). */
-export const ACTIVATE_URL = "#";
+export const TUTOR_URL = "https://tutor.diza.com.mx";
 
-/** TODO: URL real de la app (inicio de sesión). */
-export const APP_LOGIN_URL = "#";
+/** TODO: las rutas de activación todavía no existen; por ahora lleva al tutor. */
+export const ACTIVATE_URL = TUTOR_URL;
 
-/** TODO: confirmar correo de soporte real. */
+/** TODO: las rutas de inicio de sesión todavía no existen; por ahora lleva al tutor. */
+export const APP_LOGIN_URL = TUTOR_URL;
+
+/** TODO: correo definitivo sin decidir. */
 export const SUPPORT_EMAIL = "contacto@diza.com";
