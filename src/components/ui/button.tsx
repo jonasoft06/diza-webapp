@@ -10,6 +10,7 @@ const buttonVariants = cva(
         primary: "bg-primary text-white hover:bg-primary-dark",
         secondary:
           "border border-line bg-surface text-ink hover:border-ink/20 hover:bg-tint",
+        link: "text-primary hover:text-primary-dark",
       },
       size: {
         sm: "h-11 px-5 text-sm",

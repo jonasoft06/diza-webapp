@@ -9,7 +9,6 @@ export const SECTION_IDS = {
   privacy: "privacidad",
   faq: "preguntas-frecuentes",
   activate: "activar",
-  testimonials: "testimonios",
 } as const;
 
 /** Observed by the header to hide the navbar once the footer is revealed. */
@@ -33,7 +32,9 @@ export const SUPPORT_EMAIL = "contacto@diza.com";
 const TEACHER_ACCESS_SUBJECT = "Solicitud de acceso para maestros";
 const TEACHER_ACCESS_BODY = ["Nombre:", "Escuela:", "Materia:"].join("\r\n");
 
+export const SUPPORT_MAILTO = `mailto:${SUPPORT_EMAIL}`;
+
 /** Opens the teacher's mail app with the request already half written. */
-export const TEACHER_ACCESS_MAILTO = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(
+export const TEACHER_ACCESS_MAILTO = `${SUPPORT_MAILTO}?subject=${encodeURIComponent(
   TEACHER_ACCESS_SUBJECT,
 )}&body=${encodeURIComponent(TEACHER_ACCESS_BODY)}`;

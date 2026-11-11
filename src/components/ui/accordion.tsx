@@ -34,7 +34,7 @@ function AccordionItem({ value, question, children, className }: AccordionItemPr
         <AccordionPrimitive.Trigger className="group flex min-h-16 w-full items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary sm:px-7">
           <span className="text-body-sm font-semibold text-ink sm:text-base">{question}</span>
           <Plus
-            className="size-5 shrink-0 text-primary transition-transform duration-250 ease-out-strong group-data-open:rotate-45"
+            className="size-5 shrink-0 text-primary transition-transform duration-250 ease-out-strong group-data-panel-open:rotate-45"
             strokeWidth={2}
             aria-hidden="true"
           />

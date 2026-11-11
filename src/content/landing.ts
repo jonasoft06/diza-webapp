@@ -13,8 +13,6 @@ export type TeacherFeature = { icon: LucideIcon; title: string; description: str
 
 export type FaqEntry = { question: string; answer: string };
 
-export type Testimonial = { initials: string; name: string; role: string; quote: string };
-
 export type AnnotationId = "ask" | "guide" | "cite";
 
 export type DemoAnnotation = { id: AnnotationId; title: string; description: string };
@@ -178,66 +176,52 @@ export const privacy = {
 };
 
 export const faq = {
-  eyebrow: "Dudas",
+  eyebrow: "Preguntas frecuentes",
   title: "Lo que suelen preguntarnos",
   entries: [
     {
-      question: "¿Necesito comprar algo extra?",
-      answer: "No. El PIN viene dentro de tu libro, sin costo adicional.",
+      question: "¿Cuánto cuesta?",
+      answer: "Nada. Diza viene incluido con tu libro.",
     },
     {
-      question: "¿Diza me va a resolver la tarea?",
+      question: "¿Dónde está mi PIN?",
       answer:
-        "No. Diza nunca entrega la respuesta de un ejercicio calificable — te devuelve la pregunta y la página donde está la teoría.",
+        "En la tarjeta impresa que viene con tu libro. Es una tarjeta aparte, no una página del libro.",
     },
     {
-      question: "¿Funciona con cualquier libro?",
-      answer: "Funciona con los libros que incluyen la tarjeta de activación de Diza.",
+      question: "¿Con qué correo entro?",
+      answer: "Con tu correo institucional, el que te dio tu escuela.",
     },
     {
-      question: "¿Diza vigila o reporta mi desempeño como maestro?",
+      question: "¿Diza me resuelve la tarea?",
       answer:
-        "No. Diza no evalúa al maestro ni envía conversaciones o evaluaciones a la dirección. Decide usted, no la herramienta.",
+        "No. Te guía con preguntas para que llegues tú a la respuesta y te dice en qué página de tu libro está.",
     },
     {
-      question: "¿Diza reemplaza mi forma de enseñar?",
-      answer:
-        "No. Diza se ancla al mismo libro y temario que ya usas en tu clase — no sustituye tu método, lo refuerza.",
+      question: "¿Alguien puede leer lo que pregunto?",
+      answer: "No. Nadie lee las conversaciones: ni el administrador, ni tu maestro, ni otros alumnos.",
     },
     {
-      question: "¿Necesito configurar algo para empezar a usarlo con mi grupo?",
-      answer:
-        "No. El PIN de tus alumnos ya está vinculado a tu libro; el reporte por alumno está disponible desde el primer uso, sin configuración adicional.",
+      question: "¿Hay límite de uso?",
+      answer: "Sí. Hay un límite diario de uso.",
+    },
+    {
+      question: "Soy maestro, ¿cómo obtengo acceso?",
+      answer: `El acceso para maestros está en beta. Un administrador le da de alta y le asigna sus libros. Puede solicitarlo por correo a ${SUPPORT_EMAIL}.`,
+    },
+    {
+      question: "¿Qué puede ver el maestro de sus alumnos?",
+      answer: "Nada de lo que preguntan. El maestro no ve las conversaciones y no hay reportes por alumno.",
     },
   ] satisfies FaqEntry[],
+  contactQuestion: "¿Otra duda?",
+  contactLink: "Escríbenos",
 };
 
-export const testimonials = {
-  eyebrow: "Qué dicen",
-  title: "Quienes ya usan Diza, confían",
-  description: "Maestros y alumnos que ya integraron Diza a su forma de estudiar y enseñar.",
-  // TODO: reemplazar con testimonios reales
-  entries: [
-    {
-      initials: "R.M.",
-      name: "[Nombre del maestro]",
-      role: "Maestro de Matemáticas",
-      quote:
-        "Por fin puedo ver en qué parte del libro se atoran mis alumnos sin tener que revisar cuaderno por cuaderno.",
-    },
-    {
-      initials: "D.L.",
-      name: "[Nombre del alumno]",
-      role: "Alumno de prepa",
-      quote: "Me ayuda a entender la pregunta sin que me dé la respuesta directa, así sí aprendo.",
-    },
-    {
-      initials: "S.T.",
-      name: "[Nombre del maestro]",
-      role: "Maestra de Español",
-      quote: "Se adapta al libro que ya uso en clase, no tuve que cambiar mi forma de dar la materia.",
-    },
-  ] satisfies Testimonial[],
+export const closing = {
+  question: "¿Ya tienes tu tarjeta?",
+  action: "Activa tu libro.",
+  teacherQuestion: "¿Es maestro?",
 };
 
 export const footer = {

@@ -30,14 +30,26 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
   - Borrados: `activate.tsx`, el export `activate` y las tres fotos de stock. `SECTION_IDS.activate` queda sin uso hasta el cierre de la entrega 5.
   - Huecos de imagen (aprobado por el usuario): no hay bloque punteado visible; la página usa el sustituto en código y el hueco (contenido, proporción, alt, prompt de Recraft) se registra en la tabla de `DESIGN.md` › "Huecos de imagen".
 
-## En curso
-- **Paso 3, entrega 4 — Para maestros + Privacidad**: construida y revisada (1 ronda de corrección); espera aprobación del usuario. Sin commit.
+- **Paso 3, entrega 4 — Para maestros + Privacidad** (2026-11-11) — commit `2a07131`. Las tres líneas de apoyo de la lista de maestros quedaron aprobadas.
   - `for-teachers.tsx` reescrito (`#para-maestros`, de usted): eyebrow + `Chip` "Beta", lista de tres con `IconBox` (sin tarjetas), maqueta `GeneratorScreen` (`src/components/product/`, `role="img"`), aviso de beta y botón "Solicitar acceso" → `TEACHER_ACCESS_MAILTO` (`constants.ts`). Grid de 12 columnas en `lg` (5 + 7) con el DOM en orden móvil.
   - `privacy.tsx` nuevo (`#privacidad`, `SECTION_IDS.privacy`): único panel `primary` sólido de la página. La sección no lleva relleno vertical propio: el panel queda entre el relleno inferior de Para maestros y el superior de la sección siguiente.
   - `landing.ts`: `forTeachers` nuevo y `privacy`; se quitaron `trustLine` y las tarjetas viejas.
 
+- **Paso 3, entrega 5 — Preguntas frecuentes + Cierre + limpieza** (2026-11-11) — con commit. Los textos de las ocho preguntas quedaron aprobados.
+  - `faq.tsx` reescrito (`#preguntas-frecuentes`): 8 preguntas nuevas en `faq.entries` (respuestas en texto plano, sirven para el JSON-LD del paso 4), título a 4/12 y acordeón a 8/12 en `lg`, línea "¿Otra duda? Escríbenos" → `SUPPORT_MAILTO`.
+  - `closing.tsx` nuevo (`#activar`, sobre `sand`): es la sección que destapa el footer (`relative z-10 rounded-b-seam sm:rounded-b-seam-lg`). Escena de repisa reducida (`ShelfScene` y `BookCover` aceptan `className`), decorativa (`aria-hidden`).
+  - `Button` tiene variante `link`; la usan el cierre, la FAQ y "Ya tengo cuenta" de Para alumnos.
+  - Limpieza: borrados `testimonials.tsx`, `card.tsx`, `testimonials`/`Testimonial`, `SECTION_IDS.testimonials`, `images.qualities` y la prop `description` de `SectionHeading`.
+  - Corregido de paso: el ícono del acordeón no giraba al abrir (`group-data-open` → `group-data-panel-open`; Base UI pone `data-panel-open` en el trigger).
+  - Footer medido (`footer/entrega5.json`): position, z-index, radios, grano y wordmark idénticos a `footer/after.json`. El footer mide 44 px más desde la entrega 1 (enlace "Para alumnos" en `navLinks`).
+  - Para el paso 5: `DESIGN.md` todavía documenta `Card`; el footer arma su `mailto:` a mano aunque ya existe `SUPPORT_MAILTO`.
+
+## En curso
+- **Footer más alto que la pantalla — opción B (aprobada por el usuario)**: si el footer no cabe en la pantalla se ancla por arriba y el resto se recorre con scroll; en pantallas donde cabe no cambia nada. Commit aparte.
+- **Paso 4 — SEO**: en construcción (metadata y canonical, Open Graph con los tokens nuevos, JSON-LD Organization + FAQPage, `sitemap.ts`, `robots.ts`, `lang="es-MX"`).
+
 ## Siguiente
-- **Paso 3, entrega 5** — Preguntas frecuentes + Cierre + limpieza (quitar testimonios; el cierre hereda las clases que destapan el footer; volver a medir con `footer-effect.cjs`).
+- **Paso 5 — Cierre** (DESIGN.md y PRODUCT.md finales, impeccable audit + polish, review-animations, código limpio, QA en 6 tamaños, lint y build, reporte final).
 
 ## Decisiones tomadas
 - Tokens con los nombres del tutor en inglés: `bg, surface, line, ink, muted, primary, primary-dark, tint, sand, sand-2, shelf, sand-line, footer`. El paso 2 renombra `accent* → primary*/tint` y `border → line` en el código.
@@ -55,6 +67,7 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 ## Preguntas abiertas para el usuario
 - Correo de contacto y dominio definitivos (paso 4).
 - WhatsApp y páginas legales (hoy placeholders en el footer).
+- (Resuelta) Footer más alto que la pantalla: en móvil mide 862 px y con `sticky bottom-0` los ~200 px de arriba (el wordmark gigante) no se veían en un viewport de 664 px. El usuario eligió la opción B: anclarlo por arriba cuando no cabe.
 
 ## Notas técnicas
 - Playwright: `npx -y -p playwright@1.65.0 node <script>` lanzando con `channel: "msedge"`. El Chromium instalado (1243) no es la revisión que pide 1.65.0 (1254), así que se usa Edge del sistema sin descargar nada. No está en `package.json`. El script resuelve `playwright` desde la entrada `node_modules/.bin` del PATH de npx.

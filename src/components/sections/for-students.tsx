@@ -82,12 +82,9 @@ export function ForStudents() {
               aria-hidden="true"
             />
           </Button>
-          <a
-            href={APP_LOGIN_URL}
-            className="inline-flex min-h-11 items-center justify-center rounded-full px-4 text-sm font-semibold text-primary outline-none hover:text-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          >
+          <Button href={APP_LOGIN_URL} variant="link" size="sm" className="px-4">
             {forStudents.secondaryCta}
-          </a>
+          </Button>
         </div>
 
         <p className="text-sm leading-relaxed text-muted lg:col-span-2 lg:row-start-3">{forStudents.note}</p>
