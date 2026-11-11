@@ -1,49 +1,46 @@
-import { ShieldCheck } from "lucide-react";
 import { Container, Section } from "@/components/layout/container";
-import { Reveal, RevealItem, Stagger } from "@/components/motion/reveal";
-import { Card } from "@/components/ui/card";
+import { Reveal } from "@/components/motion/reveal";
+import { GeneratorScreen } from "@/components/product/generator-screen";
+import { Button } from "@/components/ui/button";
+import { Chip } from "@/components/ui/chip";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { IconBox } from "@/components/ui/icon-box";
 import { forTeachers } from "@/content/landing";
-import { SECTION_IDS } from "@/lib/constants";
+import { SECTION_IDS, TEACHER_ACCESS_MAILTO } from "@/lib/constants";
 
 export function ForTeachers() {
   return (
     <Section id={SECTION_IDS.forTeachers}>
-      <Container>
-        <div className="grid items-stretch gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-8">
-          <Reveal variant="fade">
-            <Card variant="primary" className="paper-grain flex h-full flex-col justify-center p-8 sm:p-9">
-              <Eyebrow className="text-white/75">{forTeachers.eyebrow}</Eyebrow>
-              <h2 className="mt-4 text-subsection font-semibold text-white">{forTeachers.title}</h2>
-              <p className="mt-4 text-body-sm leading-relaxed text-white/85">
-                {forTeachers.description}
-              </p>
-            </Card>
-          </Reveal>
-
-          <Stagger className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-3">
-            {forTeachers.cards.map((card) => (
-              <RevealItem key={card.title}>
-                <Card interactive className="flex h-full flex-col justify-center p-6">
-                  <IconBox icon={card.icon} />
-                  <h3 className="mt-5 text-base font-semibold text-ink lg:text-body-md">
-                    {card.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{card.description}</p>
-                </Card>
-              </RevealItem>
+      <Container className="grid gap-y-10 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-8">
+        <Reveal variant="fade" className="lg:col-span-5 lg:col-start-1 lg:row-start-1">
+          <div className="flex items-center gap-3">
+            <Eyebrow>{forTeachers.eyebrow}</Eyebrow>
+            <Chip>{forTeachers.betaLabel}</Chip>
+          </div>
+          <h2 className="mt-4 text-section font-semibold text-ink">{forTeachers.title}</h2>
+          <ul className="mt-8 flex flex-col gap-5">
+            {forTeachers.features.map((feature) => (
+              <li key={feature.title} className="flex items-start gap-4">
+                <IconBox icon={feature.icon} />
+                <div>
+                  <h3 className="text-lg font-semibold text-ink">{feature.title}</h3>
+                  <p className="mt-1 text-body-sm leading-relaxed text-muted">{feature.description}</p>
+                </div>
+              </li>
             ))}
-          </Stagger>
-        </div>
+          </ul>
+          <p className="mt-6 text-base font-medium text-ink">{forTeachers.exportLine}</p>
+        </Reveal>
 
-        <Reveal>
-          <Card variant="flat" className="mt-4 flex items-start gap-4 p-6 sm:mt-5 sm:items-center sm:p-7">
-            <IconBox icon={ShieldCheck} />
-            <p className="text-body-sm leading-relaxed text-muted sm:text-base">
-              {forTeachers.trustLine}
-            </p>
-          </Card>
+        <Reveal className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:self-center">
+          <GeneratorScreen />
+        </Reveal>
+
+        <Reveal variant="fade" className="flex flex-col items-stretch gap-6 sm:items-start lg:col-span-5 lg:col-start-1 lg:row-start-2">
+          <p className="text-sm leading-relaxed text-muted">{forTeachers.betaNotice}</p>
+          <Button href={TEACHER_ACCESS_MAILTO} className="w-full sm:w-auto">
+            {forTeachers.cta}
+          </Button>
         </Reveal>
       </Container>
     </Section>

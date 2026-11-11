@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { BookOpenCheck, ClipboardList, Layers } from "lucide-react";
+import { CalendarRange, ClipboardList, ListChecks } from "lucide-react";
 import { APP_LOGIN_URL, SECTION_IDS, SUPPORT_EMAIL } from "@/lib/constants";
 
 export type NavLink = { label: string; href: string };
@@ -9,7 +9,7 @@ export type StudentStepId = "card" | "login" | "chat";
 
 export type StudentStep = { id: StudentStepId; title: string; description: string };
 
-export type TeacherCard = { icon: LucideIcon; title: string; description: string };
+export type TeacherFeature = { icon: LucideIcon; title: string; description: string };
 
 export type FaqEntry = { question: string; answer: string };
 
@@ -139,28 +139,42 @@ export const conversation = {
 
 export const forTeachers = {
   eyebrow: "Para maestros",
-  title: "No reemplaza su criterio. Le ahorra las horas.",
-  description:
-    "Diza entiende el libro completo: usted elige el tema o la unidad y obtiene material listo para su clase, sin prepararlo desde cero.",
-  trustLine:
-    "Diza no vigila ni evalúa al maestro, y no envía conversaciones ni evaluaciones a la dirección.",
-  cards: [
+  betaLabel: "Beta",
+  title: "Prepare su clase con el mismo libro que usan sus alumnos.",
+  features: [
     {
       icon: ClipboardList,
-      title: "Actividades listas para clase",
-      description: "Genera actividades a partir del tema que usted elija.",
+      title: "Actividades",
+      description: "Ejercicios para trabajar en clase, a partir del contenido del libro.",
     },
     {
-      icon: Layers,
-      title: "Variaciones de plan de clase",
-      description: "Mismo tema, distintos enfoques según su grupo.",
+      icon: ListChecks,
+      title: "Cuestionarios",
+      description: "Preguntas sobre los temas de la unidad.",
     },
     {
-      icon: BookOpenCheck,
-      title: "Apoyo y guía académica",
-      description: "Material de refuerzo y orientación rápida para resolver dudas.",
+      icon: CalendarRange,
+      title: "Planeación por unidad",
+      description: "Una propuesta para organizar la unidad, que usted ajusta a su grupo.",
     },
-  ] satisfies TeacherCard[],
+  ] satisfies TeacherFeature[],
+  exportLine: "Exporte a PDF o Word.",
+  betaNotice: "Acceso para maestros en beta. Un administrador le da de alta y le asigna sus libros.",
+  cta: "Solicitar acceso",
+  generator: {
+    description:
+      "Ilustración del generador para maestros: pestañas de Actividad, Cuestionario y Planeación, selector de unidad, vista previa de un documento y botones para exportar a PDF o Word.",
+    tabs: ["Actividad", "Cuestionario", "Planeación"],
+    unit: "Unidad 2",
+    exportFormats: ["PDF", "Word"],
+  },
+};
+
+export const privacy = {
+  eyebrow: "Privacidad",
+  title: "Nadie lee las conversaciones.",
+  exclusions: ["Ni el administrador", "Ni el maestro", "Ni otros alumnos"],
+  closing: "Tampoco hay reportes por alumno.",
 };
 
 export const faq = {

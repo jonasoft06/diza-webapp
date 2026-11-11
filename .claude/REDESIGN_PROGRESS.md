@@ -31,7 +31,10 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
   - Huecos de imagen (aprobado por el usuario): no hay bloque punteado visible; la página usa el sustituto en código y el hueco (contenido, proporción, alt, prompt de Recraft) se registra en la tabla de `DESIGN.md` › "Huecos de imagen".
 
 ## En curso
-- **Paso 3, entrega 4 — Para maestros + Privacidad**: en construcción.
+- **Paso 3, entrega 4 — Para maestros + Privacidad**: construida y revisada (1 ronda de corrección); espera aprobación del usuario. Sin commit.
+  - `for-teachers.tsx` reescrito (`#para-maestros`, de usted): eyebrow + `Chip` "Beta", lista de tres con `IconBox` (sin tarjetas), maqueta `GeneratorScreen` (`src/components/product/`, `role="img"`), aviso de beta y botón "Solicitar acceso" → `TEACHER_ACCESS_MAILTO` (`constants.ts`). Grid de 12 columnas en `lg` (5 + 7) con el DOM en orden móvil.
+  - `privacy.tsx` nuevo (`#privacidad`, `SECTION_IDS.privacy`): único panel `primary` sólido de la página. La sección no lleva relleno vertical propio: el panel queda entre el relleno inferior de Para maestros y el superior de la sección siguiente.
+  - `landing.ts`: `forTeachers` nuevo y `privacy`; se quitaron `trustLine` y las tarjetas viejas.
 
 ## Siguiente
 - **Paso 3, entrega 5** — Preguntas frecuentes + Cierre + limpieza (quitar testimonios; el cierre hereda las clases que destapan el footer; volver a medir con `footer-effect.cjs`).
@@ -57,6 +60,8 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 - Playwright: `npx -y -p playwright@1.65.0 node <script>` lanzando con `channel: "msedge"`. El Chromium instalado (1243) no es la revisión que pide 1.65.0 (1254), así que se usa Edge del sistema sin descargar nada. No está en `package.json`. El script resuelve `playwright` desde la entrada `node_modules/.bin` del PATH de npx.
 - Scripts de QA en el scratchpad de la sesión: `qa-section.cjs <url> <outDir> <label> <selector>` (métricas + capturas por sección) y `header-align.cjs <url> <outDir>` (alineación, áreas táctiles y menú del header).
 - Más scripts en el scratchpad: `demo-frames.cjs <url> <outDir>` (muestrea la reproducción de la demo en 6 momentos) y `section-bounds.cjs <url> <selector>` (caja y relleno de una sección y sus vecinas). Para la demo, `qa-section.cjs` se corre con `QA_SETTLE_MS=10500`.
+- `pair-shot.cjs <url> <outDir> <label> <primerSelector> <últimoSelector> [anchos]` (scratchpad): recorre dos secciones vecinas para disparar todos los `Reveal`, lista lo que quede con opacidad < 1 y las captura juntas. Sirve para confirmar un "invisibleAfterLoad" de `qa-section.cjs` en secciones más altas que el viewport (ahí es un falso positivo: el último `Reveal` no llegó a entrar en pantalla).
+- Al escribir scripts con heredoc desde Bash, `[\\/]` se guarda como `[\/]` y `loadPlaywright()` deja de encontrar Playwright: corregir la expresión regular con Edit.
 - Las capturas de elemento de Playwright pintan con el color de fondo de la página lo que queda fuera del viewport: una franja de otro color al pie de la captura no es un defecto; se confirma con `section-bounds.cjs`.
 - Si el servidor de desarrollo sirve CSS viejo tras mover o borrar archivos, se reinicia (y se matan los procesos `next dev -p 3100` que queden vivos).
 - Script de medición del footer (antes/después): `footer-effect.cjs` en el scratchpad de la sesión; si se pierde, se reescribe (mide position/z-index/radios/alturas y la opacidad del contenedor del header en 6 posiciones de scroll).
