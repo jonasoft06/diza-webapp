@@ -1,5 +1,16 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { hero } from "@/content/landing";
+
+const FONT_FAMILY = "Plus Jakarta Sans";
+
+// ImageResponse cannot use the fonts from next/font: it needs the font files themselves, one per weight.
+const fontFiles = [
+  { weight: 400, file: "PlusJakartaSans-Regular.ttf" },
+  { weight: 600, file: "PlusJakartaSans-SemiBold.ttf" },
+  { weight: 700, file: "PlusJakartaSans-Bold.ttf" },
+] as const;
 
 // ImageResponse cannot read CSS variables, so the tokens from globals.css are duplicated here.
 const colors = {
@@ -14,7 +25,16 @@ export const alt = "Diza: tu libro ya viene con tutor";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image() {
+export default async function Image() {
+  const fonts = await Promise.all(
+    fontFiles.map(async ({ weight, file }) => ({
+      name: FONT_FAMILY,
+      data: await readFile(join(process.cwd(), "src/assets/fonts", file)),
+      style: "normal" as const,
+      weight,
+    }))
+  );
+
   return new ImageResponse(
     (
       <div
@@ -22,6 +42,7 @@ export default function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
+          fontFamily: FONT_FAMILY,
           flexDirection: "column",
           justifyContent: "space-between",
           backgroundColor: colors.bg,
@@ -77,6 +98,6 @@ export default function Image() {
         </div>
       </div>
     ),
-    size
+    { ...size, fonts }
   );
 }

@@ -50,8 +50,9 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 - **Paso 4 — SEO** (2026-11-11) — con commit. Título, descripción y textos de la imagen Open Graph aprobados.
   - `layout.tsx` (`lang="es-MX"`, `metadataBase`, título, descripción, canonical, Open Graph, Twitter, robots), `opengraph-image.tsx` con los tokens nuevos, `src/lib/structured-data.ts` + `src/components/json-ld.tsx` (Organization y FAQPage desde `faq.entries`), `sitemap.ts`, `robots.ts`, `SITE_URL` (con TODO) y `SITE_NAME` en `constants.ts`.
 
+- **Fuente de la imagen Open Graph** (2026-11-11) — con commit. `src/assets/fonts/` guarda Plus Jakarta Sans 400/600/700 (`.ttf` estáticos, subconjunto latino, de Fontsource) y su licencia `OFL.txt`; `opengraph-image.tsx` los lee con `readFile` y los pasa en `fonts`. `next/font` no sirve ahí: `ImageResponse` necesita los archivos.
+
 ## En curso
-- **Fuente de la imagen Open Graph** (aprobado por el usuario): agregar los `.ttf` de Plus Jakarta Sans al repo y cargarlos en `opengraph-image.tsx` (hoy usa la fuente por defecto de `ImageResponse` y los pesos 600/700 no se aplican).
 - **Paso 5 — Cierre**: DESIGN.md y PRODUCT.md finales, impeccable audit + polish, review-animations, código limpio, QA en 6 tamaños, lint y build, reporte final.
 
 ## Siguiente
