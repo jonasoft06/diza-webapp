@@ -29,13 +29,13 @@ export function Hero() {
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-8">
         <h1 className="text-hero font-bold text-ink">
           {hero.titleBefore}{" "}
-          <span className="relative inline-block whitespace-nowrap text-accent">
+          <span className="relative inline-block whitespace-nowrap text-primary">
             {hero.titleAccent}
             <svg
               aria-hidden="true"
               viewBox="0 0 200 12"
               preserveAspectRatio="none"
-              className="animate-underline pointer-events-none absolute -bottom-1 left-0 h-[0.28em] w-full text-accent/45"
+              className="animate-underline pointer-events-none absolute -bottom-1 left-0 h-[0.28em] w-full text-primary/45"
             >
               <path
                 d="M2 8C34 3.5 78 2.4 121 4.2c25 1 51 2.6 77 4.6"

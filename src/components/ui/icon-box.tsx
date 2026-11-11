@@ -7,7 +7,7 @@ function IconBox({ icon: Icon, className }: { icon: LucideIcon; className?: stri
     <span
       aria-hidden="true"
       className={cn(
-        "flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent-tint text-accent",
+        "flex size-11 shrink-0 items-center justify-center rounded-xl bg-tint text-primary",
         className
       )}
     >

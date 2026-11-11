@@ -29,16 +29,16 @@ export function Testimonials() {
               <Card interactive className="flex h-full flex-col p-6 sm:p-7">
                 <div className="flex gap-1" aria-hidden="true">
                   {Array.from({ length: RATING }).map((_, index) => (
-                    <Star key={index} className="size-4 fill-accent text-accent" strokeWidth={0} />
+                    <Star key={index} className="size-4 fill-primary text-primary" strokeWidth={0} />
                   ))}
                 </div>
                 <p className="mt-5 flex-1 text-body-sm leading-relaxed text-ink">
                   “{testimonial.quote}”
                 </p>
-                <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+                <div className="mt-6 flex items-center gap-3 border-t border-line pt-5">
                   <span
                     aria-hidden="true"
-                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent-tint text-sm font-semibold text-accent"
+                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-tint text-sm font-semibold text-primary"
                   >
                     {testimonial.initials}
                   </span>

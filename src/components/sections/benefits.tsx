@@ -25,7 +25,7 @@ export function Benefits() {
               <li key={point.lead} className="flex gap-3">
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-tint text-accent"
+                  className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-tint text-primary"
                 >
                   <Check className="size-3.5" strokeWidth={2.5} />
                 </span>

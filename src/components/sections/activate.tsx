@@ -10,7 +10,7 @@ export function Activate() {
   return (
     <Section id={SECTION_IDS.activate}>
       <Container>
-        <div className="rounded-panel bg-accent-tint px-6 py-14 sm:px-10 sm:py-16">
+        <div className="rounded-panel bg-tint px-6 py-14 sm:px-10 sm:py-16">
           <Stagger className="mx-auto max-w-2xl text-center">
             <RevealItem as="h2" variant="fade" className="text-section font-semibold text-ink">
               {activate.title}
@@ -46,7 +46,7 @@ export function Activate() {
             </RevealItem>
           </Stagger>
 
-          <Reveal className="mx-auto mt-12 aspect-video w-full max-w-4xl rounded-3xl border-2 border-dashed border-accent/25 bg-surface/60">
+          <Reveal className="mx-auto mt-12 aspect-video w-full max-w-4xl rounded-3xl border-2 border-dashed border-primary/25 bg-surface/60">
             <div className="flex h-full w-full items-center justify-center px-6 text-center">
               <p className="text-sm font-medium text-muted sm:text-base">
                 {activate.mediaPlaceholder}

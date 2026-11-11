@@ -3,15 +3,20 @@
 @theme inline {
   --font-sans: var(--font-jakarta);
 
-  /* Palette: neutral base, vino as the only accent. */
+  /* Palette "Petróleo + arena", shared with tutor.diza.com.mx (see DESIGN.md).
+     Petróleo is the only action colour; sand is material, never text. */
   --color-bg: var(--bg);
   --color-surface: var(--surface);
-  --color-border: var(--border-hairline);
+  --color-line: var(--line);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-tint: var(--accent-tint);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-tint: var(--tint);
+  --color-sand: var(--sand);
+  --color-sand-2: var(--sand-2);
+  --color-shelf: var(--shelf);
+  --color-sand-line: var(--sand-line);
   --color-footer: var(--footer);
 
   /* Type scale (see DESIGN.md). */
@@ -36,29 +41,34 @@
 
   --shadow-card: var(--shadow-soft);
   --shadow-card-hover: var(--shadow-soft-lg);
-  --drop-shadow-object: 0 10px 18px rgb(28 25 23 / 0.18);
+  --drop-shadow-object: 0 10px 18px rgb(30 43 51 / 0.18);
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 :root {
-  --bg: #fafaf8;
+  --bg: #f9f8f6;
   --surface: #ffffff;
-  --border-hairline: #eceae5;
-  --ink: #1c1917;
-  --muted: #6b6560;
-  --accent: #8a3b2e;
-  --accent-hover: #74301f;
-  --accent-tint: #f6ece9;
-  --footer: #2a1714;
+  --line: #e7e4df;
+  --ink: #1e2b33;
+  --muted: #59646b;
+  --primary: #1d5c75;
+  --primary-dark: #154558;
+  --tint: #e4eef2;
+  --sand: #f1eadf;
+  --sand-2: #e9dfcf;
+  --shelf: #e3d9c8;
+  --sand-line: #cbbba0;
+  --footer: #0f2a35;
 
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
-  --shadow-soft-lg: 0 2px 4px rgb(0 0 0 / 0.05), 0 14px 34px rgb(0 0 0 / 0.08);
+  /* Shadows are tinted with ink so they sit on the warm background without greying it. */
+  --shadow-soft: 0 1px 2px rgb(30 43 51 / 0.04), 0 8px 24px rgb(30 43 51 / 0.05);
+  --shadow-soft-lg: 0 2px 4px rgb(30 43 51 / 0.05), 0 14px 34px rgb(30 43 51 / 0.09);
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-line;
   }
 
   html {
@@ -90,12 +100,12 @@
   }
 
   ::selection {
-    background-color: var(--accent-tint);
+    background-color: var(--tint);
     color: var(--ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
   }
 }
@@ -108,7 +118,7 @@
   text-transform: uppercase;
 }
 
-/* Subtle paper grain, used only on the vino block and the footer. */
+/* Subtle paper grain, used only on the solid petróleo block and the footer. */
 @utility paper-grain {
   position: relative;
   isolation: isolate;

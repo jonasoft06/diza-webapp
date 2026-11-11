@@ -27,7 +27,7 @@ export function HowItWorks() {
               {index > 0 ? (
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -left-8 top-24 hidden w-8 text-accent/40 sm:block"
+                  className="pointer-events-none absolute -left-8 top-24 hidden w-8 text-primary/40 sm:block"
                 >
                   <svg viewBox="0 0 32 8" fill="none" className="w-full">
                     <path d="M1 4h25" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
@@ -43,8 +43,8 @@ export function HowItWorks() {
               ) : null}
 
               <Card interactive className="flex h-full flex-col overflow-hidden">
-                <div className="relative flex h-44 items-center justify-center bg-accent-tint px-6 sm:h-48">
-                  <span className="absolute left-5 top-5 rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-accent">
+                <div className="relative flex h-44 items-center justify-center bg-tint px-6 sm:h-48">
+                  <span className="absolute left-5 top-5 rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-primary">
                     {step.step}
                   </span>
                   <Image

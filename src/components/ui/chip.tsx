@@ -12,8 +12,8 @@ function Chip({ icon: Icon, tone = "tint", className, children, ...props }: Chip
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold text-accent",
-        tone === "tint" ? "bg-accent-tint" : "bg-surface",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold text-primary",
+        tone === "tint" ? "bg-tint" : "bg-surface",
         className
       )}
       {...props}

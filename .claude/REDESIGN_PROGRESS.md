@@ -10,7 +10,10 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 - **Paso 1** (2026-11-11) — estructura en `.claude/REDESIGN_STRUCTURE.md` (8 bloques, orden de construcción y decisiones al final). Con commit.
 
 ## En curso
-- **Paso 2** — tokens en `globals.css` (renombrar `accent* → primary*/tint`, `border → line`, agregar arena) + color del footer, comprobando que el efecto de destape no cambia. El usuario revisa en localhost.
+- **Paso 2** — aprobado por el usuario (2026-11-11). Con commit.
+  - Tokens nuevos en `globals.css`; clases renombradas en 14 componentes (`accent → primary`, `accent-hover → primary-dark`, `accent-tint → tint`, `border-border → border-line`; variante `accent` de `Card` → `primary`); `icon.svg` en petróleo.
+  - Efecto del footer medido antes/después a 390, 768 y 1440: solo cambian los colores de fondo. Lint y `tsc` limpios.
+  - El hero y las secciones viejas se ven raras con la paleta nueva (texto petróleo sobre la foto): se rehacen en el paso 3.
 
 ## Siguiente
 - **Paso 3, entrega 1** — Header + Hero (incluye portada de libro, tarjeta con PIN y repisa, que se reutilizan después).
@@ -33,7 +36,8 @@ Flujo: 0 preparación → 1 propuesta de estructura → 2 tokens + footer → 3 
 - WhatsApp y páginas legales (hoy placeholders en el footer).
 
 ## Notas técnicas
-- Playwright funciona vía `npx playwright` (1.65.0, Chromium ya instalado). No está en `package.json`.
+- Playwright: `npx -y -p playwright@1.65.0 node <script>` lanzando con `channel: "msedge"`. El Chromium instalado (1243) no es la revisión que pide 1.65.0 (1254), así que se usa Edge del sistema sin descargar nada. No está en `package.json`. El script resuelve `playwright` desde la entrada `node_modules/.bin` del PATH de npx.
+- Script de medición del footer (antes/después): `footer-effect.cjs` en el scratchpad de la sesión; si se pierde, se reescribe (mide position/z-index/radios/alturas y la opacidad del contenedor del header en 6 posiciones de scroll).
 - `review-animations` tiene `disable-model-invocation`: se aplica leyendo `.agents/skills/review-animations/{SKILL,STANDARDS}.md`.
 - Placeholders actuales: `ACTIVATE_URL` y `APP_LOGIN_URL` = `#`; enlaces legales `#`; WhatsApp "Próximamente".
 - Colores fuera de tokens a migrar: `src/app/opengraph-image.tsx` (6 hex), `src/app/icon.svg` (vino).

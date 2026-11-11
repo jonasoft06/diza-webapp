@@ -30,7 +30,7 @@ function Bubble({ turn }: { turn: ConversationTurn }) {
   if (turn.from === "student") {
     return (
       <div className="flex justify-end">
-        <p className="max-w-[85%] rounded-2xl rounded-br-md bg-accent px-3.5 py-2.5 text-sm leading-snug text-white">
+        <p className="max-w-[85%] rounded-2xl rounded-br-md bg-primary px-3.5 py-2.5 text-sm leading-snug text-white">
           {turn.text}
         </p>
       </div>
@@ -39,7 +39,7 @@ function Bubble({ turn }: { turn: ConversationTurn }) {
 
   return (
     <div className="flex justify-start">
-      <div className="max-w-[90%] rounded-2xl rounded-bl-md border border-border bg-surface px-3.5 py-2.5">
+      <div className="max-w-[90%] rounded-2xl rounded-bl-md border border-line bg-surface px-3.5 py-2.5">
         <p className="text-sm leading-snug text-ink">{turn.text}</p>
         {turn.page ? (
           <div className="mt-2">
@@ -100,10 +100,10 @@ export function Conversation() {
 
   return (
     <div ref={ref} className="mx-auto w-full max-w-md">
-      <div className="rounded-panel border border-border bg-surface p-3 shadow-card">
+      <div className="rounded-panel border border-line bg-surface p-3 shadow-card">
         <div className="rounded-screen bg-bg p-4 sm:p-5">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <span className="text-sm font-bold tracking-[-0.03em] text-accent">diza</span>
+          <div className="flex items-center justify-between border-b border-line pb-3">
+            <span className="text-sm font-bold tracking-[-0.03em] text-primary">diza</span>
             <span className="text-xs text-muted">{subject}</span>
           </div>
 
@@ -130,7 +130,7 @@ export function Conversation() {
                   transition={{ duration: 0.18, ease: "easeOut" }}
                   className="flex justify-start"
                 >
-                  <span className="rounded-2xl rounded-bl-md border border-border bg-surface px-3 py-2.5">
+                  <span className="rounded-2xl rounded-bl-md border border-line bg-surface px-3 py-2.5">
                     <TypingDots />
                   </span>
                 </motion.div>

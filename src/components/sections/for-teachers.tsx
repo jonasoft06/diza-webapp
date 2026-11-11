@@ -13,7 +13,7 @@ export function ForTeachers() {
       <Container>
         <div className="grid items-stretch gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-8">
           <Reveal variant="fade">
-            <Card variant="accent" className="paper-grain flex h-full flex-col justify-center p-8 sm:p-9">
+            <Card variant="primary" className="paper-grain flex h-full flex-col justify-center p-8 sm:p-9">
               <Eyebrow className="text-white/75">{forTeachers.eyebrow}</Eyebrow>
               <h2 className="mt-4 text-subsection font-semibold text-white">{forTeachers.title}</h2>
               <p className="mt-4 text-body-sm leading-relaxed text-white/85">

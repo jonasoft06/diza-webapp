@@ -25,7 +25,7 @@ export function Header() {
       <header
         className={`mx-auto w-full max-w-5xl rounded-3xl border transition-[background-color,border-color,box-shadow] duration-300 ease-out ${
           isSolid
-            ? "border-border bg-surface/95 shadow-card backdrop-blur-md"
+            ? "border-line bg-surface/95 shadow-card backdrop-blur-md"
             : "border-white/40 bg-surface/70 backdrop-blur-md"
         }`}
       >
@@ -33,7 +33,7 @@ export function Header() {
           <Link
             href="/"
             aria-label="Diza, inicio"
-            className="rounded-lg text-xl font-bold tracking-[-0.03em] text-accent sm:text-2xl"
+            className="rounded-lg text-xl font-bold tracking-[-0.03em] text-primary sm:text-2xl"
           >
             diza
           </Link>
@@ -44,7 +44,7 @@ export function Header() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="rounded-lg text-sm font-medium text-ink transition-colors hover:text-accent"
+                  className="rounded-lg text-sm font-medium text-ink transition-colors hover:text-primary"
                 >
                   {link.label}
                 </a>
@@ -61,7 +61,7 @@ export function Header() {
               aria-controls="mobile-nav"
               aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
               onClick={() => setIsMenuOpen((open) => !open)}
-              className="flex size-11 items-center justify-center rounded-xl text-ink transition-colors hover:bg-accent-tint md:hidden"
+              className="flex size-11 items-center justify-center rounded-xl text-ink transition-colors hover:bg-tint md:hidden"
             >
               {isMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
@@ -81,13 +81,13 @@ export function Header() {
             inert={!isMenuOpen}
             className="min-h-0 overflow-hidden"
           >
-            <ul className="border-t border-border px-4 pb-3 pt-2">
+            <ul className="border-t border-line px-4 pb-3 pt-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex min-h-11 items-center rounded-xl px-2 text-sm font-medium text-ink transition-colors hover:bg-accent-tint hover:text-accent"
+                    className="flex min-h-11 items-center rounded-xl px-2 text-sm font-medium text-ink transition-colors hover:bg-tint hover:text-primary"
                   >
                     {link.label}
                   </a>
