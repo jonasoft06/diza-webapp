@@ -176,7 +176,7 @@ Los encabezados llevan `letter-spacing: -0.02em`, `line-height: 1.1` y `text-wra
 | # | Bloque | Ancla | Fondo | Composición |
 | --- | --- | --- | --- | --- |
 | 0 | Header | — | transparente arriba, píldora `surface` al hacer scroll | wordmark, navegación (desde `lg`), "Ya tengo cuenta", "Activar mi libro"; menú desplegable en móvil |
-| 1 | Hero | — | `bg` | `h1` + dos CTA; escena de repisa (`ShelfScene`, `BookCover`, `PinCard`, burbuja con `Chip`) |
+| 1 | Hero | — | `bg` | `min-h-svh` (cuenta el header), sin relleno inferior; `h1` + dos CTA centrados en vertical; `HeroScene`: la mano con el libro directo sobre el fondo, anclada al borde inferior (la manga toca la base), con burbujas del alumno y de Diza (con `Chip` de página), chip de materia y tarjeta con PIN flotando alrededor. «Cómo funciona» empieza justo en la base |
 | 2 | Cómo funciona | `#como-funciona` | `bg` | `ConversationDemo`: celular con la conversación y tres anotaciones que se resaltan |
 | 3 | Para alumnos | `#alumnos` | `sand` | tres pasos con objetos sobre un tablón (tarjeta, inicio de sesión, conversación) + CTA |
 | 4 | Para maestros | `#para-maestros` | `bg` | lista de tres con `IconBox`, maqueta `GeneratorScreen`, aviso de beta y "Solicitar acceso" |
@@ -194,6 +194,7 @@ Sombras neutras y muy suaves, derivadas de `ink`. Nunca tintadas de petróleo ni
 - **shadow-card**: `0 1px 2px rgb(30 43 51 / 0.04), 0 8px 24px rgb(30 43 51 / 0.05)`.
 - **shadow-card-hover**: `0 2px 4px rgb(30 43 51 / 0.05), 0 14px 34px rgb(30 43 51 / 0.09)`. Hoy solo la usa el ítem del acordeón en hover.
 - **drop-shadow-object**: `0 10px 18px rgb(30 43 51 / 0.18)`, para objetos recortados (libro, tarjeta, celular) apoyados en una escena.
+- **drop-shadow-object-soft**: `0 18px 28px rgb(30 43 51 / 0.14)`, para la foto grande del libro en la mano del hero, que flota en lugar de apoyarse.
 
 **The Hairline Rule.** La definición de una superficie viene del borde de 1px, no de la sombra.
 
@@ -225,6 +226,7 @@ Se construyen en código, con tokens, a partir de lo que el alumno y el maestro 
 - **PhoneFrame** — marco de celular 3:5 para una pantalla del tutor; `compact` para los pasos de Para alumnos.
 - **LoginScreen** y **ChatScreen** — pantallas mínimas (inicio de sesión con correo institucional y PIN; conversación con chip de página) para los pasos 2 y 3 de Para alumnos.
 - **GeneratorScreen** — maqueta del generador del maestro (`role="img"` con descripción).
+- **HeroScene** (`src/components/sections/hero-scene.tsx`) — el visual del hero. Usa las fotos `public/images/hero/hero_hand_book.webp` (608×1309) y `pin_card.webp` (fondo transparente, ya inclinada ~12° en el archivo) con `next/image`; el libro lleva `preload` y la tarjeta carga diferida. Todo se posiciona en porcentajes de la mano, que mide 78% del alto del hero en escritorio (máx. 54rem), de modo que el libro arranca a la altura del eyebrow y 68svh (mín. 28rem) debajo de `lg`. Las burbujas son `surface` con borde `line`, `rounded-2xl` y `shadow-card`. Debajo de `md` (móvil) las dos burbujas quedan a los lados del libro (máx. 58vw, texto de 14px, sin tapar los dedos) y no hay chip de materia ni tarjeta con PIN. `BookCover`, `PinCard` y `ShelfScene` siguen en Para alumnos y en el cierre.
 - **ConversationDemo** (`src/components/sections`) — la conversación de "Cómo funciona": se reproduce una sola vez al entrar en pantalla y resalta la anotación que corresponde a cada turno.
 
 ### Otros
@@ -240,8 +242,8 @@ Al llegar la imagen real: se exporta con fondo removido (PNG o WebP con transpar
 
 | Hueco | Dónde va | Proporción | Sustituto actual | Texto alternativo | Prompt sugerido para Recraft |
 | --- | --- | --- | --- | --- | --- |
-| Tarjeta con PIN real | Para alumnos, paso 1 (y la tarjeta del hero) | 3:2, objeto con fondo removido | `PinCard` | "Tarjeta de activación de Diza con el PIN impreso" | "Fotografía de producto fotorrealista de una tarjeta impresa de cartulina blanca mate, tamaño tarjeta de crédito, vista frontal con una inclinación mínima, con un código PIN de seis caracteres impreso en tinta oscura y un detalle en azul petróleo (#1D5C75). Luz de estudio suave, sombra de contacto sutil, fondo transparente, sin manos ni otros objetos, sin logotipos inventados." |
-| Portada real del libro | Hero y cierre | 3:4, objeto con fondo removido | `BookCover` | "Portada del libro de bachillerato que incluye acceso a Diza" | "Fotografía de producto fotorrealista de un libro de texto de bachillerato de pasta blanda, de pie, visto de frente con el lomo apenas visible a la izquierda, portada en azul petróleo (#1D5C75) con tipografía serif clara. Luz de estudio suave, sombra de contacto sutil, fondo transparente, sin texto legible de editoriales reales ni logotipos." |
+| Tarjeta con PIN real | Para alumnos, paso 1 (el hero ya usa foto) | 3:2, objeto con fondo removido | `PinCard` | "Tarjeta de activación de Diza con el PIN impreso" | "Fotografía de producto fotorrealista de una tarjeta impresa de cartulina blanca mate, tamaño tarjeta de crédito, vista frontal con una inclinación mínima, con un código PIN de seis caracteres impreso en tinta oscura y un detalle en azul petróleo (#1D5C75). Luz de estudio suave, sombra de contacto sutil, fondo transparente, sin manos ni otros objetos, sin logotipos inventados." |
+| Portada real del libro | Cierre (el hero ya usa foto) | 3:4, objeto con fondo removido | `BookCover` | "Portada del libro de bachillerato que incluye acceso a Diza" | "Fotografía de producto fotorrealista de un libro de texto de bachillerato de pasta blanda, de pie, visto de frente con el lomo apenas visible a la izquierda, portada en azul petróleo (#1D5C75) con tipografía serif clara. Luz de estudio suave, sombra de contacto sutil, fondo transparente, sin texto legible de editoriales reales ni logotipos." |
 
 La foto de la tarjeta debe ser la tarjeta verdadera en cuanto exista: el alumno tiene que reconocerla. El prompt sirve solo como imagen provisional.
 
@@ -263,7 +265,12 @@ Librería: Motion (`motion/react`). No se instala ninguna otra. `MotionConfig re
 - **Revelado al hacer scroll**: fundido o fundido + 16px hacia arriba, `viewport={{ once: true }}`. `Reveal` / `Stagger` / `RevealItem` en `src/components/motion/reveal.tsx` centralizan variantes y viewport. Los títulos entran con fundido; las piezas (maquetas, pasos, ítems del acordeón) con fundido + 16px.
 - **Curva en Motion**: `EASE_OUT_STRONG` (`src/components/motion/easing.ts`), la misma que `--ease-out-strong`.
 - **Stagger**: 60ms entre hijos (rango permitido: 30–80ms).
-- **Hero**: el subrayado del titular se dibuja y la burbuja de la escena entra una sola vez, con CSS (`animate-underline`, `animate-bubble-in`).
+- **Hero**: el subrayado del titular se dibuja una sola vez (`animate-underline`). Cada pieza de la escena lleva tres envoltorios para que los transforms no choquen: parallax (externo, Motion), entrada (intermedio, CSS `animate-hero-enter`) y flotado (interno, CSS `animate-hero-float`). Entrada: el libro sube 56px desde abajo y después burbujas, chip y tarjeta con PIN (fundido + 12px, 500ms, ~70ms entre piezas). Es CSS para no esperar a la hidratación.
+- **Flotado en reposo**: tras su entrada, cada burbuja, el chip y la tarjeta con PIN flotan en bucle (±4–6px, 4.4–6s, `ease-in-out`, `alternate`), cada una con duración y retraso propios. La tarjeta además gira ±1°. El libro no flota.
+- **Parallax del hero** (solo desde `md`): `useScroll` + `useTransform` mueven cada pieza flotante entre 8 y 20px según su velocidad, respecto al libro, que no se mueve. En móvil se apaga con `max-md:transform-none!`.
+- **Sin hover en el hero**: burbujas, chip y tarjeta no son interactivos, así que no reaccionan al cursor.
+- **Wrappers animados sin `display`**: ningún wrapper con animación de entrada alterna `display: none ↔ block` (reinicia la animación CSS y la pieza reaparecía desde `opacity: 0` al cruzar `md`). Lo exclusivo de escritorio (chip, tarjeta PIN) oculta su propio contenido. La entrada usa `animation-fill-mode: backwards`, no `both`.
+- **Movimiento reducido en el hero**: sin flotado ni parallax, solo el fundido de entrada (`hero-fade`, 200ms).
 - **Interacción**: press 100–160ms, hover 200ms, acordeón y navbar hasta 250ms, con `--ease-out-strong` (`cubic-bezier(0.23, 1, 0.32, 1)`).
 - **Ligado al scroll**: `useScroll` / `useTransform` sobre `transform` y `opacity`, o CSS (`position: sticky`). Sin listeners de scroll propios para animar.
 - **Animación explicativa** (por ejemplo el mockup de conversación): puede durar más de 300ms porque enseña cómo funciona el producto.

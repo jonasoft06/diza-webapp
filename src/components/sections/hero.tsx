@@ -1,19 +1,17 @@
-import { BookOpen } from "lucide-react";
 import { Container } from "@/components/layout/container";
-import { BookCover } from "@/components/product/book-cover";
-import { PinCard } from "@/components/product/pin-card";
-import { ShelfScene } from "@/components/product/shelf-scene";
+import { HeroScene } from "@/components/sections/hero-scene";
 import { Button, ButtonArrow } from "@/components/ui/button";
-import { Chip } from "@/components/ui/chip";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { hero, PAGE_CHIP_LABEL } from "@/content/landing";
+import { hero } from "@/content/landing";
 import { ACTIVATE_URL, SECTION_IDS } from "@/lib/constants";
 
 export function Hero() {
   return (
-    <section className="bg-bg px-4 pb-16 pt-24 text-ink sm:px-6 sm:pb-20 sm:pt-28 lg:px-8 lg:pb-24 lg:pt-36">
-      <Container className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-5">
+    <section className="relative flex min-h-svh flex-col overflow-clip bg-bg px-4 text-ink sm:px-6 lg:px-8">
+      {/* No bottom padding: the hand is anchored to the base of the hero, so the
+          next section starts right where the sleeve ends. */}
+      <Container className="grid flex-1 grid-rows-[1fr_auto] lg:grid-cols-12 lg:grid-rows-1 lg:gap-12">
+        <div className="flex flex-col justify-start pb-8 pt-24 sm:pt-28 lg:col-span-5 lg:justify-center lg:pb-24 lg:pt-32">
           <Eyebrow>{hero.eyebrow}</Eyebrow>
           <h1 className="mt-4 text-hero font-bold text-ink">
             {hero.titleBefore}{" "}
@@ -51,28 +49,9 @@ export function Hero() {
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">{hero.note}</p>
         </div>
 
-        <figure className="lg:col-span-7">
-          <div aria-hidden="true">
-            {/* Objects grow at md (full-width panel) and shrink back at lg (narrower column). */}
-            <ShelfScene>
-              <div className="flex flex-col items-start">
-                <div className="animate-bubble-in mb-3 max-w-64 rounded-2xl rounded-bl-sm border border-line bg-surface p-4 shadow-card sm:max-w-72 md:max-w-80 lg:max-w-72">
-                  <p className="text-sm leading-snug text-ink sm:text-base md:text-lg lg:text-base">{hero.scene.bubble}</p>
-                  <Chip icon={BookOpen} className="mt-3">
-                    {PAGE_CHIP_LABEL}
-                  </Chip>
-                </div>
-                <div className="flex items-end">
-                  <BookCover title={hero.scene.bookTitle} />
-                  <div className="-ml-4 sm:-ml-5 md:-ml-6 lg:-ml-5">
-                    <PinCard label={hero.scene.pinLabel} />
-                  </div>
-                </div>
-              </div>
-            </ShelfScene>
-          </div>
-          <figcaption className="sr-only">{hero.scene.description}</figcaption>
-        </figure>
+        <div className="relative h-[68svh] min-h-112 lg:col-span-7 lg:h-auto">
+          <HeroScene />
+        </div>
       </Container>
     </section>
   );

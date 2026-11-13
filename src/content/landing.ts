@@ -55,10 +55,17 @@ export const hero = {
   note: "Gratis con tu libro. Ten a la mano tu tarjeta con PIN y tu correo institucional.",
   scene: {
     description:
-      "Un libro con su tarjeta de PIN sobre una repisa. Diza responde con una pregunta y cita la página 42.",
+      "Ejemplo de una conversación con Diza: un alumno pregunta por su libro de Lengua y Comunicación y Diza le responde con otra pregunta y la página donde buscar.",
+    /** Title on the illustrated cover of the closing scene. */
     bookTitle: "Tu libro",
-    pinLabel: PIN_LABEL,
-    bubble: "Antes de darte la respuesta: ¿qué dice el ejemplo de esta página?",
+    bookAlt: "Mano de un estudiante sosteniendo un libro de texto de pasta dura color azul petróleo",
+    pinCardAlt: "Tarjeta de activación con PIN que viene con el libro",
+    subject: "Lengua y Comunicación",
+    studentLabel: "Alumno",
+    studentBubble: "¿Cómo encuentro la idea principal de este texto?",
+    tutorLabel: "Diza",
+    tutorBubble: "Antes de decírtela: ¿qué idea se repite en el primer y en el último párrafo?",
+    pageChip: "Pág. 58",
   },
 } as const;
 

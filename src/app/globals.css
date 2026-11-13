@@ -43,6 +43,7 @@
   --shadow-card: var(--shadow-soft);
   --shadow-card-hover: var(--shadow-soft-lg);
   --drop-shadow-object: 0 10px 18px rgb(30 43 51 / 0.18);
+  --drop-shadow-object-soft: 0 18px 28px rgb(30 43 51 / 0.14);
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -145,23 +146,66 @@
   }
 }
 
-@keyframes bubble-in {
+@keyframes hero-fade {
   from {
     opacity: 0;
-    transform: scale(0.96);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--hero-enter-y, 12px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Resting float of the hero pieces. The element rests at +amp and drifts to
+   -amp and back, so the loop starts exactly where the entrance left it. */
+@keyframes hero-float {
+  from {
+    transform: translateY(var(--float-amp, 5px));
+  }
+  to {
+    transform: translateY(calc(var(--float-amp, 5px) * -1));
+  }
+}
+
+@keyframes hero-float-tilt {
+  from {
+    transform: translateY(var(--float-amp, 5px)) rotate(1deg);
+  }
+  to {
+    transform: translateY(calc(var(--float-amp, 5px) * -1)) rotate(-1deg);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* The underline starts first and the bubble enters 150ms later, so the eye
-     travels from the headline to the scene. */
-  .animate-bubble-in {
-    transform-origin: bottom left;
-    animation: bubble-in 400ms var(--ease-out-strong) 500ms both;
+  /* Hero scene pieces enter in sequence (book, bubbles, chip and PIN card);
+     each one sets its own --hero-enter-delay (and --hero-enter-y for the book). */
+  /* `backwards`, not `both`: the piece holds its hidden start only during the
+     delay and, once the animation ends (or never runs), falls back to its own
+     visible style instead of depending on the end-fill to be shown. */
+  .animate-hero-enter {
+    animation: hero-enter 500ms var(--ease-out-strong) var(--hero-enter-delay, 0ms) backwards;
+  }
+
+  /* Looping float, one wrapper per piece. Each sets --float-duration (4–6s) and
+     --float-delay (after its own entrance) so no two move in sync. */
+  .animate-hero-float {
+    transform: translateY(var(--float-amp, 5px));
+    animation: hero-float var(--float-duration, 5s) ease-in-out var(--float-delay, 0ms) infinite alternate;
+  }
+
+  .animate-hero-float-tilt {
+    transform: translateY(var(--float-amp, 5px)) rotate(1deg);
+    animation: hero-float-tilt var(--float-duration, 5s) ease-in-out var(--float-delay, 0ms) infinite alternate;
   }
 
   .animate-underline path {
@@ -184,5 +228,11 @@
     animation-iteration-count: 1 !important;
     transition-property: opacity, color, background-color, border-color, box-shadow, outline-color !important;
     transition-duration: 200ms !important;
+  }
+
+  /* The hero scene keeps its staggered fade, without the rise or the float. */
+  .animate-hero-enter {
+    animation: hero-fade 200ms ease var(--hero-enter-delay, 0ms) backwards;
+    animation-duration: 200ms !important;
   }
 }

@@ -91,7 +91,7 @@ No hay testimonios, cifras ni logotipos de escuelas: se retiraron por ser placeh
 
 No hay testimonios, cifras de uso, escuelas ni catálogo público de libros. No se inventan. Cualquier ejemplo dentro de un mockup (materia, número de página, pregunta) es ilustrativo y debe leerse como ejemplo, no como dato.
 
-Tampoco hay fotografías reales del producto: las imágenes de stock se retiraron y `public/` no tiene imágenes. El libro, la tarjeta con PIN y las pantallas del tutor están dibujados en código. Los dos huecos de imagen pendientes (tarjeta con PIN real y portada real del libro) están en `DESIGN.md` › "Huecos de imagen", con contenido, proporción, texto alternativo y prompt sugerido.
+Las únicas fotografías son las del hero (`public/images/hero/`: libro en la mano y tarjeta con PIN, ilustrativas). En el resto de la página el libro, la tarjeta con PIN y las pantallas del tutor están dibujados en código. Los dos huecos de imagen pendientes (tarjeta con PIN real y portada real del libro) están en `DESIGN.md` › "Huecos de imagen", con contenido, proporción, texto alternativo y prompt sugerido.
 
 ## Product Principles
 
