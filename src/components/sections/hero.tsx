@@ -3,7 +3,7 @@ import { HeroScene } from "@/components/sections/hero-scene";
 import { Button, ButtonArrow } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { hero } from "@/content/landing";
-import { ACTIVATE_URL, SECTION_IDS } from "@/lib/constants";
+import { ACTIVATE_URL, MAESTROS_PATH } from "@/lib/constants";
 
 export function Hero() {
   return (
@@ -42,11 +42,13 @@ export function Hero() {
               {hero.primaryCta}
               <ButtonArrow />
             </Button>
-            <Button href={`#${SECTION_IDS.forTeachers}`} variant="secondary" className="w-full sm:w-auto">
-              {hero.secondaryCta}
-            </Button>
           </div>
+          <Button href={MAESTROS_PATH} variant="link" size="sm" className="mt-2 self-start px-0 font-medium text-muted hover:text-primary">
+            {hero.teacherLink}
+            <ButtonArrow />
+          </Button>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">{hero.note}</p>
+          <p className="mt-2 max-w-md text-[0.8125rem] leading-relaxed text-muted">{hero.noCardNote}</p>
         </div>
 
         <div className="relative h-[68svh] min-h-112 lg:col-span-7 lg:h-auto">

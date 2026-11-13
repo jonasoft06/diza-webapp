@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ComponentProps } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,17 +15,34 @@ import {
 import { useFooterInView } from "@/hooks/use-footer-in-view";
 import { useScrolled } from "@/hooks/use-scrolled";
 import { ACTIVATE_URL, APP_LOGIN_URL } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { cn, isInternalRoute } from "@/lib/utils";
 
 const mobileLinkClass =
-  "flex min-h-11 items-center rounded-xl px-2 text-sm font-medium text-ink transition-colors hover:bg-tint hover:text-primary";
+  "flex min-h-11 items-center rounded-xl px-2 text-sm font-medium text-ink transition-colors hover:bg-tint hover:text-primary aria-[current=page]:text-primary";
 
-export function Header() {
+/** Routes of this site navigate on the client; in-page anchors stay plain links. */
+function NavAnchor({ href, ...props }: ComponentProps<"a"> & { href: string }) {
+  const pathname = usePathname();
+  const isCurrent = isInternalRoute(href) && href === pathname;
+  const current = isCurrent ? ({ "aria-current": "page" } as const) : {};
+  return isInternalRoute(href) ? (
+    <Link href={href} {...current} {...props} />
+  ) : (
+    <a href={href} {...props} />
+  );
+}
+
+/**
+ * `solid` draws the navbar as its white pill from the first pixel. A page that opens with a dark band
+ * needs it: the transparent navbar (dark text) would disappear over it.
+ */
+export function Header({ solid = false }: { solid?: boolean }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isScrolled = useScrolled();
   const isFooterInView = useFooterInView(() => setIsMenuOpen(false));
 
-  const isSolid = isScrolled || isMenuOpen;
+  const hasPill = solid || isScrolled;
+  const isSolid = hasPill || isMenuOpen;
 
   return (
     <div
@@ -38,7 +56,7 @@ export function Header() {
           "mx-auto w-full max-w-6xl rounded-3xl border transition-[background-color,border-color,box-shadow] duration-200 ease-out-strong",
           isMenuOpen
             ? "border-line bg-surface shadow-card"
-            : isScrolled
+            : hasPill
               ? "border-line bg-surface/95 shadow-card backdrop-blur-md"
               : "border-transparent bg-transparent"
         )}
@@ -55,7 +73,7 @@ export function Header() {
               isSolid ? "translate-x-0" : "-translate-x-[17px] sm:-translate-x-[21px]"
             )}
           >
-            diza
+            Diza
           </Link>
 
           <div
@@ -66,13 +84,13 @@ export function Header() {
           >
             <nav aria-label={a11y.mainNav} className="hidden items-center gap-6 lg:flex">
               {navLinks.map((link) => (
-                <a
+                <NavAnchor
                   key={link.href}
                   href={link.href}
-                  className="flex min-h-11 items-center rounded-lg text-sm font-medium text-ink transition-colors hover:text-primary"
+                  className="flex min-h-11 items-center rounded-lg text-sm font-medium text-ink transition-colors hover:text-primary aria-[current=page]:text-primary"
                 >
                   {link.label}
-                </a>
+                </NavAnchor>
               ))}
             </nav>
 
@@ -118,13 +136,13 @@ export function Header() {
             <ul className="border-t border-line px-4 pb-3 pt-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <NavAnchor
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
                     className={mobileLinkClass}
                   >
                     {link.label}
-                  </a>
+                  </NavAnchor>
                 </li>
               ))}
               <li>

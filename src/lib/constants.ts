@@ -4,12 +4,24 @@
  */
 export const SECTION_IDS = {
   howItWorks: "como-funciona",
+  difference: "diferencia",
+  moments: "momentos",
   students: "alumnos",
-  forTeachers: "para-maestros",
+  tools: "herramientas",
+  approach: "como-trabaja",
+  plan: "plan-de-clase",
+  access: "como-obtener-acceso",
+  chooser: "elige-tu-camino",
+  topics: "temas",
+  example: "ejemplo",
   privacy: "privacidad",
   faq: "preguntas-frecuentes",
   activate: "activar",
 } as const;
+
+/** Pages for each audience. They do not exist yet: the landing only links to them. */
+export const ALUMNOS_PATH = "/alumnos";
+export const MAESTROS_PATH = "/maestros";
 
 /** Observed by the header to hide the navbar once the footer is revealed. */
 export const FOOTER_ID = "site-footer";
@@ -23,8 +35,26 @@ export const SITE_NAME = "Diza";
 // Placeholders — replace before launch
 // ---------------------------------------------------------------------------
 
-/** TODO: dominio definitivo sin confirmar. */
-export const SITE_URL = "https://diza.com.mx";
+/** TODO: dominio definitivo sin confirmar. Es el valor por omisión de `SITE_URL`. */
+const DEFAULT_SITE_URL = "https://diza.com.mx";
+
+/**
+ * Public origin of the site, with no trailing slash: the base of canonical URLs, social previews
+ * (`metadataBase`), the sitemap, robots and the structured data. Set `NEXT_PUBLIC_SITE_URL` in each
+ * environment (see `.env.example`); the variable is read at build time. An empty or invalid value falls
+ * back to the default instead of breaking the build.
+ */
+function resolveSiteUrl(value: string | undefined) {
+  const candidate = value?.trim();
+  if (!candidate) return DEFAULT_SITE_URL;
+  try {
+    return new URL(candidate).origin;
+  } catch {
+    return DEFAULT_SITE_URL;
+  }
+}
+
+export const SITE_URL = resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
 
 const TUTOR_URL = "https://tutor.diza.com.mx";
 

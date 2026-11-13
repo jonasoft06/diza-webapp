@@ -59,7 +59,7 @@ export default async function Image() {
               color: colors.primary,
             }}
           >
-            diza
+            Diza
           </div>
           <div
             style={{

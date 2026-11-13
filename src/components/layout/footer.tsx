@@ -3,7 +3,7 @@ import { Container } from "@/components/layout/container";
 import { FooterHeightObserver } from "@/components/layout/footer-height-observer";
 import { a11y, footer } from "@/content/landing";
 import { FOOTER_ID, SUPPORT_MAILTO } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { cn, isInternalRoute } from "@/lib/utils";
 
 const linkClass =
   "flex min-h-11 items-center text-sm text-white/75 transition-colors hover:text-white focus-visible:outline-white";
@@ -23,7 +23,7 @@ export function Footer() {
           aria-hidden="true"
           className="block select-none text-wordmark font-bold leading-[0.8] tracking-[-0.04em] text-white/8"
         >
-          diza
+          Diza
         </span>
 
         <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
@@ -34,9 +34,10 @@ export function Footer() {
               aria-label={a11y.homeLabel}
               className="-my-1.5 flex min-h-11 w-fit items-center text-2xl font-bold tracking-wordmark text-white focus-visible:outline-white"
             >
-              diza
+              Diza
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-white/75">{footer.tagline}</p>
+            <p className="mt-2 text-xs leading-relaxed text-white/75">{footer.validation}</p>
           </div>
 
           <nav aria-label={footer.productHeading}>
@@ -44,9 +45,16 @@ export function Footer() {
             <ul className="mt-2">
               {footer.productLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className={linkClass}>
-                    {link.label}
-                  </a>
+                  {/* Routes of this site navigate on the client (no full reload); anchors and external links stay plain. */}
+                  {isInternalRoute(link.href) ? (
+                    <Link href={link.href} className={linkClass}>
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className={linkClass}>
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

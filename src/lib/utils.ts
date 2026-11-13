@@ -16,3 +16,11 @@ export const cn = createCn({
     },
   },
 });
+
+/**
+ * `/alumnos` is a route of this site to navigate on the client. `//host`, `#id`, `/#id`
+ * (an anchor of the home page, which the browser scrolls to), `mailto:` and `https:` are not.
+ */
+export function isInternalRoute(href: string) {
+  return href.startsWith("/") && !href.startsWith("//") && !href.includes("#");
+}

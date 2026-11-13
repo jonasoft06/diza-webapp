@@ -42,10 +42,10 @@ Diza no es un chatbot general ni un libro digital. Su mecanismo es estar limitad
 **Alumno**
 - Gratis, incluido en el libro.
 - Activa su acceso con el PIN de una tarjeta impresa que viene aparte del libro (no está impreso en sus páginas).
-- Entra con su correo institucional.
+- Entra con su correo.
 
 **Maestro**
-- En beta. No se registra solo: el administrador lo da de alta y le asigna libros.
+- Acceso exclusivo. No se registra solo: el administrador lo da de alta y le asigna libros.
 - Genera actividades, cuestionarios y planeación por unidad. Exporta a PDF y Word.
 
 **Para todos**
@@ -65,25 +65,26 @@ Diza no es un chatbot general ni un libro digital. Su mecanismo es estar limitad
 
 ## Landing: bloques finales
 
-Orden de lectura: primero qué es Diza, después alumnos, después maestros; cierra con dudas, CTA y footer. Detalle visual en `DESIGN.md` › "Bloques de la página".
+Orden de lectura: primero qué es Diza y cuándo sirve, después cómo funciona y en qué se distingue; el visitante elige su camino (alumno o maestro), se le asegura la privacidad y cierra con dudas, CTA y footer. `/alumnos` (pasos de activación, temas del libro, privacidad y preguntas del alumno) y `/maestros` (cómo trabaja con sus alumnos, herramientas, plan de clase por venir, cómo obtener acceso y preguntas del maestro) ya existen; la landing enlaza a ambas. Detalle visual en `DESIGN.md` › "Bloques de la página".
 
 | Bloque | Qué resuelve | Acción |
 | --- | --- | --- |
-| Hero | Qué es: "Tu libro ya viene con tutor." | "Activar mi libro" → tutor; "Soy maestro" → Para maestros |
+| Hero | Qué es: "Tu libro ya viene con tutor." | "Activar mi libro" → tutor; enlace discreto "¿Es usted maestro? Conozca Diza para su clase" → `/maestros` |
+| Momentos | Cuándo sirve: tres situaciones del alumno, cada una con una respuesta de Diza que da una pista | — |
 | Cómo funciona | Demuestra el mecanismo con una conversación: pregunta antes de responder y cita la página | — |
-| Para alumnos | Tres pasos: tarjeta con PIN, correo institucional, preguntar | "Activar mi libro"; "Ya tengo cuenta" |
-| Para maestros | Qué genera (actividades, cuestionarios, planeación) y que está en beta | "Solicitar acceso" (correo prellenado) |
-| Privacidad | Nadie lee las conversaciones; hay límites diarios | — |
-| Preguntas frecuentes | Ocho dudas reales; alimentan el JSON-LD `FAQPage` | "Escríbenos" |
-| Cierre | Última oportunidad de activar | "Activar mi libro"; "Ya tengo cuenta"; "Solicitar acceso" |
+| La diferencia | "En el examen no hay IA": lo que otra IA entrega vs. cómo Diza guía | — |
+| Elige tu camino | "¿Quién eres?": manda al alumno a `/alumnos` y al maestro a `/maestros` | Dos tarjetas enlace |
+| Privacidad | Nadie lee las conversaciones | — |
+| Preguntas frecuentes | Siete dudas reales (el alumno ve ocho en `/alumnos`, el maestro ocho en `/maestros`); alimentan el JSON-LD `FAQPage` | "Escríbenos" |
+| CTA final | Última oportunidad de activar | "Activar mi libro"; "Soy maestro" → `/maestros` |
 
 No hay testimonios, cifras ni logotipos de escuelas: se retiraron por ser placeholders.
 
 ## Brand Commitments
 
-- Nombre: "Diza". El wordmark se escribe en minúsculas: `diza`.
+- Nombre: "Diza", siempre con mayúscula inicial, también en el wordmark (header, footer, wordmark gigante, logo del formulario de ejemplo e imagen Open Graph).
 - Sistema visual "Petróleo + arena", el mismo del tutor. La landing y el tutor deben sentirse como un solo producto. Detalle en `DESIGN.md`, que es la fuente de verdad visual.
-- Tipografía: Plus Jakarta Sans. Fraunces solo dentro de portadas de libro ilustradas.
+- Tipografía: Plus Jakarta Sans.
 - El footer conserva su comportamiento (se destapa al final del scroll), el wordmark gigante y el grano de papel.
 - Textos en español de México. Alumno de tú, maestro de usted.
 

@@ -141,7 +141,7 @@ export function HeroScene() {
               aria-hidden="true"
               className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary pb-px text-sm font-bold text-white"
             >
-              d
+              D
             </span>
             <div>
               <p className="text-sm leading-snug text-ink">

@@ -10,12 +10,17 @@ export const organizationJsonLd = {
   email: SUPPORT_EMAIL,
 };
 
-export const faqPageJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.entries.map(({ question, answer }) => ({
-    "@type": "Question",
-    name: question,
-    acceptedAnswer: { "@type": "Answer", text: answer },
-  })),
-};
+/** FAQPage data built from the same entries the page shows, so page and JSON-LD cannot diverge. */
+export function buildFaqPageJsonLd(entries: readonly { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: entries.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+}
+
+export const faqPageJsonLd = buildFaqPageJsonLd(faq.entries);

@@ -47,6 +47,7 @@ function useFadeUp() {
 const tags = {
   div: motion.div,
   ol: motion.ol,
+  ul: motion.ul,
   li: motion.li,
 } as const;
 

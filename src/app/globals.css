@@ -2,7 +2,6 @@
 
 @theme inline {
   --font-sans: var(--font-jakarta);
-  --font-book-cover: var(--font-fraunces), Georgia, serif;
 
   /* Palette "Petróleo + arena", shared with tutor.diza.com.mx (see DESIGN.md).
      Petróleo is the only action colour; sand is material, never text. */
@@ -13,6 +12,7 @@
   --color-muted: var(--muted);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
   --color-tint: var(--tint);
   --color-sand: var(--sand);
   --color-sand-2: var(--sand-2);
@@ -56,6 +56,8 @@
   --muted: #59646b;
   --primary: #1d5c75;
   --primary-dark: #154558;
+  /* Petróleo for text on primary-dark (the Para alumnos band): 5.4:1 there. */
+  --primary-light: #8fc3d6;
   --tint: #e4eef2;
   --sand: #f1eadf;
   --sand-2: #e9dfcf;
@@ -179,10 +181,10 @@
 
 @keyframes hero-float-tilt {
   from {
-    transform: translateY(var(--float-amp, 5px)) rotate(1deg);
+    transform: translateY(var(--float-amp, 5px)) rotate(var(--float-tilt, 1deg));
   }
   to {
-    transform: translateY(calc(var(--float-amp, 5px) * -1)) rotate(-1deg);
+    transform: translateY(calc(var(--float-amp, 5px) * -1)) rotate(calc(var(--float-tilt, 1deg) * -1));
   }
 }
 
@@ -204,7 +206,7 @@
   }
 
   .animate-hero-float-tilt {
-    transform: translateY(var(--float-amp, 5px)) rotate(1deg);
+    transform: translateY(var(--float-amp, 5px)) rotate(var(--float-tilt, 1deg));
     animation: hero-float-tilt var(--float-duration, 5s) ease-in-out var(--float-delay, 0ms) infinite alternate;
   }
 
